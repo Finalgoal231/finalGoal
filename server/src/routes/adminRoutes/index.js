@@ -2,15 +2,15 @@ const express = require("express");
 
 //init Routes
 
-const authRoutes = require("./authRoutes");
-const adminRoutes = require("./adminRoutes");
+const userRoutes = require("./userRoutes");
+const categoryRoutes = require("./categoryRoutes");
 // email routes //
 
 //routes container
 const router = express.Router();
 
-router.use("/auth", authRoutes);
-router.use("/admin", adminRoutes);
+router.use("/user", userRoutes);
+router.use("/category", categoryRoutes);
 // email routes con//
 
 module.exports = router;

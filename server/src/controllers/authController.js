@@ -23,9 +23,8 @@ exports.signup = (req, res) => {
 
 // make a controller for signin
 exports.signin = (req, res) => {
-  let userEmail = req.body.email;
-  let password = req.body.password;
-  User.findOne({ email: userEmail }, (err, user) => {
+  let { username, password } = req.body;
+  User.findOne({ username: username }, (err, user) => {
     if (!user) {
       res.status(404).json({ msg: "Can not found user" });
     }
@@ -33,12 +32,7 @@ exports.signin = (req, res) => {
     bcrypt.compare(password, user.password).then((isMatch) => {
       console.log("match", isMatch);
       if (isMatch) {
-        const payload = {
-          id: user._id,
-          name: user.name,
-          email: user.email,
-          role: user.role,
-        };
+        const payload = user;
         jwt.sign(
           payload,
           keys.secretOrKey,

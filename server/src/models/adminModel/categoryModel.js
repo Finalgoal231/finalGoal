@@ -5,7 +5,6 @@ const categorySchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  detail: String,
   createdAt: {
     type: Date,
     default: Date.now,
