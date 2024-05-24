@@ -13,7 +13,7 @@ exports.signup = (req, res) => {
     bcrypt.hash(newUser.password, salt, (err, hash) => {
       newUser.password = hash;
       newUser.save((err) => {
-        if (err) {
+        if (err === null) {
           res.json({ msg: "Can not signup!" });
         } else res.status(201).json({ msg: "Success signup!" });
       });
@@ -47,7 +47,7 @@ exports.signin = (req, res) => {
             res.status(200).json({
               user: user,
               success: true,
-              token: "bearer" + token,
+              token: token,
             });
           }
         );

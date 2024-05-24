@@ -1,9 +1,9 @@
 module.exports = {
   secretOrKey: "secret",
   adminData: {
-    email: "admin@gmail.com",
+    name: "admin",
+    username: "admin",
     password: "admin",
     role: "admin",
-    name: "admin",
   },
 };
