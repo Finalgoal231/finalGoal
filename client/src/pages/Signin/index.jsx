@@ -9,9 +9,9 @@ import {
   NotificationManager,
 } from "react-notifications";
 import "react-notifications/lib/notifications.css";
-import ErrorText from "../components/Typography/ErrorText";
-import Logo from "../components/Logo";
-import { resetError, signin } from "../redux/authSlice";
+import ErrorText from "../../components/Typography/ErrorText";
+import Logo from "../../components/Logo";
+import { resetError, signin } from "../../redux/authSlice";
 
 // import use
 

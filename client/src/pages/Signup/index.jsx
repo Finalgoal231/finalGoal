@@ -3,10 +3,10 @@ import React, { useCallback, useState } from "react";
 
 import { Link, useNavigate } from "react-router-dom";
 
-import { requestServer } from "../utils/requestServer";
+import { requestServer } from "../../utils/requestServer";
 
-import Logo from "../components/Logo";
-import ErrorText from "../components/Typography/ErrorText";
+import Logo from "../../components/Logo";
+import ErrorText from "../../components/Typography/ErrorText";
 
 function Register() {
   const navigate = useNavigate();
