@@ -1,0 +1,155 @@
+{
+	"info": {
+		"_postman_id": "c992aa5b-a2db-41ed-a0b5-8c3493cf49e4",
+		"name": "MERN-TODO-App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19093157"
+	},
+	"item": [
+		{
+			"name": "GET ALL TODOS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/v1/todos-all",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"todos-all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET A TODO",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/v1/todo/62b3fa6c13886385559ce87f",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"todo",
+						"62b3fa6c13886385559ce87f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CREATE A TODO",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"title\":\"Hello world 9\",\r\n   \"description\":\"This is my nine todo.\",\r\n   \"completed\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/todo/new",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"todo",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CREATE MANY TODOS",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"title\":\"Hello world 6\",\r\n        \"description\": \"This is my six todo.\",\r\n        \"completed\": false\r\n    },\r\n    {\r\n        \"title\":\"Hello world 7\",\r\n        \"description\": \"This is my seven todo.\",\r\n        \"completed\": false\r\n    },\r\n    {\r\n        \"title\":\"Hello world 8\",\r\n        \"description\": \"This is my eight todo.\",\r\n        \"completed\": false\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/todos-many",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"todos-many"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE A TODO",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"title\":\"Hello world 1\",\r\n        \"description\": \"This is my one todo.\",\r\n        \"completed\": false\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/todo/62b43fd74f77eb8028dd0f97",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"todo",
+						"62b43fd74f77eb8028dd0f97"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE A TODO",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/v1/todo/62b2624635061b308c24ccc4",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"todo",
+						"62b2624635061b308c24ccc4"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
