@@ -1,49 +1,48 @@
-Routes
-- Auth
-	post: /signup
-	post: /signin
------------------------------
-	get: /user
-	put: /user/role/:id
-	delete: /user/:id
-	get: /categories
-	/**
-		* uniq
-		* sort by name
-	**/
-	post: /category
-	put: /category/:id
-	delete: /category/:id
--------------------------------
-/** profile **/
-	get: /user/:id
-	put: /user/:id
-	put: /user/password/:id
-/** change password **/
-	put: /user/avatar/:id
-------------------------------
-=========================================
-- Article
-	get: /articles/home
-  /**
-   * sort by latest
-   * sort by cnt of comments
-   * sort by cnt of favourites
-   * search by title
-   */
-	get: /article/:id
-	put: /article/:id
-	put: /article/comment/:id
-	put: /article/recomNum/:id
-	delete: /article/:id
-	post: /article
+# API Design
 
+## Auth
 
+    	post: /api/signup
 
+    	post: /api/signin
 
+## Articles
 
+    	post /api/article/create
 
+    	put /api/article/:id
 
+    	delete /api/article/:id
 
+    	get /api/article/home
 
+    	get /api/article/:id
 
+    	put /api/article/comment/:id
+
+    	put /api/article/favorite/:id
+
+- sort by latest
+- sort by cnt of comments
+- sort by cnt of favourites
+- search by title
+
+## Admin
+
+### User
+
+			get			/api/user/all
+
+			put			/api/user/role/:id
+
+			delete	/api/user/:id
+
+### Category
+
+			get			api/category/:id
+
+			put			api/category/:id
+
+			put			api/category/password/:id
+
+			put			api/category/avatar/:id
