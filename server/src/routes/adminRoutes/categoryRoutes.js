@@ -6,9 +6,9 @@ const router = require("express").Router();
 const categoryCtrl = require("../../controllers/adminControllers/categoryController");
 
 // Admin - Category
-router.post("/", categoryCtrl.create);
-router.put("/:id", categoryCtrl.update);
-router.delete("/:id", categoryCtrl.delete);
-router.get("/all", categoryCtrl.getAll);
+router.post("/", categoryCtrl.createCategory);
+router.put("/:id", categoryCtrl.updateCategory);
+router.delete("/:id", categoryCtrl.deleteCategory);
+router.get("/all", categoryCtrl.getAllCategory);
 
 module.exports = router;
