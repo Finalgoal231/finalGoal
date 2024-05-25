@@ -22,7 +22,9 @@ const checkAuth = (dispatch) => {
     window.location.href = "/signin";
     return;
   } else {
-    axios.defaults.headers.common["Authorization"] = `bearer ${TOKEN}`;
+    axios.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${TOKEN}`;
     axios.interceptors.request.use(
       function (config) {
         // UPDATE: Add this code to show global loading indicator
