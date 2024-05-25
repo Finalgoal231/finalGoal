@@ -47,11 +47,13 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-userSchema.method.generateHash = function (password) {
-  return bcrypt.hashSync(password, bcrypt.genSalt(8), null);
+userSchema.methods.hide_pwd = (password) => {
+  let salt = bcrypt.genSaltSync(10);
+  return bcrypt.hashSync(password, salt);
 };
-userSchema.method.validPass = function (pass) {
-  return bcrypt.compareSync(pass, this.pass);
+
+userSchema.methods.show_pwd = (reqPwd, dbPwd) => {
+  return bcrypt.compareSync(reqPwd, dbPwd);
 };
 
 module.exports = mongoose.model("User", userSchema);

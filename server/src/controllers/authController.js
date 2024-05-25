@@ -1,60 +1,68 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const mongoose = require("mongoose");
 
-const keys = require("../configs/keys");
+const config = require("../configs/config");
 const User = require("../models/userModel");
 
 // make a controller for signup
-exports.signup = (req, res) => {
+exports.signup = async (req, res) => {
   console.log(req.body);
   const newUser = new User(req.body);
-  bcrypt.genSalt(10, (err, salt) => {
-    bcrypt.hash(newUser.password, salt, (err, hash) => {
-      newUser.password = hash;
-      newUser.save((err) => {
-        if (err === null) {
-          res.json({ msg: "Can not signup!" });
-        } else res.status(201).json({ msg: "Success signup!" });
+  newUser.password = await newUser.hide_pwd(req.body.password);
+  await newUser.save((err) => {
+    if (err) {
+      res.status(500).json({
+        message: "This error is" + err.message,
       });
-    });
+    } else {
+      res.status(201).json({
+        message: "Create a new user successfully.",
+      });
+    }
   });
 };
 
 // make a controller for signin
-exports.signin = (req, res) => {
-  let { username, password } = req.body;
-  User.findOne({ username: username }, (err, user) => {
+exports.signin = async (req, res) => {
+  try {
+    console.log(req.body);
+    let { username, password } = req.body;
+    const user = await User.findOne({ username: username });
+
     if (!user) {
-      res.status(404).json({ msg: "Can not found user" });
-    }
-    console.log(user);
-    bcrypt.compare(password, user.password).then((isMatch) => {
-      console.log("match", isMatch);
-      if (isMatch) {
-        const payload = user;
+      return res
+        .status(404)
+        .json({ msg: `Not found user with id: ${username}` });
+    } else {
+      if (user.show_pwd(password, user.password)) {
+        const { username, password } = user;
         jwt.sign(
-          payload,
-          keys.secretOrKey,
+          { username, password },
+          config.secretOrKey,
           { expiresIn: 3600 },
           (err, token) => {
-            res.status(200).json({
-              user: user,
-              success: true,
+            res.status(202).json({
+              msg: "Login Success!",
               token: token,
+              user: user,
+              status: true,
             });
           }
         );
-      } else {
-        res.status(400).json({ msg: "Incorrect password!" });
-      }
-    });
-  });
+      } else
+        res.status(401).json({
+          message: "Password is incorrect.",
+          user: user,
+        });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
 
 // make a controller for admin
 exports.defaultAdmin = (req, res) => {
-  const adminData = keys.adminData;
+  const adminData = config.adminData;
   const AdminUser = new User(adminData);
   bcrypt.genSalt(10, (err, salt) => {
     bcrypt.hash(AdminUser.password, salt, (err, hash) => {

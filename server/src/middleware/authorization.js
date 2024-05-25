@@ -1,10 +1,10 @@
 const jwt = require("jsonwebtoken");
-const keys = require('../configs/keys');
+const config = require("../configs/config");
 
 module.exports.requireUser = (req, res, next) => {
   const token = req.header("authorization").replace("bareer ", "");
 
-  jwt.verify(token, keys.secretOrKey, function (err, decoded) {
+  jwt.verify(token, config.secretOrKey, function (err, decoded) {
     if (err) res.status(419).json(err);
     else {
       req.user = decoded;
@@ -16,10 +16,10 @@ module.exports.requireUser = (req, res, next) => {
 module.exports.requireSeller = (req, res, next) => {
   const token = req.header("authorization").replace("bareer ", "");
 
-  jwt.verify(token, keys.secretOrKey, function (err, decoded) {
+  jwt.verify(token, config.secretOrKey, function (err, decoded) {
     if (err) res.status(419).json(err);
     else {
-      if (decoded.role === 'seller' || decoded.role === 'admin') {
+      if (decoded.role === "seller" || decoded.role === "admin") {
         req.user = decoded;
         next();
       } else {
@@ -31,10 +31,10 @@ module.exports.requireSeller = (req, res, next) => {
 
 module.exports.requireAdmin = (req, res, next) => {
   const token = req.header("authorization").replace("bareer ", "");
-  jwt.verify(token, keys.secretOrKey, function (err, decoded) {
+  jwt.verify(token, config.secretOrKey, function (err, decoded) {
     if (err) res.status(419).json(err);
     else {
-      if (decoded.role === 'admin') {
+      if (decoded.role === "admin") {
         req.user = decoded;
         next();
       } else {
