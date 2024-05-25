@@ -12,6 +12,7 @@ import "react-notifications/lib/notifications.css";
 import ErrorText from "../../components/Typography/ErrorText";
 import Logo from "../../components/Logo";
 import { resetError, signin } from "../../redux/authSlice";
+import { Input } from "../Component/Input";
 
 // import use
 
@@ -32,7 +33,7 @@ function Login() {
       NotificationManager.success(`Welcome ${user.name}!`, "success");
       setTimeout(() => {
         navigate("/dashboard");
-      }, 3000);
+      }, 1000);
     }
   }, [isAuthenicated]);
 
@@ -65,7 +66,9 @@ function Login() {
         <div className="grid md:grid-cols-2 sm:grid-cols-1 bg-base-100 rounded-xl">
           <Logo />
           <div className="py-24 px-10 w-full">
-            <h1 className="text-3xl text-center font-semibold mb-2">Signin</h1>
+            <h1 className="text-3xl text-center font-semibold mb-10 head">
+              Sign In
+            </h1>
             <div className="mb-3">
               {isLoading === true ? (
                 <div>Loading</div>
@@ -76,27 +79,20 @@ function Login() {
                   }}
                 >
                   <div className="mb-4">
-                    <input
-                      placeholder="E-mail"
-                      name="username"
-                      value={form.username}
-                      onChange={(e) => {
-                        handleChange(e);
-                      }}
-                      required
-                    />
+                  <Input
+                    type={"text"}
+                    name={"username"}
+                    value={form.username}
+                    onChange={handleChange}
+                  />
                   </div>
-                  <div>
-                    <input
-                      type="password"
-                      placeholder="Password"
-                      name="password"
-                      value={form.password}
-                      onChange={(e) => {
-                        handleChange(e);
-                      }}
-                      required
-                    />
+                  <div className="mb-4">
+                  <Input
+                    type={"password"}
+                    name={"password"}
+                    value={form.password}
+                    onChange={handleChange}
+                  />
                   </div>
                   <ErrorText Style="mt-8">{error}</ErrorText>
                   <button type="submit" className={"btn btn-primary w-full"}>

@@ -1,9 +1,9 @@
 /** Icons are imported separatly to reduce build time */
 import Squares2X2Icon from "@heroicons/react/24/outline/Squares2X2Icon";
-import WalletIcon from "@heroicons/react/24/outline/WalletIcon";
 import ArrowRightOnRectangleIcon from "@heroicons/react/24/outline/ArrowRightOnRectangleIcon";
 import UserIcon from "@heroicons/react/24/outline/UserIcon";
 import Cog6ToothIcon from "@heroicons/react/24/outline/Cog6ToothIcon";
+import KeyIcon from '@heroicons/react/24/outline/KeyIcon'
 import UsersIcon from "@heroicons/react/24/outline/UsersIcon";
 import {
   MdOutlineMail,
@@ -36,7 +36,7 @@ const routes = [
       {
         path: "/admin/user",
         icon: <UserIcon className={submenuIconClasses} />,
-        name: "User management",
+        name: "Users",
       },
       {
         path: "/admin/category",
@@ -107,9 +107,9 @@ const routes = [
         name: "Profile", // name that appear in Sidebar
       },
       {
-        path: "/settings-billing",
-        icon: <WalletIcon className={submenuIconClasses} />,
-        name: "Billing",
+        path: "/settings-password",
+        icon: <KeyIcon className={submenuIconClasses} />,
+        name: "Change password",
       },
       {
         path: "/settings-team", // url

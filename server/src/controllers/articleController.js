@@ -28,13 +28,17 @@ exports.updateArticle = (req, res) => {
 // make a controller for deletea article
 exports.deleteArticle = (req, res) => {
   let id = req.params.id;
-  Article.findByIdAndDelete(id, (err) => {
-    if (err) {
-      res.status(500).json({ msg: err.message });
-    } else {
-      res.status(201).json({ msg: "deleted successfully." });
-    }
-  });
+  Article
+    .findById(id)
+    .then((article) => {
+      article.delected = new Date();
+      article
+        .save()
+        .then(res.status(201).json({ msg: "Article deleted successfully" }));
+    })
+    .catch((err) => {
+      res.status(400).json({ err: err });
+    });
 };
 
 // make a controller for get all article

@@ -6,13 +6,13 @@ const bcrypt = require("bcryptjs");
 // make a controller for get all users
 exports.allUser = (req, res) => {
   userModel
-    .find({})
+    .find({ delected: null })
     .sort({ createdAt: -1 })
-    .then((result) => {
-      res.status(201).json({ result: result });
+    .then((users) => {
+      res.status(201).json({ users: users });
     })
     .catch((err) => {
-      res.status(400).json({ err: err });
+      res.status(500).json({ msg: "Can't read Users Information" });
     });
 };
 
@@ -20,10 +20,9 @@ exports.allUser = (req, res) => {
 exports.permissionUser = (req, res) => {
   const id = req.params.id;
   const { role } = req.body;
-  userModel.findById(id, (err, user) => {
-    if (err) {
-      res.status(404).json({ msg: "Can not find user" });
-    } else {
+  userModel
+    .findById(id)
+    .then((user) => {
       user.role = role;
       user.save((err) => {
         if (err) {
@@ -32,16 +31,21 @@ exports.permissionUser = (req, res) => {
           res.status(200).json({ msg: "User role changed successfully." });
         }
       });
-    }
-  });
+    })
+    .catch(res.status(404).json({ msg: "Can not find user" }));
 };
 
 // make a controller for delete users
 exports.delUser = (req, res) => {
   const id = req.params.id;
   userModel
-    .findByIdAndDelete()
-    .then(res.status(201).json({ msg: "User deleted successfully" }))
+    .findById(id)
+    .then((user) => {
+      user.delected = new Date();
+      user
+        .save()
+        .then(res.status(201).json({ msg: "User deleted successfully" }));
+    })
     .catch((err) => {
       res.status(400).json({ err: err });
     });
