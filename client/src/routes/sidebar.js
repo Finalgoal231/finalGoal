@@ -36,7 +36,7 @@ const routes = [
       {
         path: "/admin/user",
         icon: <UserIcon className={submenuIconClasses} />,
-        name: "User management",
+        name: "Users",
       },
       {
         path: "/admin/category",

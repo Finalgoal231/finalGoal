@@ -10,7 +10,7 @@ const Bills = lazy(() => import("../pages/Settings/Bills"));
 const ProfileSettings = lazy(() => import("../pages/Settings/ProfileSettings"));
 const Cagegory = lazy(() => import("../pages/Admin/Category/categoryPage"));
 const UserManage = lazy(() =>
-  import("../pages/Admin/UserManage/userManagePage")
+  import("../pages/Admin/UserManage")
 );
 const Seller = lazy(() => import("../pages/Eshop/GoodsManage/sellerPage"));
 const Custom = lazy(() => import("../pages/Eshop/Custom/customPage"));
