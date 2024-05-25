@@ -1,10 +1,24 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { users } from "../../UserManage/UserManagePanel/Userdata";
 import { BiSolidEditAlt, BiSolidTrashAlt } from "react-icons/bi";
+import { useDispatch, useSelector } from "react-redux";
+import { editCategory } from "../../../../redux/adminSlice";
 
 function TableCategory() {
   const [userData, setUserData] = useState(users);
+  const dispatch = useDispatch();
 
+  // useEffect(() => {
+    // const {category} = useSelector(state => state.action)
+  // }, []);
+
+  // const get = useCallback((val) => {
+  //   dispatch(getCategory({getId:val}));
+  // }, [dispatch]);
+
+  // const delete = useCallback((val) => {
+  //   dispatch(deleteCategory({delId:val}));
+  // }, [dispatch]);
   return (
     <>
       <div className="overflow-x-auto w-full">
@@ -40,7 +54,7 @@ function TableCategory() {
                         className="flex px-3 py-2 bg-red-500 hover:bg-red-600 dark:hover:bg-slate-400 text-[15px] text-white rounded-full cursor-pointer transition duration-300 ease-out"
                       >
                         <BiSolidTrashAlt className="text-[21px] mt-[2px] mr-[3px]" />
-                        
+
                         <div className="mt-[1px]">Delete</div>
                       </button>
                     </div>
