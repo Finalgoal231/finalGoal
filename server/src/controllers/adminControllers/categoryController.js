@@ -43,7 +43,7 @@ exports.deleteCategory = (req, res) => {
 
 // make a controller for get all category
 exports.getAllCategory = (req, res) => {
-  userModel
+  Category
     .find({ delected: null })
     .sort({ createdAt: -1 })
     .then((result) => {
