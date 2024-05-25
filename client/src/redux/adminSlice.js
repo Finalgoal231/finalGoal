@@ -3,10 +3,10 @@ import axios from "axios";
 
 const base_url = "http://localhost:4000/api/admin";
 
-// export const getAllCategory = createAsyncThunk("getAllCategory", async () => {
-//   const res = await axios.get(base_url + "/category/all");
-//   return res.data;
-// });
+export const getAllCategory = createAsyncThunk("getAllCategory", async () => {
+  const res = await axios.get(base_url + "/category/all");
+  return res.data;
+});
 // export const createCategory = createAsyncThunk("createCategory", async () => {
 //   const res = await axios.post(base_url + "/category/");
 //   return res.data;
@@ -34,18 +34,17 @@ export const adminSlice = createSlice({
     //     state.category = action.payload.val
     // },
   },
-  // extraReducers: (builder) => {
-  //   builder.addCase(getAllCategory.fulfilled, (state, action) => {
-  //     state.categories = action.payload.result;
-  //     console.log(state.category);
-  //   });
+  extraReducers: (builder) => {
+    builder.addCase(getAllCategory.fulfilled, (state, action) => {
+      state.categories = action.payload.result;
+    });
   //   builder.addCase(createCategory.fulfilled, (state, action) => {
   //   });
   //   builder.addCase(updateCategory.fulfilled, (state, action) => {
   //   });
   //   builder.addCase(deleteCategory.fulfilled, (state, action) => {
   //   });
-  // },
+  },
 });
 
 export const {} = adminSlice.actions;

@@ -10,7 +10,7 @@ function CategoryPage() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setPageTitle({ title: "Category page" }));
-    // dispatch(getAllCategory);
+    dispatch(getAllCategory());
   }, []);
   return (
     <>

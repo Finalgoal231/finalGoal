@@ -7,10 +7,7 @@ import { editCategory } from "../../../../redux/adminSlice";
 function TableCategory() {
   const [userData, setUserData] = useState(users);
   const dispatch = useDispatch();
-
-  // useEffect(() => {
-    // const {category} = useSelector(state => state.action)
-  // }, []);
+  const { categories } = useSelector((state) => state.admin);
 
   // const get = useCallback((val) => {
   //   dispatch(getCategory({getId:val}));
@@ -31,13 +28,13 @@ function TableCategory() {
             </tr>
           </thead>
           <tbody>
-            {userData.map((l, k) => {
+            {categories.map((l, k) => {
               return (
                 <tr key={k}>
                   <td>{k + 1}</td>
                   <td>
                     <div>
-                      <div className="font-bold">{l.name}</div>
+                      <div className="font-bold">{l.title}</div>
                     </div>
                   </td>
                   <td>
