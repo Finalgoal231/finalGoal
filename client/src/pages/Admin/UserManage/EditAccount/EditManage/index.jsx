@@ -52,7 +52,7 @@ function EditManage() {
         </div>
         <div className="mt-10">
           <button
-            className="btn btn-ghost w-full"
+            className="btn btn-primary w-full"
             onClick={() => updateAccount()}
           >
             Update

@@ -4,7 +4,7 @@ function Logo() {
       <div className=" py-12">
         <div className="max-w-md flex flex-col justify-center items-center">
           <img
-            src="./assets/images/avatar.jpg"
+            src="default.png"
             alt=""
             className="w-64 rounded-3xl"
           ></img>
