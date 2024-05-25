@@ -17,11 +17,13 @@ function InputCategory() {
 
   const create = useCallback(() => {
     dispatch(createCategory({ title: data.title }));
+    setData({ title: "", _id: "" });
   }, [dispatch, data]);
 
   const edit = useCallback(
     (val) => {
       dispatch(updateCategory({ title: val.title, _id: val._id }));
+      setData({ title: "", _id: "" });
     },
     [dispatch]
   );
@@ -35,26 +37,25 @@ function InputCategory() {
         onChange={(e) => setData({ ...data, title: e.target.value })}
       />
 
-      {/* {category === "" ? ( */}
-      <button
-        type="button"
-        className="flex px-4 py-2 mt-5 w-20 bg-green-600 hover:bg-green-700 dark:hover:bg-green-500 text-[15px] text-white rounded-[6px] cursor-pointer transition duration-300 ease-out"
-      >
-        <BsPlusLg className="text-[21px] mt-[2px] mr-[3px]" />
-        <div className="mt-[1px]" onClick={() => create()}>
-          New
-        </div>
-      </button>
-      {/* ) : ( */}
-      <button
-        type="button"
-        onClick={() => edit(data)}
-        className="flex px-4 py-2 mt-5 w-20 bg-sky-600 hover:bg-sky-700 dark:hover:bg-green-500 text-[15px] text-white rounded-[6px] cursor-pointer transition duration-300 ease-out"
-      >
-        <BiSolidEditAlt className="text-[21px] mt-[2px] mr-[3px]" />
-        <div className="mt-[1px]">Edit</div>
-      </button>
-      {/* )} */}
+      {category.title === "" ? (
+        <button
+          type="button"
+          onClick={() => create()}
+          className="flex px-4 py-2 mt-5 w-20 bg-green-600 hover:bg-green-700 dark:hover:bg-green-500 text-[15px] text-white rounded-[6px] cursor-pointer transition duration-300 ease-out"
+        >
+          <BsPlusLg className="text-[21px] mt-[2px] mr-[3px]" />
+          <div className="mt-[1px]">New</div>
+        </button>
+      ) : (
+        <button
+          type="button"
+          onClick={() => edit(data)}
+          className="flex px-4 py-2 mt-5 w-20 bg-sky-600 hover:bg-sky-700 dark:hover:bg-green-500 text-[15px] text-white rounded-[6px] cursor-pointer transition duration-300 ease-out"
+        >
+          <BiSolidEditAlt className="text-[21px] mt-[2px] mr-[3px]" />
+          <div className="mt-[1px]">Edit</div>
+        </button>
+      )}
     </>
   );
 }

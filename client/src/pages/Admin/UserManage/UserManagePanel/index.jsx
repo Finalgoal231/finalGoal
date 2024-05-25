@@ -1,22 +1,19 @@
 import { useEffect, useState } from "react";
 import FunnelIcon from "@heroicons/react/24/outline/FunnelIcon";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
-import { Link, useNavigate } from "react-router-dom";
-import { users } from "./Userdata";
+import { Link } from "react-router-dom";
 import { BiSolidEditAlt } from "react-icons/bi";
 import TitleCard from "../../../../components/Cards/TitleCard";
-import SearchBar from "../../../../components/Input/SearchBar";
+import StanSearchBar from "../../../../components/Input/StanSearchBar";
+import { useSelector } from "react-redux";
 
 const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => {
+  const { users } = useSelector((state) => state.admin);
   const [filterParam, setFilterParam] = useState("");
   const [searchText, setSearchText] = useState("");
-  const bioFilters = [
-    "Blockchain",
-    "Fullstack",
-    "Frontend",
-    "Backend",
-    "Designer",
-  ];
+  const bioFilters = users.map((item, index) => {
+    return item.bio;
+  });
 
   const showFiltersAndApply = (params) => {
     applyFilter(params);
@@ -39,7 +36,7 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => {
 
   return (
     <div className="inline-block float-right">
-      <SearchBar
+      <StanSearchBar
         searchText={searchText}
         styleClass="mr-4"
         setSearchText={setSearchText}
@@ -80,6 +77,7 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => {
 };
 
 function UserManagePanel() {
+  const { users } = useSelector((state) => state.admin);
   const [userData, setUserData] = useState(users);
 
   const removeFilter = () => {
@@ -154,14 +152,14 @@ function UserManagePanel() {
                     <td>
                       <div className="flex justify-center">
                         <Link to={"/admin/user/edit"}>
-                        <button
-                          type="button"
-                          className="flex px-4 py-2 bg-slate-500 hover:bg-slate-600 dark:hover:bg-slate-400 text-[15px] text-white rounded-full cursor-pointer transition duration-300 ease-out"
-                        >
-                          <BiSolidEditAlt className="text-[21px] mt-[2px] mr-[3px]" />
+                          <button
+                            type="button"
+                            className="flex px-4 py-2 bg-slate-500 hover:bg-slate-600 dark:hover:bg-slate-400 text-[15px] text-white rounded-full cursor-pointer transition duration-300 ease-out"
+                          >
+                            <BiSolidEditAlt className="text-[21px] mt-[2px] mr-[3px]" />
                             <div className="mt-[1px]">Edit</div>
-                        </button>
-                          </Link>
+                          </button>
+                        </Link>
                       </div>
                     </td>
                   </tr>

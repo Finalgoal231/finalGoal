@@ -15,8 +15,8 @@ function TableCategory() {
   );
 
   const del = useCallback(
-    (val) => {
-      dispatch(deleteCategory({ _id: val }));
+    (id) => {
+      dispatch(deleteCategory({ _id: id }));
     },
     [dispatch]
   );
