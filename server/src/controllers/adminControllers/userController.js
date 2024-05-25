@@ -110,20 +110,28 @@ exports.changePassword = (req, res) => {
 // make a controller for change password
 exports.changeAvatar = (req, res) => {
   const id = req.params.id;
-  const { avatar } = req.body;
-  userModel
-    .findById(id)
-    .then(() => {
-      user.avatar = avatar;
-      user.save((err) => {
-        if (err) {
-          res.status(500).json({ msg: "Server error" });
-        } else {
-          res.status(200).json({ msg: "Profile avatar changed successfully." });
-        }
+  const { avatar } = req.files;
+  uploadPath = "C:\\Program Files\\gogs\\data\\avatars\\" + id;
+
+  avatar.mv(uploadPath, function (err) {
+    if (err) return res.status(500).send(err);
+
+    userModel
+      .findById(id)
+      .then((user) => {
+        user.avatar = `http://192.168.6.2:3000/avatars/${id}`;
+        user.save((err) => {
+          if (err) {
+            res.status(500).json({ msg: "Server error" });
+          } else {
+            res
+              .status(200)
+              .json({ msg: "Profile avatar changed successfully." });
+          }
+        });
+      })
+      .catch(() => {
+        res.status(404).json({ msg: "Can not find user" });
       });
-    })
-    .catch(() => {
-      res.status(404).json({ msg: "Can not find user" });
-    });
+  });
 };

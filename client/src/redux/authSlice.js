@@ -17,6 +17,22 @@ export const signin = createAsyncThunk("/api/auth/signin", async (payload) => {
     }
 });
 
+export const updateAvatar = createAsyncThunk("updateAvatar", async (payload) => {
+    const formData = new FormData();
+    formData.append("avatar", payload.avatar);
+    // formData.avatar = payload.avatar;
+    console.log(formData)
+    try {
+        const res = await requestServer("put", "/api/admin/user/avatar/" + payload.id, formData);
+        return res.data;
+    } catch (e) {
+        if (e.response) {
+            return { ...e.response.data, error: true };
+        }
+        return { error: true, message: "Server is not running correctly." };
+    }
+});
+
 export const changeInfo = createAsyncThunk();
 export const changePassword = createAsyncThunk();
 export const changeAvatar = createAsyncThunk();

@@ -10,6 +10,9 @@ const passport = require("passport");
 const routes = require("./src/routes");
 const { notFoundRoute, errorHandler } = require("./src/configs/errorHandler");
 
+// import fileUpload
+const fileUpload = require('express-fileupload');
+
 // loads environment variables from .env file
 env.config();
 
@@ -36,6 +39,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(passport.initialize());
+
+app.use(fileUpload({
+  limits: { fileSize: 3 * 1024 * 1024 }
+}));
 
 require("./src/configs/passport")(passport);
 

@@ -8,6 +8,7 @@ import TextAreaInput from "../../../components/Input/TextAreaInput";
 import ToogleInput from "../../../components/Input/ToogleInput";
 import Input from "../../../components/Input/Input";
 import SelectBoxSmall from "../../../components/Input/SelectBoxSmall";
+import ProfileAvatar from "../../../components/Avatar";
 
 function ProfileSettings() {
   // const [profileInfo, setProfileInfo] = useState({
@@ -31,7 +32,6 @@ function ProfileSettings() {
     dispatch(showNotification({ message: "Profile Updated", status: 1 }));
   };
 
-  const changeAvatar = (e) => {};
 
   const updateFormValue = ({ updateType, value }) => {
     console.log(updateType);
@@ -42,23 +42,7 @@ function ProfileSettings() {
       <TitleCard className="" title="Profile Settings" topMargin="mt-5">
         <div>
           <div className="flex gap-20">
-            <div>
-              <div className="mt-10 rounded-full overflow-hidden h-60 w-60 ml-20 hover: cursor-pointer">
-                <img src="./assets/avatar/avatar-17.jpg" />
-                <input
-                  type="file"
-                  className=" top-36 z-10 absolute opacity-0 overflow-hidden h-60 w-120 ml-120 hover:scale-110 transition-shadow cursor-pointer"
-                  onChange={changeAvatar()}
-                />
-              </div>
-              <div className="mt-16 p-14 ">
-                <button
-                  className="btn btn-primary float-right"
-                >
-                  ChangeAvatar
-                </button>
-              </div>
-            </div>
+            <ProfileAvatar />
 
             <div className="w-px bg-white h-[50vh]"></div>
 
