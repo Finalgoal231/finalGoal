@@ -5,10 +5,13 @@ const router = require("express").Router();
 // init controller
 const categoryCtrl = require("../../controllers/adminControllers/categoryController");
 
+const passport = require("passport");
+const middleware = passport.authenticate("jwt", { session: false });
+
 // Admin - Category
-router.post("/", categoryCtrl.createCategory);
-router.put("/:id", categoryCtrl.updateCategory);
-router.delete("/:id", categoryCtrl.deleteCategory);
-router.get("/all", categoryCtrl.getAllCategory);
+router.post("/", middleware, categoryCtrl.createCategory);
+router.put("/:id", middleware, categoryCtrl.updateCategory);
+router.delete("/:id", middleware, categoryCtrl.deleteCategory);
+router.get("/all", middleware, categoryCtrl.getAllCategory);
 
 module.exports = router;
