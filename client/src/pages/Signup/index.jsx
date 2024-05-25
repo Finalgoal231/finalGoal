@@ -83,6 +83,13 @@ function Register() {
                     value={form.username}
                     onChange={handleChange}
                   />
+                  <select className="w-full h-[52px] px-[12px] mb-4 text-gray-700 border border-gray-300 hover:border-gray-500 rounded-[3px] outline-none focus:border-2 focus:border-gray-700">
+                    <option value="Blockchain">Blockchain</option>
+                    <option value="Fullstack">Fullstack</option>
+                    <option value="Frontend">Frontend</option>
+                    <option value="Backend">Backend</option>
+                    <option value="Designer">Designer</option>
+                  </select>
                   <Input
                     type={"password"}
                     name={"password"}
