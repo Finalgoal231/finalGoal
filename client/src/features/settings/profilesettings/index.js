@@ -6,6 +6,8 @@ import { showNotification } from "../../common/headerSlice";
 import InputText from "../../../components/Input/InputText";
 import TextAreaInput from "../../../components/Input/TextAreaInput";
 import ToogleInput from "../../../components/Input/ToogleInput";
+import { SmallNav } from "../changepassword/smallnav/SmallNav";
+import { ChangePassword } from "../changepassword/ChangePassword";
 
 function ProfileSettings() {
   const dispatch = useDispatch();
@@ -19,12 +21,19 @@ function ProfileSettings() {
     console.log(updateType);
   };
 
+  const changeAvatar = (e) => {};
   return (
     <>
-      <TitleCard className="" title="Profile Settings" topMargin="mt-10">
+      <TitleCard className="" title="Profile Settings" topMargin="mt-5">
+      <SmallNav />
         <div className="flex gap-20">
           <div className="mt-10 rounded-full overflow-hidden h-60 w-60 ml-20 hover:scale-110 transition-shadow cursor-pointer">
             <img src="./assets/avatar/avatar-17.jpg" />
+            <input
+              type="file"
+              className=" top-36 z-10 absolute opacity-0 overflow-hidden h-60 w-120 ml-120 hover:scale-110 transition-shadow cursor-pointer"
+              onchange={changeAvatar()}
+            />
           </div>
 
           <div className="w-[70%] grid grid-cols-1 md:grid-cols-1 gap-6">
@@ -43,6 +52,25 @@ function ProfileSettings() {
               defaultValue=""
               updateFormValue={updateFormValue}
             />
+            <label for="country">Category</label>
+            <select
+              className=" h-14 rounded-xl border bg-transparent"
+              id="bio"
+              name="bio"
+            >
+              <option className=" bg-transparent" value="Rect">
+                React
+              </option>
+              <option className=" bg-transparent" value="Laravel">
+                Laravel
+              </option>
+              <option className=" bg-transparent" value="Full stack">
+                Full stack
+              </option>
+              <option className=" bg-transparent" value="Blockchain">
+                Blockchain
+              </option>
+            </select>
           </div>
           {/* <div className="divider" ></div> */}
 
@@ -70,6 +98,7 @@ function ProfileSettings() {
           </button>
         </div>
       </TitleCard>
+      <ChangePassword />
     </>
   );
 }
