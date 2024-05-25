@@ -2,6 +2,8 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setPageTitle } from "../../../features/common/headerSlice";
+import InputCategory from "./components/InputCategory";
+import TableCategory from "./components/TableCategory";
 
 function CategoryPage() {
   const dispatch = useDispatch();
@@ -11,6 +13,8 @@ function CategoryPage() {
   return(
     <>
       <h1>Category Page</h1>
+      <InputCategory />
+      <TableCategory />
     </>
   )
 }
