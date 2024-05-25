@@ -9,7 +9,6 @@ const Team = lazy(() => import("../pages/Settings/Team"));
 const ProfileSettings = lazy(() => import("../pages/Settings/ProfileSettings"));
 const Cagegory = lazy(() => import("../pages/Admin/Category"));
 const UserManage = lazy(() => import("../pages/Admin/UserManage"));
-
 const ChangePassword = lazy(() => import("../pages/Settings/ChangePassword"));
 const EditAccount = lazy(() => import("../pages/Admin/UserManage/EditAccount"));
 const AllArticle = lazy(() => import("../pages/Article/AllArticle"));
