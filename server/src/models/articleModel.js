@@ -21,7 +21,7 @@ const articleSchema = new mongoose.Schema({
       required: true,
     },
   ],
-  category: { type: mongoose.Schema.ObjectId },
+  category: { type: String },
   tags: [
     {
       type: String,

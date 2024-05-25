@@ -6,26 +6,25 @@ const User = require("../models/userModel");
 
 // make a controller for signup
 exports.signup = async (req, res) => {
-  console.log(req.body);
   const newUser = new User(req.body);
   newUser.password = await newUser.hide_pwd(req.body.password);
-  await newUser.save((err) => {
-    if (err) {
-      res.status(500).json({
-        message: "This error is" + err.message,
-      });
-    } else {
+  newUser
+    .save()
+    .then(() => {
       res.status(201).json({
-        message: "Create a new user successfully.",
+        msg: "Create a new user successfully.",
       });
-    }
-  });
+    })
+    .catch(() => {
+      res.status(500).json({
+        msg: "Please enter again your infomation correctly",
+      });
+    });
 };
 
 // make a controller for signin
 exports.signin = async (req, res) => {
   try {
-    console.log(req.body);
     let { username, password } = req.body;
     const user = await User.findOne({ username: username });
 
@@ -49,31 +48,27 @@ exports.signin = async (req, res) => {
             });
           }
         );
-      } else
+      } else {
         res.status(401).json({
           message: "Password is incorrect.",
           user: user,
         });
+      }
     }
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: "Server error" });
   }
 };
 
 // make a controller for admin
-exports.defaultAdmin = (req, res) => {
+exports.defaultAdmin = async (req, res) => {
   const adminData = config.adminData;
   const AdminUser = new User(adminData);
-  bcrypt.genSalt(10, (err, salt) => {
-    bcrypt.hash(AdminUser.password, salt, (err, hash) => {
-      AdminUser.password = hash;
-      AdminUser.save((err) => {
-        if (err) {
-          console.log("---Can not create admin---");
-        } else {
-          console.log("---Create admin successfully.---");
-        }
-      });
+  AdminUser.password = await AdminUser.hide_pwd(adminData.password);
+
+  AdminUser.save()
+    .then(() => console.log("---Create admin successfully.---"))
+    .catch(() => {
+      console.log("---Can not create admin---");
     });
-  });
 };
