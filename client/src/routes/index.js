@@ -1,7 +1,6 @@
 // All components mapping with path for internal routes
 
 import { lazy } from "react";
-import EditAccount from "../pages/Admin/UserManage/EditAccount";
 
 const Dashboard = lazy(() => import("../pages/protected/Dashboard"));
 const Welcome = lazy(() => import("../pages/protected/Welcome"));
@@ -13,6 +12,7 @@ const Cagegory = lazy(() => import("../pages/Admin/Category"));
 const UserManage = lazy(() => import("../pages/Admin/UserManage"));
 const Seller = lazy(() => import("../pages/Eshop/GoodsManage/sellerPage"));
 const Custom = lazy(() => import("../pages/Eshop/Custom/customPage"));
+const EditAccount = lazy(() => import("../pages/Admin/UserManage/EditAccount"));
 
 const routes = [
   {
