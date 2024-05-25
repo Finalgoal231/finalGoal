@@ -4,11 +4,14 @@ import { useDispatch } from "react-redux";
 import { setPageTitle } from "../../../features/common/headerSlice";
 import InputCategory from "./components/InputCategory";
 import TableCategory from "./components/TableCategory";
+import { getAllCategory } from "../../../redux/adminSlice";
+
 
 function CategoryPage() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setPageTitle({ title: "Category page" }));
+    // dispatch(getAllCategory());
   }, []);
   return(
     <>
