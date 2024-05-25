@@ -1,6 +1,6 @@
  function Subtitle({styleClass, children}){
     return(
-        <div className={`text-xl font-semibold ${styleClass}`}>{children}</div>
+        <div className={`text-2xl font-semibold ${styleClass}`}>{children}</div>
     )
 }
 

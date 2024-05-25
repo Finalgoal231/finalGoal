@@ -8,57 +8,72 @@ const Page404 = lazy(() => import("../pages/protected/404"));
 const Team = lazy(() => import("../pages/Settings/Team"));
 const Bills = lazy(() => import("../pages/Settings/Bills"));
 const ProfileSettings = lazy(() => import("../pages/Settings/ProfileSettings"));
-const Cagegory = lazy(() => import("../pages/Admin/Category"));
-const UserManage = lazy(() => import("../pages/Admin/UserManage"));
-const Seller = lazy(() => import("../pages/Eshop/GoodsManage/sellerPage"));
-const Custom = lazy(() => import("../pages/Eshop/Custom/customPage"));
-const EditAccount = lazy(() => import("../pages/Admin/UserManage/EditAccount"));
+const Category = lazy(() => import("../pages/Admin/Category/categoryPage"));
+const UserManage = lazy(() => import("../pages/Admin/UserManage/userManagePage"));
+const AllArticle = lazy(() => import("../pages/Article/AllArticle"));
+const MyArticle = lazy(() => import("../pages/Article/MyArticle"));
+const FavouriteArticle = lazy(() => import("../pages/Article/FavouriteArticle"));
+const NewArticle = lazy(() => import("../pages/Article/NewArticle"));
+const Draft = lazy(() => import("../pages/Article/Draft"));
+const AnswerArticle = lazy(() => import("../pages/Article/AnswerArticle"));
 
 const routes = [
-  {
-    path: "/dashboard",
-    component: Dashboard,
-  },
-  {
-    path: "/welcome",
-    component: Welcome,
-  },
-  {
-    path: "/admin/user",
-    component: UserManage,
-  },
-  {
-    path: "/admin/user/edit",
-    component: EditAccount,
-  },
-  {
-    path: "/admin/category",
-    component: Cagegory,
-  },
-  {
-    path: "/shop/seller",
-    component: Seller,
-  },
-  {
-    path: "/shop/goods",
-    component: Custom,
-  },
-  {
-    path: "/settings-team",
-    component: Team,
-  },
-  {
-    path: "/settings-profile",
-    component: ProfileSettings,
-  },
-  {
-    path: "/settings-billing",
-    component: Bills,
-  },
-  {
-    path: "/404",
-    component: Page404,
-  },
+    {
+        path: "/",
+        component: Dashboard,
+    },
+    {
+        path: "/welcome",
+        component: Welcome,
+    },
+    {
+        path: "/admin/user",
+        component: UserManage,
+    },
+    {
+        path: "/admin/category",
+        component: Category,
+    },
+    {
+        path: "/allarticle",
+        component: AllArticle,
+    },
+    {
+        path: "/myArticle",
+        component: MyArticle,
+    },
+    {
+        path: "/favouriteArticle",
+        component: FavouriteArticle,
+    },
+    {
+        path: "/draft",
+        component: Draft,
+    },
+    {
+        path: "/newArticle/:id",
+        component: NewArticle,
+    },
+    {
+        path: "/answer/article/:id",
+        component: AnswerArticle,
+    },
+    {
+        path: "/settings-team",
+        component: Team,
+    },
+    {
+        path: "/settings-profile",
+        component: ProfileSettings,
+    },
+    {
+        path: "/settings-billing",
+        component: Bills,
+    },
+    {
+        path: "/404",
+        component: Page404,
+    },
 ];
 
 export default routes;
