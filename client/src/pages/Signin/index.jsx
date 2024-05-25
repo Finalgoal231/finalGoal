@@ -12,6 +12,7 @@ import "react-notifications/lib/notifications.css";
 import ErrorText from "../../components/Typography/ErrorText";
 import Logo from "../../components/Logo";
 import { resetError, signin } from "../../redux/authSlice";
+import { Input } from "../Component/Input";
 
 // import use
 
@@ -78,29 +79,20 @@ function Login() {
                   }}
                 >
                   <div className="mb-4">
-                    <input
-                      placeholder="Username"
-                      name="username"
-                      value={form.username}
-                      onChange={(e) => {
-                        handleChange(e);
-                      }}
-                      className="w-full h-[52px] px-[12px] text-gray-700 border border-gray-300 hover:border-gray-500 rounded-[3px] outline-none focus:border-2 focus:border-gray-700"
-                      required
-                    />
+                  <Input
+                    type={"text"}
+                    name={"username"}
+                    value={form.username}
+                    onChange={handleChange}
+                  />
                   </div>
                   <div className="mb-4">
-                    <input
-                      type="password"
-                      placeholder="Password"
-                      name="password"
-                      value={form.password}
-                      onChange={(e) => {
-                        handleChange(e);
-                      }}
-                      className="w-full h-[52px] px-[12px] text-gray-700 border border-gray-300 hover:border-gray-500 rounded-[3px] outline-none focus:border-2 focus:border-gray-700"
-                      required
-                    />
+                  <Input
+                    type={"password"}
+                    name={"password"}
+                    value={form.password}
+                    onChange={handleChange}
+                  />
                   </div>
                   <ErrorText Style="mt-8">{error}</ErrorText>
                   <button type="submit" className={"btn btn-primary w-full"}>
