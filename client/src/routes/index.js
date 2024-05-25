@@ -6,7 +6,6 @@ const Dashboard = lazy(() => import("../pages/protected/Dashboard"));
 const Welcome = lazy(() => import("../pages/protected/Welcome"));
 const Page404 = lazy(() => import("../pages/protected/404"));
 const Team = lazy(() => import("../pages/Settings/Team"));
-const Bills = lazy(() => import("../pages/Settings/Bills"));
 const ProfileSettings = lazy(() => import("../pages/Settings/ProfileSettings"));
 const Cagegory = lazy(() => import("../pages/Admin/Category"));
 const UserManage = lazy(() => import("../pages/Admin/UserManage"));
@@ -76,10 +75,6 @@ const routes = [
   {
     path: "/settings-password",
     component: ChangePassword,
-  },
-  {
-    path: "/settings-billing",
-    component: Bills,
   },
   {
     path: "/404",
