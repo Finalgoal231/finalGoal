@@ -1,11 +1,11 @@
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useState } from "react";
-import Toolbar from "./components/Toolbar";
-import ArticleCard from "./components/ArticleCard";
+import { setPageTitle } from "../../features/common/headerSlice";
+import Toolbar from "../../features/dashboard/components/Toolbar";
+import ArticleCard from "../../features/dashboard/components/ArticleCard";
 import { useNavigate } from "react-router-dom";
 const article = [
     {
-        _id: "8shcnqkk2949fjj",
         from: "master",
         avatar: "default.png",
         title: "What is redux?",
@@ -13,34 +13,32 @@ const article = [
         createdAt: "2024-5-20",
     },
 ];
-function Dashboard() {
+export default function Draft() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const setHandleAddArticle = () => {
         navigate(`/newArticle/${0}`);
     };
-    const setHandleAddAnswerArticle = (index) => {
-        navigate(`/answer/article/${index}`);
+    const setHandleSendArticle = () => {
+        console.log("setHandleSendArticle");
     };
-    const onFavouriteClick = () => {
-        console.log("Favourite");
-    };
+    useEffect(() => {
+        dispatch(setPageTitle({ title: "Draft" }));
+    }, []);
     return (
         <>
-            <Toolbar onAddClick={setHandleAddArticle} />
+            <Toolbar onClick={setHandleAddArticle} />
             {article.map((v, i) => {
                 return (
                     <div key={i}>
                         <ArticleCard
+                            type={"draft"}
                             title={v.title}
                             avatar={v.avatar}
                             content={v.content}
                             date={v.createdAt}
                             from={v.from}
-                            onAnswerClick={() => {
-                                setHandleAddAnswerArticle(v._id);
-                            }}
-                            onFavouriteClick={onFavouriteClick}
+                            onSendClick={setHandleSendArticle}
                         />
                     </div>
                 );
@@ -48,5 +46,3 @@ function Dashboard() {
         </>
     );
 }
-
-export default Dashboard;
