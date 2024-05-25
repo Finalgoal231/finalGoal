@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema({
   },
   avatar: {
     type: String,
-    defaule: "public/default.jpg",
+    default: "public/default.jpg",
   },
   follower: [
     {
