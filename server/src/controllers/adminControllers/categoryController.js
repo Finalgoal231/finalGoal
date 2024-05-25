@@ -4,9 +4,10 @@ const Category = require("../../models/adminModel/categoryModel");
 
 // make a controller for create a category
 exports.createCategory = (req, res) => {
+  console.log(req.body);
   const newCategory = new Category(req.body);
   newCategory.save((err) => {
-    if (err === null) {
+    if (err !== null) {
       res.status(500).json({ msg: err.message });
     } else res.status(201).json({ msg: "create category successfully." });
   });
@@ -28,8 +29,7 @@ exports.updateCategory = (req, res) => {
 // make a controller for deletea category
 exports.deleteCategory = (req, res) => {
   let id = req.params.id;
-  Category
-    .findById(id)
+  Category.findById(id)
     .then((category) => {
       category.delected = new Date();
       category
@@ -43,7 +43,7 @@ exports.deleteCategory = (req, res) => {
 
 // make a controller for get all category
 exports.getAllCategory = (req, res) => {
-  userModel
+  Category
     .find({ delected: null })
     .sort({ createdAt: -1 })
     .then((result) => {

@@ -5,6 +5,10 @@ const categorySchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  delected: {
+    type: Date,
+    default: null,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

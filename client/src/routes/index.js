@@ -8,8 +8,11 @@ const Page404 = lazy(() => import("../pages/protected/404"));
 const Team = lazy(() => import("../pages/Settings/Team"));
 const Bills = lazy(() => import("../pages/Settings/Bills"));
 const ProfileSettings = lazy(() => import("../pages/Settings/ProfileSettings"));
+
 const Cagegory = lazy(() => import("../pages/Admin/Category"));
 const UserManage = lazy(() => import("../pages/Admin/UserManage"));
+
+const ChangePassword = lazy(() => import("../pages/Settings/ChangePassword"));
 const Seller = lazy(() => import("../pages/Eshop/GoodsManage/sellerPage"));
 const Custom = lazy(() => import("../pages/Eshop/Custom/customPage"));
 const EditAccount = lazy(() => import("../pages/Admin/UserManage/EditAccount"));
@@ -50,6 +53,10 @@ const routes = [
   {
     path: "/settings-profile",
     component: ProfileSettings,
+  },
+  {
+    path: "/settings-password",
+    component: ChangePassword,
   },
   {
     path: "/settings-billing",
