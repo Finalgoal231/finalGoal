@@ -1,30 +1,20 @@
 /** Icons are imported separatly to reduce build time */
 import Squares2X2Icon from "@heroicons/react/24/outline/Squares2X2Icon";
-import ArrowRightOnRectangleIcon from "@heroicons/react/24/outline/ArrowRightOnRectangleIcon";
 import UserIcon from "@heroicons/react/24/outline/UserIcon";
 import Cog6ToothIcon from "@heroicons/react/24/outline/Cog6ToothIcon";
-import KeyIcon from '@heroicons/react/24/outline/KeyIcon'
+import KeyIcon from "@heroicons/react/24/outline/KeyIcon";
 import UsersIcon from "@heroicons/react/24/outline/UsersIcon";
 import {
-  MdOutlineMail,
-  MdOutlineMarkEmailRead,
   MdOutlineCategory,
   MdOutlineAdminPanelSettings,
   MdOutlineArticle,
-  MdOutlineComputer,
-  MdChatBubbleOutline
 } from "react-icons/md";
-import {
-  HiOutlineShoppingBag,
-  HiOutlineShoppingCart,
-  HiOutlineBookOpen,
-} from "react-icons/hi";
 const iconClasses = `h-6 w-6`;
 const submenuIconClasses = `h-5 w-5`;
 
 const routes = [
   {
-    path: "/dashboard",
+    path: "/",
     icon: <Squares2X2Icon className={iconClasses} />,
     name: "Dashboard",
   },
@@ -46,55 +36,31 @@ const routes = [
     ],
   },
   {
-    path: "", //no url needed as this has submenu
-    icon: <HiOutlineShoppingCart className={`${iconClasses} inline`} />, // icon component
-    name: "E-shop", // name that appear in Sidebar
-    submenu: [
-      {
-        path: "/shop/seller",
-        icon: <ArrowRightOnRectangleIcon className={submenuIconClasses} />,
-        name: "Add Goods",
-      },
-      {
-        path: "/shop/goods", //url
-        icon: <HiOutlineShoppingBag className={submenuIconClasses} />, // icon component
-        name: "Goods", // name that appear in Sidebar
-      },
-    ],
-  },
-  {
-    path: "", //no url needed as this has submenu
-    icon: <MdOutlineMail className={`${iconClasses} inline`} />, // icon component
-    name: "E-mail", // name that appear in Sidebar
-    submenu: [
-      {
-        path: "/email",
-        icon: <MdOutlineMarkEmailRead className={submenuIconClasses} />,
-        name: "Email ",
-      },
-    ],
-  },
-  {
-    path: "/study",
-    icon: <HiOutlineBookOpen className={iconClasses} />,
-    name: "Study",
-  },
-  {
-    path: "", //no url needed as this has submenu
-    icon: <MdOutlineComputer className={`${iconClasses} inline`} />, // icon component
-    name: "Incharge", // name that appear in Sidebar
-    submenu: [
-      {
-        path: "/aticle",
-        icon: <MdOutlineArticle className={submenuIconClasses} />,
-        name: "Aticle ",
-      },
-      {
-        path: "/chatting",
-        icon: <MdChatBubbleOutline className={submenuIconClasses} />,
-        name: "Chatting ",
-      },
-    ],
+      path: "", //no url needed as this has submenu
+      icon: <MdOutlineArticle className={`${iconClasses} inline`} />, // icon component
+      name: "Article", // name that appear in Sidebar
+      submenu: [
+          {
+              path: "/allArticle",
+              icon: <MdOutlineArticle className={submenuIconClasses} />,
+              name: "AllArticle ",
+          },
+          {
+              path: "/myArticle",
+              icon: <MdOutlineArticle className={submenuIconClasses} />,
+              name: "MyArticle ",
+          },
+          {
+              path: "/favouriteArticle",
+              icon: <MdOutlineArticle className={submenuIconClasses} />,
+              name: "FavouriteAricle ",
+          },
+          {
+              path: "/draft",
+              icon: <MdOutlineArticle className={submenuIconClasses} />,
+              name: "Draft ",
+          },
+      ],
   },
   {
     path: "", //no url needed as this has submenu

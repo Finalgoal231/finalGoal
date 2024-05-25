@@ -36,10 +36,3 @@
     transform: rotate(360deg);
   }
 }
-
-.head {
-  text-shadow: 5px 5px 3px gray;
-  color: lightgray;
-  font-size: 50px;
-}
-

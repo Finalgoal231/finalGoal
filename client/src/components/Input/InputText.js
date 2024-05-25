@@ -1,24 +1,25 @@
-import { useState } from "react"
+import { useState } from "react";
 
-
-function InputText({labelTitle, labelStyle, type, containerStyle, defaultValue, placeholder, updateFormValue, updateType}){
-
-    const [value, setValue] = useState(defaultValue)
-
+function InputText({ name, labelTitle, labelStyle, type, containerStyle, placeholder, setHandleKeyDown }) {
     const updateInputValue = (val) => {
-        setValue(val)
-        updateFormValue({updateType, value : val})
-    }
+        console.log(val);
+    };
 
-    return(
-        <div className={`form-control w-full ${containerStyle}`}>
-            <label className="label">
+    return (
+        <div className={`form-control w-full flex sm:flex-row flex-col ml-2 ${containerStyle}`}>
+            <label className="label w-1/5">
                 <span className={"label-text text-base-content " + labelStyle}>{labelTitle}</span>
             </label>
-            <input type={type || "text"} value={value} placeholder={placeholder || ""} onChange={(e) => updateInputValue(e.target.value)}className="input  input-bordered w-full " />
+            <input
+                name={name}
+                type={type || "text"}
+                placeholder={placeholder || ""}
+                onChange={(e) => updateInputValue(e.target.value)}
+                onKeyDown={setHandleKeyDown}
+                className="input  input-bordered w-4/5 "
+            />
         </div>
-    )
+    );
 }
 
-
-export default InputText
+export default InputText;

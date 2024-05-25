@@ -9,7 +9,6 @@ import ToogleInput from "../../../components/Input/ToogleInput";
 
 function ProfileSettings() {
   const dispatch = useDispatch();
-
   // Call API to update profile settings changes
   const updateProfile = () => {
     dispatch(showNotification({ message: "Profile Updated", status: 1 }));
