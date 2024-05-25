@@ -1,19 +1,17 @@
-import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { setPageTitle } from '../../features/common/headerSlice'
-import Billing from '../../features/settings/billing'
+// import { useEffect } from 'react'
+// import { useDispatch } from 'react-redux'
+// import { setPageTitle } from '../../features/common/headerSlice'
 
-function InternalPage(){
-    const dispatch = useDispatch()
+// function InternalPage(){
+//     const dispatch = useDispatch()
 
-    useEffect(() => {
-        dispatch(setPageTitle({ title : "Bills"}))
-      }, [dispatch])
+//     useEffect(() => {
+//         dispatch(setPageTitle({ title : ""}))
+//       }, [dispatch])
 
 
-    return(
-        <Billing />
-    )
-}
+//     return(
+//     )
+// }
 
-export default InternalPage
+// export default InternalPage
