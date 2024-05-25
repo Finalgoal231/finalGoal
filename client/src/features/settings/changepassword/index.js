@@ -8,14 +8,14 @@ const ChangePassword = () => {
     <div>
       <TitleCard className="" title="Change password " topMargin="mt-10">
         <div className="flex gap-20 ">
-          <div className="mt-10 rounded-full overflow-hidden h-60 w-60 ml-20 hover:scale-110 transition-shadow cursor-pointer">
+          <div className=" rounded-full overflow-hidden h-60 w-60 ml-20 hover:scale-110 transition-shadow cursor-pointer">
             <img src="./assets/avatar/avatar-17.jpg" />
             <input
               type="file"
               className=" top-36 z-10 absolute opacity-0 overflow-hidden h-60 w-120 ml-120 hover:scale-110 transition-shadow cursor-pointer"
             />
           </div>
-          <div className="w-[70%] grid grid-cols-1 md:grid-cols-1 gap-6">
+          <div className="w-[70%] grid grid-cols-1 md:grid-cols-1 gap-20">
             <InputText
               labelTitle="Current password"
               defaultValue=""

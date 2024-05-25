@@ -33,7 +33,7 @@ function ProfileSettings() {
               />
             </div>
 
-            <div className="w-[70%] grid grid-cols-1 md:grid-cols-1 gap-6">
+            <div className="w-[70%] grid grid-cols-1 md:grid-cols-1 gap-10 mt-10  ">
               <InputText
                 labelTitle="Username"
                 defaultValue="alex@dashwind.com"
