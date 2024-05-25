@@ -31,18 +31,30 @@
 
 ### User
 
-			get			/api/user/all
+- Manage
 
-			put			/api/user/role/:id
+			get			/api/admin/user/all
 
-			delete	/api/user/:id
+			put			/api/admin/user/role/:id
+
+			delete	/api/admin/user/:id
+
+- Profile
+
+			get			/api/admin/user/:id
+
+			put			/api/admin/user/:id
+
+			put			/api/admin/user/password/:id
+
+			put			/api/admin/user/avatar/:id
 
 ### Category
 
-			get			api/category/:id
+			post		/api/admin/category/
 
-			put			api/category/:id
+			put			/api/admin/category/:id
 
-			put			api/category/password/:id
+			delete	/api/admin/category/:id
 
-			put			api/category/avatar/:id
+			get			/api/admin/category/all
