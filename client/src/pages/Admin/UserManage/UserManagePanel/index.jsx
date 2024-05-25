@@ -5,11 +5,18 @@ import { BiSolidEditAlt } from "react-icons/bi";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 import SearchBar from "./TitleCard/components/SearchBar";
 import TitleCard from "./TitleCard";
+import { useNavigate } from "react-router-dom";
 
 const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => {
   const [filterParam, setFilterParam] = useState("");
   const [searchText, setSearchText] = useState("");
-  const bioFilters = ["Blockchain", "Fullstack", "Frontend", "Backend", "Designer"];
+  const bioFilters = [
+    "Blockchain",
+    "Fullstack",
+    "Frontend",
+    "Backend",
+    "Designer",
+  ];
 
   const showFiltersAndApply = (params) => {
     applyFilter(params);
@@ -73,6 +80,7 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => {
 };
 
 function UserManagePanel() {
+  const navigate = useNavigate();
   const [userData, setUserData] = useState(users);
 
   const removeFilter = () => {
@@ -137,9 +145,9 @@ function UserManagePanel() {
                       </div>
                     </td>
                     <td>
-                        <div>
-                          <div className="font-bold">{l.name}</div>
-                        </div>
+                      <div>
+                        <div className="font-bold">{l.name}</div>
+                      </div>
                     </td>
                     <td>{l.username}</td>
                     <td>{l.bio}</td>
@@ -150,8 +158,13 @@ function UserManagePanel() {
                           type="button"
                           className="flex px-4 py-2 bg-slate-500 hover:bg-slate-600 dark:hover:bg-slate-400 text-[15px] text-white rounded-full cursor-pointer transition duration-300 ease-out"
                         >
-                          <BiSolidEditAlt className="text-[21px] mt-[2px] mr-[3px]" />{" "}
-                          <div className="mt-[1px]">edit</div>{" "}
+                          <BiSolidEditAlt className="text-[21px] mt-[2px] mr-[3px]" />
+                          <div
+                            className="mt-[1px]"
+                            onClick={() => navigate("/admin/user/edit")}
+                          >
+                            edit
+                          </div>
                         </button>
                       </div>
                     </td>
