@@ -11,7 +11,6 @@ import checkAuth from "./redux/auth";
 import initializeApp from "./redux/init";
 import { useDispatch } from "react-redux";
 import { setAuth } from "./redux/authSlice";
-import { ChangePassword } from "./features/settings/changepassword/ChangePassword";
 
 // Importing pages
 const Layout = lazy(() => import("./containers/Layout"));
@@ -48,7 +47,6 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           {/* Place new routes over this */}
           <Route path="/*" element={<Layout />} />
-          <Route path="/settings-password" element={<ChangePassword />} />
           <Route
             path="*"
             element={<Navigate to={token ? "/dashboard" : "/signin"} replace />}

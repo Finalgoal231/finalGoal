@@ -1,15 +1,13 @@
 import React from "react";
 import TitleCard from "../../../components/Cards/TitleCard";
 import InputText from "../../../components/Input/InputText";
-import { SmallNav } from "./smallnav/SmallNav";
 
-export const ChangePassword = () => {
+const ChangePassword = () => {
   const updateFormValue = () => {};
   return (
     <div>
-      <TitleCard className="" title="Change password" topMargin="mt-10">
-      <SmallNav />
-        <div className="flex gap-20">
+      <TitleCard className="" title="Change password " topMargin="mt-10">
+        <div className="flex gap-20 ">
           <div className="mt-10 rounded-full overflow-hidden h-60 w-60 ml-20 hover:scale-110 transition-shadow cursor-pointer">
             <img src="./assets/avatar/avatar-17.jpg" />
             <input
@@ -47,3 +45,5 @@ export const ChangePassword = () => {
     </div>
   );
 };
+
+export default ChangePassword;
