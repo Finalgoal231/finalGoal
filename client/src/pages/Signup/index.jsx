@@ -1,13 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useState } from "react";
-
 import { Link, useNavigate } from "react-router-dom";
-
 import { requestServer } from "../../utils/requestServer";
-
 import Logo from "../../components/Logo";
 import ErrorText from "../../components/Typography/ErrorText";
-
+import { Input } from "../Component/Input";
 function Register() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -15,11 +12,10 @@ function Register() {
     name: "",
     username: "",
     password: "",
-    bio: "Frontend Engineer",
+    con_password: "",
   });
-  const [confirmPass, setConfirmPass] = useState("");
-  // console.log(confirmPass);
-  const [errorMessage, setErrorMessage] = useState("");
+  // const [confirmPass, setConfirmPass] = useState("");
+  // const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = useCallback(
     (e) => {
@@ -30,14 +26,11 @@ function Register() {
     },
     [form]
   );
-  const onChangeConfirmPassword = (e) => {
-    setConfirmPass(e.target.value);
-  };
   const handleSubmit = useCallback(
     async (e) => {
       e.preventDefault();
-      if (form.password !== confirmPass) {
-        alert("Incorrect password");
+      if (form.password !== form.con_password) {
+        alert("Password and confirm password must be equal!!!");
       } else {
         setLoading(true);
         const res = await requestServer("post", "/api/auth/signup", form);
@@ -53,7 +46,7 @@ function Register() {
         }
       }
     },
-    [form, confirmPass]
+    [form]
   );
 
   return (
@@ -62,85 +55,56 @@ function Register() {
         <div className="grid md:grid-cols-2 sm:grid-cols-1 bg-base-100 rounded-xl">
           <Logo />
           <div className="py-24 px-10 w-full">
-            <h1 className="text-3xl text-center font-semibold mb-2">Sign Up</h1>
-            {loading === true ? (
+            <h1 className="text-3xl text-center font-semibold mb-10 head">
+              Sign Up
+            </h1>
+            {/* {loading === true ? (
               <>Loading</>
-            ) : (
-              <div className="mb-3">
-                <form
-                  onSubmit={(e) => {
-                    handleSubmit(e);
-                  }}
-                >
-                  <div className="mb-4">
-                    <input
-                      type="text"
-                      placeholder="Your Name is here"
-                      name="name"
-                      value={form.name}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  <div className="mb-4">
-                    <input
-                      type="text"
-                      placeholder="Your Username is here"
-                      name="username"
-                      value={form.username}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  <div className="mb-4">
-                    <select name="bio" value={form.bio} onChange={handleChange}>
-                      <option value="Frontend Engineer">
-                        Frontend Engineer
-                      </option>
-                      <option value="Backend Engineer">Backend Engineer</option>
-                      <option value="Full Stack Engineer">
-                        Full Stack Engineer
-                      </option>
-                      <option value="Designer">Designer</option>
-                    </select>
-                  </div>
-                  <div className="mb-4">
-                    <input
-                      type="password"
-                      placeholder="Password here"
-                      name="password"
-                      value={form.password}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  <div className="mb-4">
-                    <input
-                      type="password"
-                      placeholder="Please confirm password here"
-                      name="confirmPass"
-                      value={confirmPass}
-                      onChange={onChangeConfirmPassword}
-                      required
-                    />
-                  </div>
-
-                  <ErrorText Style="mt-8">{errorMessage}</ErrorText>
-                  <button type="submit" className="btn btn-primary w-full">
-                    Sign Up
-                  </button>
-
-                  <div className="text-center mt-4">
-                    Already Have An Account?{" "}
-                    <Link to="/signin">
-                      <span className="inline-block hover:text-primary underline hover:cursor-pointer transition duration-200">
-                        Signin
-                      </span>
-                    </Link>
-                  </div>
-                </form>
-              </div>
-            )}
+            ) : ( */}
+            <div className="mb-3">
+              <form
+                onSubmit={(e) => {
+                  handleSubmit(e);
+                }}
+              >
+                <Input
+                  type={"text"}
+                  name={"name"}
+                  value={form.name}
+                  onChange={handleChange}
+                />
+                <Input
+                  type={"text"}
+                  name={"username"}
+                  value={form.username}
+                  onChange={handleChange}
+                />
+                <Input
+                  type={"password"}
+                  name={"password"}
+                  value={form.password}
+                  onChange={handleChange}
+                />
+                <Input
+                  type={"password"}
+                  name={"con_password"}
+                  value={form.con_password}
+                  onChange={handleChange}
+                />
+                {/* <ErrorText Style="mt-8">{errorMessage}</ErrorText> */}
+                <button type="submit" className="btn btn-primary w-full">
+                  Sign Up
+                </button>
+                <div className="text-center mt-4">
+                  Already have you signup?
+                  <Link to="/signin">
+                    <span className="inline-block hover:text-primary underline hover:cursor-pointer mx-10">
+                      Signin
+                    </span>
+                  </Link>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>

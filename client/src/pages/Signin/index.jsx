@@ -32,7 +32,7 @@ function Login() {
       NotificationManager.success(`Welcome ${user.name}!`, "success");
       setTimeout(() => {
         navigate("/dashboard");
-      }, 3000);
+      }, 1000);
     }
   }, [isAuthenicated]);
 
@@ -65,7 +65,9 @@ function Login() {
         <div className="grid md:grid-cols-2 sm:grid-cols-1 bg-base-100 rounded-xl">
           <Logo />
           <div className="py-24 px-10 w-full">
-            <h1 className="text-3xl text-center font-semibold mb-2">Signin</h1>
+            <h1 className="text-3xl text-center font-semibold mb-10 head">
+              Sign In
+            </h1>
             <div className="mb-3">
               {isLoading === true ? (
                 <div>Loading</div>
@@ -77,16 +79,17 @@ function Login() {
                 >
                   <div className="mb-4">
                     <input
-                      placeholder="E-mail"
+                      placeholder="Username"
                       name="username"
                       value={form.username}
                       onChange={(e) => {
                         handleChange(e);
                       }}
+                      className="w-full h-[52px] px-[12px] text-gray-700 border border-gray-300 hover:border-gray-500 rounded-[3px] outline-none focus:border-2 focus:border-gray-700"
                       required
                     />
                   </div>
-                  <div>
+                  <div className="mb-4">
                     <input
                       type="password"
                       placeholder="Password"
@@ -95,6 +98,7 @@ function Login() {
                       onChange={(e) => {
                         handleChange(e);
                       }}
+                      className="w-full h-[52px] px-[12px] text-gray-700 border border-gray-300 hover:border-gray-500 rounded-[3px] outline-none focus:border-2 focus:border-gray-700"
                       required
                     />
                   </div>
