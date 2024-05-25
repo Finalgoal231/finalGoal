@@ -30,6 +30,7 @@ function InputDisabled({
         placeholder={placeholder || ""}
         onChange={(e) => updateInputValue(e.target.value)}
         className="input  input-bordered w-full input-disabled"
+        
       />
     </div>
   );
