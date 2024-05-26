@@ -4,7 +4,6 @@ const Category = require("../../models/adminModel/categoryModel");
 
 // make a controller for create a category
 exports.createCategory = (req, res) => {
-  console.log(req.body);
   const newCategory = new Category(req.body);
   newCategory
     .save()
