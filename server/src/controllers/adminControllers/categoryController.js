@@ -6,24 +6,27 @@ const Category = require("../../models/adminModel/categoryModel");
 exports.createCategory = (req, res) => {
   console.log(req.body);
   const newCategory = new Category(req.body);
-  newCategory.save((err) => {
-    if (err !== null) {
-      res.status(500).json({ msg: err.message });
-    } else res.status(201).json({ msg: "create category successfully." });
-  });
+  newCategory
+    .save()
+    .then(() => {
+      res.status(201).json({ msg: "create category successfully." });
+    })
+    .catch(() => {
+      res.status(500).json({ msg: "Can't do action article" });
+    });
 };
 
 // make a controller for update a category
 exports.updateCategory = (req, res) => {
   let id = req.params.id;
   let data = req.body;
-  Category.findByIdAndUpdate(id, data, (err) => {
-    if (err) {
-      res.status(500).json({ msg: err.message });
-    } else {
+  Category.findByIdAndUpdate(id, data)
+    .then(() => {
       res.status(201).json({ msg: "Updated successfully." });
-    }
-  });
+    })
+    .catch(() => {
+      res.status(500).json({ msg: "Can't do action article" });
+    });
 };
 
 // make a controller for deletea category
@@ -34,17 +37,21 @@ exports.deleteCategory = (req, res) => {
       category.delected = new Date();
       category
         .save()
-        .then(res.status(201).json({ msg: "Category deleted successfully" }));
+        .then(() => {
+          res.status(201).json({ msg: "Category deleted successfully" });
+        })
+        .catch(() => {
+          res.status(400).json({ msg: "Invalide category." });
+        });
     })
     .catch((err) => {
-      res.status(400).json({ err: err });
+      res.status(400).json({ msg: "Invalide category." });
     });
 };
 
 // make a controller for get all category
 exports.getAllCategory = (req, res) => {
-  Category
-    .find({ delected: null })
+  Category.find({ delected: null })
     .sort({ createdAt: -1 })
     .then((result) => {
       res.status(201).json({ result: result });

@@ -18,8 +18,8 @@ const app = express();
 
 // application database connection establishment
 const connectDatabase = require("./src/db/connect");
-// const passPort = require("./src/configs/passPort");
 connectDatabase();
+
 // corss-origin-allow-all
 app.use(cors());
 
@@ -36,7 +36,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(passport.initialize());
+
 require("./src/configs/passport")(passport);
+
 // sets default route
 app.get("/", (req, res) => {
   res

@@ -44,11 +44,11 @@ const NewArticle = () => {
                 <label className="label w-[1/5]">
                     <span className={"label-text text-[30px]"}>Tags:</span>
                 </label>
-                <div className={`form-control w-4/5 m-2 flex sm:flex-row flex-col input border-2`}>
+                <div className={`form-control w-4/5 mb-4 flex sm:flex-row flex-col input border-2`}>
                     {tags.length > 0 &&
                         tags.map((value, index) => (
                             <div key={index} className="flex sm:flex-row flex-col items-center m-1 w-max border-2 mr-2">
-                                <div className=" text-[15px] mr-1">{value}</div>
+                                <div className=" text-[15px] mr-1 text-ellipsis overflow-hidden max-w-[50px]">{value}</div>
                                 <button className="border-1 text-[15px]" onClick={() => deleteTags(index)}>
                                     &times;
                                 </button>

@@ -7,15 +7,9 @@ import { useDispatch } from "react-redux";
 function SelectBoxSmall(props) {
     const { options } = props;
     const dispatch = useDispatch();
-    const setHandleChange = (newValue) => {
-        console.log(newValue);
-    };
     return (
         <div className={`inline-block`}>
-            <select
-                className={`input select-bordered ${props.class}`}
-                onChange={(e) => setHandleChange(e.target.value)}
-            >
+            <select className={`input select-bordered ${props.class}`} onChange={props.onChange} name={props.name}>
                 {options.map((o, k) => {
                     return (
                         <option value={o} key={k}>

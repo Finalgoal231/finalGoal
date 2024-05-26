@@ -13,7 +13,7 @@ function ProfileSettings() {
   // const [profileInfo, setProfileInfo] = useState({
   // });
   const dispatch = useDispatch();
-  const [tag, setTag] = useState([]);
+  const [tag, setTag] = useState(["React", "Angular"]);
 
   const addTags = (e) => {
     if (e.key === "Enter") {
@@ -54,7 +54,6 @@ function ProfileSettings() {
               <div className="mt-16 p-14 ">
                 <button
                   className="btn btn-primary float-right"
-                  onClick={() => updateProfile()}
                 >
                   ChangeAvatar
                 </button>
@@ -63,7 +62,7 @@ function ProfileSettings() {
 
             <div className="w-px bg-white h-[50vh]"></div>
 
-            <div className="w-[70%] grid grid-cols-1 md:grid-cols-1 gap-10 mt-10 items-center ">
+            <div className="w-[57%] grid grid-cols-1 md:grid-cols-1 gap-10 mt-10 items-center ">
               <InputText
                 labelTitle="Username"
                 defaultValue="alex@dashwind.com"
@@ -74,10 +73,11 @@ function ProfileSettings() {
                 defaultValue="Alex"
                 updateFormValue={updateFormValue}
               />
-              <div className=" flex gap-48 items-center">
-                <label className="">Bio</label>
+              <div className="w-full flex gap-36 items-center">
+                <label className=" ml-3">Bio</label>
                 <SelectBoxSmall
-                  options={["React", "frontend", "Backend", "Laravel", "XD"]}
+                  class="w-full"
+                  options={["Full Stack", "Frontend", "Backend", "Designer"]}
                 />
               </div>
               {/* <InputText
@@ -85,54 +85,35 @@ function ProfileSettings() {
                 defaultValue=""
                 updateFormValue={updateFormValue}
               /> */}
-              <div className=" flex gap-40 items-center">
-                <label className="">Category</label>
-                <SelectBoxSmall options={["dsfdsfsdfsfs"]} />
-                <div className="mt-0">
-            <button
-              className="btn btn-primary float-right"
-              onClick={() => updateProfile()}
-            >
-              Add
-            </button>
-          </div>
-                <div
-                  className={`form-control w-4/5 m-2 flex sm:flex-row flex-col input border-2`}
-                >
-                  {tag.length > 0 &&
-                    tag.map((value, index) => (
-                      <div
-                        key={index}
-                        className="flex sm:flex-row flex-col items-center m-1 w-max border-2 mr-2"
-                      >
-                        <div className=" text-[15px] mr-1">{value}</div>
-                        <button
-                          className="border-1 text-[15px]"
-                          onClick={() => deleteTags(index)}
-                        >
-                          &times;
-                        </button>
-                      </div>
-                    ))}
+              <div className="w-full flex justify-between gap-[100px] items-center">
+                <label className="ml-3">Category</label>
+                <SelectBoxSmall class="w-full" options={["React", "Vue", "Angular"]} />
+                <div className="">
+                  <button
+                    className="btn btn-primary float-right"
+                  >
+                    Add
+                  </button>
                 </div>
-                {/* <select
-                  className=" h-14 rounded-xl border bg-transparent w-64"
-                  id="bio"
-                  name="bio"
-                >
-                  <option className=" bg-transparent" value="Rect">
-                    React
-                  </option>
-                  <option className=" bg-transparent" value="Laravel">
-                    Laravel
-                  </option>
-                  <option className=" bg-transparent" value="Full stack">
-                    Full stack
-                  </option>
-                  <option className=" bg-transparent" value="Blockchain">
-                    Blockchain
-                  </option>
-                </select> */}
+              </div>
+              <div
+                className={`form-control w-4/5 m-2 flex sm:flex-row flex-col input border-2`}
+              >
+                {tag.length > 0 &&
+                  tag.map((value, index) => (
+                    <div
+                      key={index}
+                      className="flex sm:flex-row flex-col items-center m-1 w-max border-2 mr-2"
+                    >
+                      <div className=" text-[15px] mr-1">{value}</div>
+                      <button
+                        className="border-1 text-[15px]"
+                        onClick={() => deleteTags(index)}
+                      >
+                        &times;
+                      </button>
+                    </div>
+                  ))}
               </div>
             </div>
             {/* <div className="divider" ></div> */}
