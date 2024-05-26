@@ -36,3 +36,21 @@
   height: 100vh;
   background-size: 100% 100%;
 }
+
+.passBtn{
+  width: 5rem;
+  height: 3.125rem;
+  border-radius: 0.7rem;
+  border: 1px solid rgb(238, 236, 127);
+  animation: btnact 1s infinite;
+}
+
+@keyframes btnact {
+  0%{
+
+  }
+  100%{
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
