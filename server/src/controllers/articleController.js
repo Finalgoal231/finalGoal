@@ -50,11 +50,11 @@ exports.getAllArticles = (req, res) => {
   }
   Article.find(query)
     .sort({ createdAt: -1 })
-    .exec((err, result) => {
+    .exec((err, article) => {
       if (err) {
         res.status(500).json({ msg: err.message });
       } else {
-        res.status(201).json({ result: result });
+        res.status(201).json({ article: article });
       }
     });
 };

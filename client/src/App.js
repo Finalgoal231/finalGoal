@@ -6,7 +6,8 @@ import checkAuth from "./redux/auth";
 import initializeApp from "./redux/init";
 import { useDispatch } from "react-redux";
 import { setAuth } from "./redux/authSlice";
-
+import NewArticle from "./pages/Article/NewArticle";
+import AnswerArticle from "./pages/Article/AnswerArticle"
 // Importing pages
 const Layout = lazy(() => import("./containers/Layout"));
 const Singin = lazy(() => import("./pages/Signin"));
@@ -40,9 +41,11 @@ function App() {
                     <Route path="/signin" element={<Singin />} />
                     <Route path="/forgot-password" element={<ForgotPassword />} />
                     <Route path="/signup" element={<Signup />} />
+                    {/* <Route path="/newArticle/:id" element={<NewArticle />} /> */}
+                    {/* <Route path="/answer/article/:id" element={<AnswerArticle />} /> */}
                     {/* Place new routes over this */}
-                    <Route path="/*" element={<Layout />} />
-                    <Route path="*" element={<Navigate to={token ? "/" : "/signin"} replace />} />
+                    <Route path="/" element={<Layout />} />
+                    {/* <Route path="*" element={<Navigate to={token ? "/" : "/signin"} replace />} /> */}
                 </Routes>
             </Router>
         </>
