@@ -4,18 +4,16 @@ import { updateAvatar } from "../redux/authSlice";
 
 function ProfileAvatar() {
   const [avatar, setAvatar] = useState();
-  const user = JSON.parse(localStorage.getItem("user"));
+  const {user} = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
 
   const changeAvatar = (e) => {
-    console.log(e.target.files[0]);
     setAvatar(e.target.files[0]);
-    console.log(user.avatar);
   };
 
   const handleSubmit = () => {
-    dispatch(updateAvatar({id: user._id, avatar: avatar}));
+    dispatch(updateAvatar({ id: user._id, avatar: avatar }));
   };
 
   return (

@@ -51,7 +51,7 @@ exports.getAllArticles = (req, res) => {
           "role avatar category delected complete _id name username follower createdAt",
       },
       {
-        path: "favorite.favoritor",
+        path: "favorite.user",
         select:
           "role avatar category delected complete _id name username follower createdAt",
       },
@@ -77,7 +77,7 @@ exports.getHomeArticles = (req, res) => {
           "role avatar category delected complete _id name username follower createdAt",
       },
       {
-        path: "favorite.favoritor",
+        path: "favorite.user",
         select:
           "role avatar category delected complete _id name username follower createdAt",
       },
@@ -140,7 +140,7 @@ exports.addFavorite = (req, res) => {
   console.log(req.body);
   Article.findById(id)
     .then((article) => {
-      article.favorite.push({ favoritor: req.body.from });
+      article.favorite.push({ user: req.body.from });
       article
         .save()
         .then(res.status(201).json({ msg: "Success" }))

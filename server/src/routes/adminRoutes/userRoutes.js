@@ -18,6 +18,6 @@ router.delete("/:id", middleware, userManageCtrl.delUser);
 router.get("/:id", middleware, userManageCtrl.getUser);
 router.put("/:id", middleware, userManageCtrl.changeInfo);
 router.put("/password/:id", middleware, userManageCtrl.changePassword);
-router.put("/avatar/:id", middleware, userManageCtrl.changeAvatar);
+router.put("/avatar/:id", userManageCtrl.changeAvatar);
 
 module.exports = router;
