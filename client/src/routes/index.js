@@ -40,28 +40,28 @@ const routes = [
     component: Cagegory,
   },
   {
-      path: "/allarticle",
-      component: AllArticle,
+    path: "/allarticle",
+    component: AllArticle,
   },
   {
-      path: "/myArticle",
-      component: MyArticle,
+    path: "/myArticle",
+    component: MyArticle,
   },
   {
-      path: "/favouriteArticle",
-      component: FavouriteArticle,
+    path: "/favouriteArticle",
+    component: FavouriteArticle,
   },
   {
-      path: "/draft",
-      component: Draft,
+    path: "/draft",
+    component: Draft,
   },
   {
-      path: "/newArticle/:id",
-      component: NewArticle,
+    path: "/newArticle/:id",
+    component: NewArticle,
   },
   {
-      path: "/answer/article/:id",
-      component: AnswerArticle,
+    path: "/answer/article/:id",
+    component: AnswerArticle,
   },
   {
     path: "/settings-team",
