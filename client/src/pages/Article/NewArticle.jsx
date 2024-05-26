@@ -16,9 +16,9 @@ const NewArticle = () => {
         category: "",
         content: "",
     });
-    const setHandleArticle=()=>{
-setNewArticle({...newArticle})
-    }
+    const setHandleArticle = (e) => {
+        setNewArticle({ ...newArticle, [e.target.name]: e.target.value });
+    };
     const addTags = (e) => {
         if (e.key === "Enter") {
             setData([...tags, e.target.value]);
@@ -48,6 +48,7 @@ setNewArticle({...newArticle})
                 <SelectBox
                     class={"w-full text-[30px] m-2 w-4/5"}
                     options={["Express", "React", "Node.js", "MongoDB"]}
+                    onChange={setHandleArticle}
                 />
             </div>
             <div className={`form-control w-full flex sm:flex-row flex-col justify-between`}>
@@ -79,6 +80,7 @@ setNewArticle({...newArticle})
                 className={"h-[500px]"}
                 placeholder={"Input Content of Article"}
                 labelStyle={"text-[30px]"}
+                onChange={setHandleArticle}
             />
         </>
     );
