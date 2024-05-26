@@ -17,6 +17,10 @@ export const signin = createAsyncThunk("/api/auth/signin", async (payload) => {
     }
 });
 
+export const changeInfo = createAsyncThunk();
+export const changePassword = createAsyncThunk();
+export const changeAvatar = createAsyncThunk();
+
 export const userSlice = createSlice({
     name: "user",
     initialState: {

@@ -7,8 +7,8 @@ const ChangePassword = () => {
   return (
     <div>
       <TitleCard className="" title="Change password " topMargin="mt-10">
-        <div className="flex gap-20 ">
-          <div className=" rounded-full overflow-hidden h-60 w-60 ml-20 hover:scale-110 transition-shadow cursor-pointer">
+        <div className="flex gap-20 mt-10">
+          <div className=" rounded-full overflow-hidden h-60 w-60 ml-20 hover: cursor-pointer">
             <img src="./assets/avatar/avatar-17.jpg" />
             <input
               type="file"
