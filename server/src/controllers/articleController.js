@@ -43,16 +43,63 @@ exports.deleteArticle = (req, res) => {
 
 // make a controller for get all article
 exports.getAllArticles = (req, res) => {
-  Article.find({ delected: null })
+  Article.find({ delected: null, complete: true })
+    .populate([
+      {
+        path: "from",
+        select:
+          "role avatar category delected complete _id name username follower createdAt",
+      },
+      {
+        path: "favorite.favoritor",
+        select:
+          "role avatar category delected complete _id name username follower createdAt",
+      },
+      {
+        path: "comment.ans.from",
+        select:
+          "role avatar category delected complete _id name username follower createdAt",
+      },
+    ])
     .sort({ createdAt: -1 })
-    .then((article) => {
-      res.status(201).json({ article: article });
+    .then((articles) => {
+      console.log(articles);
+      res.status(201).json({ article: articles });
     })
     .catch(() => {
       res.status(500).json({ msg: "Can't get article" });
     });
 };
 
+// make a controller for get all article
+exports.getHomeArticles = (req, res) => {
+  Article.find({ delected: null, complete: true })
+    .populate([
+      {
+        path: "from",
+        select:
+          "role avatar category delected complete _id name username follower createdAt",
+      },
+      {
+        path: "favorite.favoritor",
+        select:
+          "role avatar category delected complete _id name username follower createdAt",
+      },
+      {
+        path: "comment.ans.from",
+        select:
+          "role avatar category delected complete _id name username follower createdAt",
+      },
+    ])
+    .sort({ createdAt: -1 })
+    .then((articles) => {
+      console.log(articles);
+      res.status(201).json({ article: articles });
+    })
+    .catch(() => {
+      res.status(500).json({ msg: "Can't get article" });
+    });
+};
 // make a controller for get all article
 exports.getAArticle = (req, res) => {
   let id = req.params.id;
@@ -86,14 +133,15 @@ exports.addComment = (req, res) => {
 // make a controller for get all article
 exports.addFavorite = (req, res) => {
   let id = req.params.id;
+  console.log(req.body);
   Article.findById(id)
     .then((article) => {
-      article.favorite.push(req.body.from);
+      article.favorite.push({ favoritor: req.body.from });
       article
         .save()
-        .then(res.status(201).json({ msg: "article" }))
+        .then(res.status(201).json({ msg: "Success" }))
         .catch((err) => {
-          res.status(500).json({ msg: "Can't do action article" });
+          res.status(500).json({ msg: "Can't do action" });
         });
     })
     .catch(() => {

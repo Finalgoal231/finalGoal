@@ -1,12 +1,15 @@
-const mongoose = require("mongoose");
-
-const userModel = require("../../models/userModel");
-const bcrypt = require("bcryptjs");
+const User = require("../../models/userModel");
 
 // make a controller for get all users
 exports.allUser = (req, res) => {
-  userModel
-    .find({ delected: null })
+  User.find({ delected: null })
+    .populate([
+      {
+        path: "followers.follower",
+        select:
+          "role avatar category delected complete _id name username follower createdAt",
+      },
+    ])
     .sort({ createdAt: -1 })
     .then((users) => {
       res.status(201).json({ users: users });
@@ -20,17 +23,19 @@ exports.allUser = (req, res) => {
 exports.permissionUser = (req, res) => {
   const id = req.params.id;
   const { role } = req.body;
-  userModel
-    .findById(id)
+  User.findById(id)
     .then((user) => {
       user.role = role;
-      user.save((err) => {
-        if (err) {
+      user
+        .save()
+        .then(() => {
+          res
+            .status(200)
+            .json({ msg: "User role changed successfully.", role: role });
+        })
+        .catch(() => {
           res.status(500).json({ msg: "Server error" });
-        } else {
-          res.status(200).json({ msg: "User role changed successfully." });
-        }
-      });
+        });
     })
     .catch(res.status(404).json({ msg: "Can not find user" }));
 };
@@ -38,13 +43,14 @@ exports.permissionUser = (req, res) => {
 // make a controller for delete users
 exports.delUser = (req, res) => {
   const id = req.params.id;
-  userModel
-    .findById(id)
+  User.findById(id)
     .then((user) => {
       user.delected = new Date();
       user
         .save()
-        .then(res.status(201).json({ msg: "User deleted successfully" }));
+        .then(
+          res.status(201).json({ msg: "User deleted successfully", user: user })
+        );
     })
     .catch((err) => {
       res.status(400).json({ err: err });
@@ -54,8 +60,7 @@ exports.delUser = (req, res) => {
 // make a controller for get a user
 exports.getUser = (req, res) => {
   const id = req.params.id;
-  userModel
-    .findById(id)
+  User.findById(id)
     .then((user) => {
       res.status(201).json({ user: user });
     })
@@ -67,12 +72,11 @@ exports.getUser = (req, res) => {
 // make a controller for change profile information
 exports.changeInfo = (req, res) => {
   const id = req.params.id;
-  userModel
-    .findByIdAndUpdate(id, req.body)
-    .then(() => {
+  User.findByIdAndUpdate(id, req.body)
+    .then((user) => {
       res
         .status(200)
-        .json({ msg: "Profile information changed successfully." });
+        .json({ msg: "Profile information changed successfully.", user: user });
     })
     .catch(() => {
       res.status(404).json({ msg: "Can not find user" });
@@ -83,17 +87,17 @@ exports.changeInfo = (req, res) => {
 exports.changePassword = (req, res) => {
   const id = req.params.id;
   const { currentPassword, newPassword } = req.body;
-  userModel
-    .findById(id)
+  User.findById(id)
     .then((user) => {
       if (user.show_pwd(currentPassword, user.password)) {
         user.password = newPassword;
         user
           .save()
           .then(() => {
-            res
-              .status(200)
-              .json({ msg: "Profile information changed successfully." });
+            res.status(200).json({
+              msg: "Profile information changed successfully.",
+              user: user,
+            });
           })
           .catch(() => {
             res.status(500).json({ msg: "Server error" });
@@ -111,27 +115,45 @@ exports.changePassword = (req, res) => {
 exports.changeAvatar = (req, res) => {
   const id = req.params.id;
   const { avatar } = req.files;
-  uploadPath = "C:\\Program Files\\gogs\\data\\avatars\\" + id;
+  uploadPath = `C:\\Program Files\\gogs\\data\\avatars\\${id}.${avatar.name}`;
 
   avatar.mv(uploadPath, function (err) {
     if (err) return res.status(500).send(err);
 
-    userModel
-      .findById(id)
+    User.findById(id)
       .then((user) => {
-        user.avatar = `http://192.168.6.2:3000/avatars/${id}`;
-        user.save((err) => {
-          if (err) {
-            res.status(500).json({ msg: "Server error" });
-          } else {
+        user.avatar = `http://192.168.6.2:3000/avatars/${id}.${avatar.name}`;
+        user
+          .save()
+          .then(() => {
             res
               .status(200)
               .json({ msg: "Profile avatar changed successfully." });
-          }
-        });
+          })
+          .catch(() => {
+            res.status(500).json({ msg: "Server error" });
+          });
       })
       .catch(() => {
         res.status(404).json({ msg: "Can not find user" });
       });
   });
+};
+
+exports.addFollower = (req, res) => {
+  let id = req.params.id;
+  console.log(req.body);
+  User.findById(id)
+    .then((user) => {
+      user.followers.push({ follower: req.body.from });
+      user
+        .save()
+        .then(res.status(201).json({ msg: "Success" }))
+        .catch((err) => {
+          res.status(500).json({ msg: "Can't do action" });
+        });
+    })
+    .catch(() => {
+      res.status(500).json({ msg: "Can't do action user" });
+    });
 };

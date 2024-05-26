@@ -16,9 +16,11 @@ const articleSchema = new mongoose.Schema({
   },
   favorite: [
     {
-      type: mongoose.Schema.ObjectId,
-      ref: "User",
-      required: true,
+      favoritor: {
+        type: mongoose.Schema.ObjectId,
+        ref: "User",
+        required: true,
+      },
     },
   ],
   category: { type: String },
@@ -37,37 +39,39 @@ const articleSchema = new mongoose.Schema({
   },
   comment: [
     {
-      from: {
-        type: mongoose.Schema.ObjectId,
-        ref: "User",
-        required: true,
-      },
-      title: {
-        type: String,
-        require: true,
-      },
-      content: {
-        type: String,
-        required: true,
-      },
-      favorite: [
-        {
+      ans: {
+        from: {
           type: mongoose.Schema.ObjectId,
           ref: "User",
           required: true,
         },
-      ],
-      delected: {
-        type: Date,
-        default: null,
-      },
-      complete: {
-        type: Boolean,
-        default: false,
-      },
-      createdAt: {
-        type: Date,
-        default: Date.now,
+        title: {
+          type: String,
+          require: true,
+        },
+        content: {
+          type: String,
+          required: true,
+        },
+        favorite: [
+          {
+            type: mongoose.Schema.ObjectId,
+            ref: "User",
+            required: true,
+          },
+        ],
+        delected: {
+          type: Date,
+          default: null,
+        },
+        complete: {
+          type: Boolean,
+          default: false,
+        },
+        createdAt: {
+          type: Date,
+          default: Date.now,
+        },
       },
     },
   ],

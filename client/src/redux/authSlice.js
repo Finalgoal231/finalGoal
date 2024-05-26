@@ -18,9 +18,9 @@ export const signin = createAsyncThunk("/api/auth/signin", async (payload) => {
 });
 
 export const updateAvatar = createAsyncThunk("updateAvatar", async (payload) => {
+    // console.log(payload);
     const formData = new FormData();
     formData.append("avatar", payload.avatar);
-    // formData.avatar = payload.avatar;
     console.log(formData)
     try {
         const res = await requestServer("put", "/api/admin/user/avatar/" + payload.id, formData);

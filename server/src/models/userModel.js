@@ -25,10 +25,12 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: "public/default.jpg",
   },
-  follower: [
+  followers: [
     {
-      username: {
-        type: String,
+      follower: {
+        type: mongoose.Schema.ObjectId,
+        ref: "User",
+        required: true,
       },
     },
   ],
