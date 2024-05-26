@@ -1,12 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import TitleCard from "../../../components/Cards/TitleCard";
 import InputText from "../../../components/Input/InputText";
+import { useDispatch } from "react-redux";
+import { createPassword } from "../../../redux/authSlice";
+import "../../../index.css";
 
 const ChangePassword = () => {
-  const updateFormValue = () => {};
+  const dispatch = useDispatch();
+  const [newData, setNewData] = useState({
+    currentPassword: "",
+    newpassword: "",
+    confirmpassword: "",
+  });
+  const setHandlePassword = (e) => {
+    console.log(newData);
+    setNewData({ ...newData, [e.target.name]: e.target.value });
+  };
+
+  const setHandleSend = () => {
+    dispatch(createPassword({ ...newData, complete: true }));
+  };
   return (
     <div>
-      <TitleCard className="" title="Change password " topMargin="mt-10">
+      <TitleCard title="Change password " topMargin="mt-10">
         <div className="flex gap-20 mt-10">
           <div className=" rounded-full overflow-hidden h-60 w-60 ml-20 hover: cursor-pointer">
             <img src="./assets/avatar/avatar-17.jpg" />
@@ -17,29 +33,47 @@ const ChangePassword = () => {
           </div>
           <div className="w-[70%] grid grid-cols-1 md:grid-cols-1 gap-20">
             <InputText
-              labelTitle="Current password"
-              defaultValue=""
-              updateFormValue={updateFormValue}
+              name={"currentPassword"}
+              labelTitle={"Current password:"}
+              placeholder={"Input Title of Current Password"}
+              labelStyle={"text-[30px]"}
+              onChange={setHandlePassword}
             />
             <InputText
-              labelTitle="New password"
-              defaultValue=""
-              updateFormValue={updateFormValue}
+              name={"newpassword"}
+              labelTitle={"New password:"}
+              placeholder={"Input Title of  New Password"}
+              labelStyle={"text-[30px]"}
+              onChange={setHandlePassword}
             />
             <InputText
-              labelTitle="Confirm password"
-              defaultValue=""
-              updateFormValue={updateFormValue}
+              name={"confirmpassword"}
+              labelTitle={"Confirm password:"}
+              placeholder={"Input Title of  Confirm Password"}
+              labelStyle={"text-[30px]"}
+              onChange={setHandlePassword}
             />
           </div>
         </div>
-        <div className="mt-16">
-          <button className="btn btn-primary float-right mr-16 ml-16">
-            Cancel
-          </button>
-        </div>
-        <div className="mt-16">
-          <button className="btn btn-primary float-right">Save</button>
+        <div className="flex justify-end">
+          <div className="mt-16 mx-16">
+            <div className="flex items-center flex-col relative">
+            <button
+              className="btn btn-primary w-20 h-8"
+              onClick={setHandleSend}
+            >
+              Save
+            </button>
+            <div className="absolute passBtn"></div>
+
+            </div>
+          </div>
+          <div className="mt-16 mx-16">
+            <div className="flex items-center flex-col relative">
+              <button className="btn btn-primary w-20 h-8">Cancel</button>
+              <div className="absolute passBtn"></div>
+            </div>
+          </div>
         </div>
       </TitleCard>
     </div>
