@@ -9,10 +9,7 @@ function SelectBoxSmall(props) {
     const dispatch = useDispatch();
     return (
         <div className={`inline-block`}>
-            <select
-                className={`input select-bordered ${props.class}`}
-                onChange={props.onChange}
-            >
+            <select className={`input select-bordered ${props.class}`} onChange={props.onChange} name={props.name}>
                 {options.map((o, k) => {
                     return (
                         <option value={o} key={k}>

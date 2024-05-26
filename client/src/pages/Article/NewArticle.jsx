@@ -5,20 +5,25 @@ import { setPageTitle } from "../../features/common/headerSlice";
 import SelectBox from "../../components/Input/SelectBoxSmall";
 import Input from "../../components/Input/Input";
 import TextAreaInput from "../../components/Input/TextAreaInput";
+import { Button } from "../../components/Button";
+import { createArticle } from "../../redux/articleSlice";
 
 const NewArticle = () => {
     const dispatch = useDispatch();
     const [tags, setData] = useState([]);
     const [newArticle, setNewArticle] = useState({
-        from: "",
+        from: JSON.parse(localStorage.getItem("user"))._id,
         title: "",
         tags: [],
-        category: "",
+        category: "express",
         content: "",
+        complete: false,
     });
-    console.log(newArticle);
     const setHandleArticle = (e) => {
         setNewArticle({ ...newArticle, [e.target.name]: e.target.value });
+    };
+    const setHandleSend = () => {
+        dispatch(createArticle({ ...newArticle, complete: true }));
     };
     const addTags = (e) => {
         if (e.key === "Enter") {
@@ -36,7 +41,7 @@ const NewArticle = () => {
         dispatch(setPageTitle({ title: "New Article" }));
     }, []);
     return (
-        <>
+        <div className="">
             <InputText
                 name={"title"}
                 labelTitle={"Title:"}
@@ -50,8 +55,9 @@ const NewArticle = () => {
                 </label>
                 <SelectBox
                     class={"w-full text-[30px] m-2 w-4/5"}
-                    options={["Express", "React", "Node.js", "MongoDB"]}
+                    options={["express", "react", "node.js", "mongoDB"]}
                     onChange={setHandleArticle}
+                    name={"category"}
                 />
             </div>
             <div className={`form-control w-full flex sm:flex-row flex-col justify-between`}>
@@ -80,12 +86,16 @@ const NewArticle = () => {
             </div>
             <TextAreaInput
                 name={"content"}
-                className={"h-[500px]"}
+                className={"h-[500px] mb-4"}
                 placeholder={"Input Content of Article"}
                 labelStyle={"text-[30px]"}
                 onChange={setHandleArticle}
             />
-        </>
+            <div className="flex justify-around">
+                <Button subject={"Draft"} />
+                <Button subject={"Send"} onClick={setHandleSend} />
+            </div>
+        </div>
     );
 };
 export default NewArticle;

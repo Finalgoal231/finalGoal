@@ -3,17 +3,15 @@ import { useEffect } from "react";
 import Toolbar from "./components/Toolbar";
 import ArticleCard from "./components/ArticleCard";
 import { useNavigate } from "react-router-dom";
+import { setIsLoading } from "../../redux/articleSlice";
 import { getAllArticles } from "../../redux/articleSlice";
 
 function Dashboard() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    useEffect(() => {
-        dispatch(getAllArticles);
-    }, [dispatch]);
 
-    // const [article, setArticle] = useState(null);
-    const { article } = useSelector((state) => state.article);
+    const value = useSelector((state) => state.article);
+    console.log(value.isLoading);
     const setHandleAddArticle = () => {
         navigate(`/newArticle/${0}`);
     };
@@ -23,10 +21,15 @@ function Dashboard() {
     const onFavouriteClick = () => {
         console.log("Favourite");
     };
+    useEffect(() => {
+        dispatch(getAllArticles());
+        // dispatch(setIsLoading(false));
+    }, [dispatch, value.isLoading]);
+
     return (
         <>
             <Toolbar onAddClick={setHandleAddArticle} />
-            {article.map((v, i) => {
+            {value.article.map((v, i) => {
                 return (
                     <div key={i}>
                         <ArticleCard
