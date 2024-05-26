@@ -12,7 +12,7 @@ function InputText({
   onChange,
 }) {
   return (
-    <div className={`form-control w-full flex sm:flex-row flex-col ml-2 ${containerStyle}`}>
+    <div className={`form-control w-full flex sm:flex-row flex-col my-2 ${containerStyle}`}>
       <label className="label w-1/5">
         <span className={"label-text text-base-content " + labelStyle}>{labelTitle}</span>
       </label>

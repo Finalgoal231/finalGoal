@@ -60,7 +60,7 @@ const routes = [
     component: NewArticle,
   },
   {
-    path: "/answer/article/:id",
+    path: "/answerArticle/:id",
     component: AnswerArticle,
   },
   {

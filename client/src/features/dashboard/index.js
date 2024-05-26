@@ -1,11 +1,11 @@
-import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, Link } from "react-router-dom";
 import Toolbar from "./components/Toolbar";
 import ArticleCard from "./components/ArticleCard";
-import { useNavigate } from "react-router-dom";
-import { setIsLoading } from "../../redux/articleSlice";
 import { getAllArticles, getAArticles, deleteArticle } from "../../redux/articleSlice";
 import { showNotification } from "../common/headerSlice";
+// import { setIsLoading } from "../../redux/articleSlice";
 
 function Dashboard() {
   const dispatch = useDispatch();
@@ -61,6 +61,14 @@ function Dashboard() {
           </div>
         );
       })}
+      <div className="text-center mt-4">
+        Already Have An Account?{" "}
+        <Link to="/signin">
+          <span className="text-[20px] inline-block hover:text-primary underline hover:cursor-pointer transition duration-200">
+            Signin
+          </span>
+        </Link>
+      </div>
     </>
   );
 }

@@ -13,16 +13,16 @@ const NewArticle = () => {
   const dispatch = useDispatch();
   const value = useSelector((state) => state.article);
   const selected_id = useParams();
-  // console.log(selected_id.id);
-  const [tags, setData] = useState([...value.selected.tags]);
+  console.log(selected_id);
   const [newArticle, setNewArticle] = useState({
     from: JSON.parse(localStorage.getItem("user"))._id,
     title: "",
-    tags: "",
+    tags: [],
     category: "express",
     content: "",
     complete: false,
   });
+
   useEffect(() => {
     if (selected_id.id != 0) {
       setNewArticle({
@@ -42,20 +42,23 @@ const NewArticle = () => {
     dispatch(createArticle({ ...newArticle, complete: true }));
     if (value.message.length > 0) dispatch(showNotification({ message: value.message, status: 1 }));
   };
+  const setHandleDraft = () => {
+    dispatch(createArticle(newArticle));
+    if (value.message.length > 0) dispatch(showNotification({ message: value.message, status: 1 }));
+  };
   const setHandleUpdate = () => {
     dispatch(updateArticle({ id: selected_id.id, data: { ...newArticle, complete: true } }));
     if (value.message.length > 0) dispatch(showNotification({ message: value.message, status: 1 }));
   };
   const addTags = (e) => {
     if (e.key === "Enter") {
-      setNewArticle({ ...newArticle, tags: setData([...tags, e.target.value]) });
+      setNewArticle({ ...newArticle, tags: [...newArticle.tags, e.target.value] });
       e.target.value = "";
     }
   };
   const deleteTags = (index) => {
-    tags.splice(index, 1);
-    setNewArticle({ ...newArticle, tags });
-    setData([...tags]);
+    newArticle.tags.splice(index, 1);
+    setNewArticle({ ...newArticle, tags: newArticle.tags });
   };
   useEffect(() => {
     if (selected_id.id != 0) {
@@ -73,12 +76,13 @@ const NewArticle = () => {
         value={newArticle.title}
         onChange={setHandleArticle}
       />
-      <div className={`form-control w-full flex sm:flex-row flex-col `}>
+      <div className={`form-control w-full flex sm:flex-row flex-col justify-between`}>
         <label className="label w-1/5">
           <span className={"label-text text-[30px]"}>Category:</span>
         </label>
         <SelectBox
-          class={"text-[30px] m-2 w-4/5"}
+          container={"w-4/5"}
+          class={"text-[30px] my-2 w-full"}
           options={["express", "react", "node.js", "mongoDB"]}
           onChange={setHandleArticle}
           value={newArticle.category}
@@ -117,7 +121,7 @@ const NewArticle = () => {
       />
       {selected_id.id == 0 ? (
         <div className="flex justify-around">
-          <Button subject={"Draft"} />
+          <Button subject={"Draft"} onClick={setHandleDraft} />
           <Button subject={"Send"} onClick={setHandleSend} />
         </div>
       ) : (

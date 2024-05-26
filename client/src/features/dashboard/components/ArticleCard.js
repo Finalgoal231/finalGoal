@@ -11,11 +11,14 @@ const ArticleCard = (prop) => {
     <>
       <div className={"card flex flex-col items-center w-full px-3 bg-base-100 shadow-xl mt-4"}>
         <div className="flex flex-col md:flex-row items-center w-[100%] bg-base-100 shadow-sm">
-          <img
-            alt="avatar"
-            src={prop.avatar ? prop.avatar : "default.png"}
-            className="w-1/12 rounded-full inline-block mr-4"
-          />
+          <div className="flex flex-col items-center mr-4">
+            <img
+              alt="avatar"
+              src={prop.avatar ? prop.avatar : "default.png"}
+              className="w-16 rounded-full inline-block "
+            />
+            <div className="text-[20px]">{prop.favouriteNum}</div>
+          </div>
           <div className="card flex w-11/12 p-3 bg-base-100 shadow-xl">
             <div className="flex justify-between">
               <div className="flex flex-row items-center">
@@ -40,7 +43,7 @@ const ArticleCard = (prop) => {
           {prop.type !== "draft" ? (
             <>
               <Button subject={"Favourite"} class="text-[15px] m-2" onClick={prop.onFavouriteClick} />
-              <Button subject={"Comment"} class="text-[15px] m-2" onClick={prop.onAnswerClick} />
+              <Button subject={"Comment"} class="text-[15px] m-2" onClick={prop.omCommentClick} />
             </>
           ) : (
             <Button subject={"Send"} class="text-[15px] m-2" onClick={prop.onSendClick} />

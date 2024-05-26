@@ -1,48 +1,75 @@
-/* eslint-disable no-unused-vars */
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { setPageTitle } from "../../features/common/headerSlice";
+import { useNavigate, Link } from "react-router-dom";
 import Toolbar from "../../features/dashboard/components/Toolbar";
 import ArticleCard from "../../features/dashboard/components/ArticleCard";
-function AllArticle() {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
- 
-    useEffect(() => {
-        dispatch(setPageTitle({ title: "All Article" }));
-    }, []);
-    const { article } = useSelector((state) => state.article);
-    const setHandleAddArticle = () => {
-        navigate(`/newArticle/${0}`);
-    };
-    const setHandleAddAnswerArticle = (index) => {
-        navigate(`/answer/article/${index}`);
-    };
-    const onFavouriteClick = () => {
-        console.log("Favourite");
-    };
-    return (
-        <>
-            <Toolbar onAddClick={setHandleAddArticle} />
-            {article.map((v, i) => {
-                return (
-                    <div key={i}>
-                        <ArticleCard
-                            title={v.title}
-                            avatar={v.avatar}
-                            content={v.content}
-                            date={v.createdAt}
-                            from={v.from}
-                            onAnswerClick={() => {
-                                setHandleAddAnswerArticle(v._id);
-                            }}
-                            onFavouriteClick={onFavouriteClick}
-                        />
-                    </div>
-                );
-            })}
-        </>
-    );
+import { getAllArticles, getAArticles, deleteArticle, addFavourite } from "../../redux/articleSlice";
+import { showNotification, setPageTitle } from "../../features/common/headerSlice";
+// import { setIsLoading } from "../../redux/articleSlice";
+
+function Dashboard() {
+  useEffect(() => {
+    dispatch(setPageTitle({ title: "All Article" }));
+  }, []);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const value = useSelector((state) => state.article);
+  const setHandleAddArticle = () => {
+    navigate(`/newArticle/${0}`);
+  };
+  const onFavouriteArticle = (index) => {
+    dispatch(addFavourite(index));
+  };
+  const setHandleCommentArticle = (index) => {
+    dispatch(getAArticles(index));
+    navigate(`/answerArticle/${index}`);
+  };
+  const setHandleDelete = (index) => {
+    if (window.confirm("Are you delete this Article?")) {
+      dispatch(deleteArticle(index));
+    }
+  };
+  const setHandleEdit = (index) => {
+    dispatch(getAArticles(index));
+    navigate(`/newArticle/${index}`);
+  };
+  useEffect(() => {
+    dispatch(getAllArticles());
+    if (value.isLoading) dispatch(showNotification({ message: value.message, status: 1 }));
+  }, [dispatch, value.isLoading, value.message]);
+
+  return (
+    <>
+      <Toolbar onAddClick={setHandleAddArticle} />
+      {value.article.map((v, i) => {
+        return (
+          <div key={i}>
+            <ArticleCard
+              title={v.title}
+              avatar={v.avatar}
+              favouriteNum={v.favorite.length}
+              content={v.content}
+              date={v.createdAt}
+              from={v.from}
+              onFavouriteClick={() => {
+                onFavouriteArticle(v._id);
+              }}
+              onDeleteArticle={() => {
+                setHandleDelete(v._id);
+              }}
+              onEditArticle={() => {
+                setHandleEdit(v._id);
+              }}
+              omCommentClick={() => {
+                setHandleCommentArticle(v._id);
+              }}
+            />
+          </div>
+        );
+      })}
+    </>
+  );
 }
-export default AllArticle;
+
+export default Dashboard;

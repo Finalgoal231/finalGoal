@@ -8,7 +8,7 @@ function SelectBoxSmall(props) {
   const { options } = props;
   const dispatch = useDispatch();
   return (
-    <div className={`inline-block`}>
+    <div className={`${props.container} inline-block`}>
       <select
         className={`input select-bordered ${props.class}`}
         value={props.value}

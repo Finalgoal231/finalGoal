@@ -13,15 +13,23 @@ export const getAArticles = createAsyncThunk("getAArticle", async (data) => {
 });
 export const createArticle = createAsyncThunk("createArticle", async (data) => {
   const res = await requestServer("post", "/api/article/create", data);
-  return res.data;
+  if (data.complete === true) return res.data;
+  else return { msg: "Save to Draft!!!" };
 });
 export const updateArticle = createAsyncThunk("updateArticle", async (payload) => {
-  console.log(payload);
   const res = await requestServer("put", `/api/article/${payload.id}`, payload.data);
   return res.data;
 });
 export const deleteArticle = createAsyncThunk("deleteArticle", async (data) => {
   const res = await requestServer("delete", `/api/article/${data}`);
+  return res.data;
+});
+export const addComment = createAsyncThunk("addComment", async (payload) => {
+  const res = await requestServer("put", `/api/article/comment/${payload.id}`, payload.data);
+  return res.data;
+});
+export const addFavourite = createAsyncThunk("addFavoyrute", async (payload) => {
+  const res = await requestServer("put", `/api/article/favorite/${payload}`);
   return res.data;
 });
 
@@ -30,7 +38,7 @@ export const articleSlice = createSlice({
   initialState: {
     isLoading: false,
     article: [],
-    selected: { from: "", title: "", category: "express", content: "", tags: [] },
+    selected: { avatar: "default.png", from: "", title: "", category: "express", content: "", tags: [], favorite: [] },
     error: "",
     isAuthenicated: false,
     message: "",
@@ -43,7 +51,6 @@ export const articleSlice = createSlice({
   extraReducers: {
     [getAllArticles.fulfilled]: (state, { payload }) => {
       state.article = payload.article;
-      // state.message = "";
       state.isLoading = false;
     },
     [getAllArticles.pending]: (state) => {
@@ -54,6 +61,7 @@ export const articleSlice = createSlice({
       state.isLoading = true;
     },
     [createArticle.fulfilled]: (state, { payload }) => {
+      console.log(payload);
       state.message = payload.msg;
       state.isLoading = true;
     },
@@ -65,8 +73,16 @@ export const articleSlice = createSlice({
       state.message = payload.msg;
       state.isLoading = true;
     },
+    [addComment.fulfilled]: (state, { payload }) => {
+      console.log(payload);
+      state.message = "Success Comment!";
+      state.isLoading = true;
+    },
+    [addFavourite.fulfilled]: (state, { payload }) => {
+      state.isLoading = true;
+    },
   },
 });
 
-export const { setIsLoading, setAuth, signout } = articleSlice.actions;
+export const { setIsLoading } = articleSlice.actions;
 export default articleSlice.reducer;
