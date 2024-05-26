@@ -7,7 +7,7 @@ import { getAllArticles, getAArticles, deleteArticle, addFavourite } from "../..
 import { showNotification, setPageTitle } from "../../features/common/headerSlice";
 // import { setIsLoading } from "../../redux/articleSlice";
 
-function Dashboard() {
+function AllArticle() {
   useEffect(() => {
     dispatch(setPageTitle({ title: "All Article" }));
   }, []);
@@ -61,7 +61,7 @@ function Dashboard() {
               onEditArticle={() => {
                 setHandleEdit(v._id);
               }}
-              omCommentClick={() => {
+              onCommentClick={() => {
                 setHandleCommentArticle(v._id);
               }}
             />
@@ -72,4 +72,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default AllArticle;
