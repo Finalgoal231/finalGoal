@@ -6,7 +6,6 @@ import UserManagePanel from "./UserManagePanel";
 
 function UserManage() {
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(setPageTitle({ title: "User Manage" }));
   }, [dispatch]);
