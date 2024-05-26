@@ -1,22 +1,14 @@
-import { useState } from "react";
-
 function InputDisabled({
+  name,
   labelTitle,
   labelStyle,
   type,
+  value,
   containerStyle,
-  defaultValue,
   placeholder,
-  updateFormValue,
-  updateType,
+  setHandleKeyDown,
+  onChange,
 }) {
-  const [value, setValue] = useState(defaultValue);
-
-  const updateInputValue = (val) => {
-    setValue(val);
-    updateFormValue({ updateType, value: val });
-  };
-
   return (
     <div className={`form-control w-full ${containerStyle}`}>
       <label className="label">
@@ -25,12 +17,14 @@ function InputDisabled({
         </span>
       </label>
       <input
-        type={type || "text"}
         value={value}
+        name={name}
+        type={type || "text"}
         placeholder={placeholder || ""}
-        onChange={(e) => updateInputValue(e.target.value)}
+        onChange={onChange}
+        onKeyDown={setHandleKeyDown}
         className="input  input-bordered w-full input-disabled"
-        
+        readOnly
       />
     </div>
   );

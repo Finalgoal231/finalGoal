@@ -33,10 +33,6 @@ function UserManagePanel() {
     setUserData(filteredUserData);
   };
 
-  const editUser = (i) => {
-    
-  }
-
   return (
     <>
       <TitleCard

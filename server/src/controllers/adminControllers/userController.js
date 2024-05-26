@@ -28,7 +28,9 @@ exports.permissionUser = (req, res) => {
         if (err) {
           res.status(500).json({ msg: "Server error" });
         } else {
-          res.status(200).json({ msg: "User role changed successfully." });
+          res
+            .status(200)
+            .json({ msg: "User role changed successfully." });
         }
       });
     })

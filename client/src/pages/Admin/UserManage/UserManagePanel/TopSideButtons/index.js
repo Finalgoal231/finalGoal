@@ -30,7 +30,7 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch, users }) => {
   }, [searchText, users]);
 
   return (
-    <div className="inline-block float-right">
+    <div className="flex justify-end items-center">
       <StanSearchBar
         searchText={searchText}
         styleClass="mr-4"
