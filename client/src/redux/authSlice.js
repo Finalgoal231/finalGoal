@@ -32,6 +32,17 @@ export const createPassword = createAsyncThunk("createPassword", async (data) =>
         return { error: true, message: e.message };
     }
 });
+export const createProfile = createAsyncThunk("createProfile", async (data) => {
+    try {
+        const res = await requestServer("post", "/api/profile/create", data);
+        return res.data;
+    } catch (e) {
+        if (e.response) {
+            return { ...e.response.data, error: true };
+        }
+        return { error: true, message: e.message };
+    }
+});
 
 export const userSlice = createSlice({
     name: "user",
@@ -89,6 +100,14 @@ export const userSlice = createSlice({
             state.isLoading = false;
         },
         [createPassword.fulfilled]: (state, { payload }) => {
+            alert(payload.msg);
+            state.isLoading = true;
+        },
+        [createProfile.fulfilled]: (state, { payload }) => {
+            alert(payload.msg);
+            state.isLoading = false;
+        },
+        [createProfile.fulfilled]: (state, { payload }) => {
             alert(payload.msg);
             state.isLoading = true;
         },

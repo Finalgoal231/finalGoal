@@ -8,33 +8,38 @@ import TextAreaInput from "../../../components/Input/TextAreaInput";
 import ToogleInput from "../../../components/Input/ToogleInput";
 import Input from "../../../components/Input/Input";
 import SelectBoxSmall from "../../../components/Input/SelectBoxSmall";
+import { createProfile } from "../../../redux/authSlice";
 
 function ProfileSettings() {
   // const [profileInfo, setProfileInfo] = useState({
   // });
   const dispatch = useDispatch();
-  const [tag, setTag] = useState(["React", "Angular"]);
+  const [profile, setProfile] = useState({
+    username: "",
+    name: "",
+    bio: "Full Stack",
+    tag: ["React", "Angular"],
+  });
 
   const addTags = (e) => {
     if (e.key === "Enter") {
-      setTag([...tag, e.target.value]);
+      setProfile({...profile, tag: [...profile.tag, e.target.value]});
       e.target.value = "";
     }
   };
 
   const deleteTags = (index) => {
-    tag.splice(index, 1);
-    setTag([...tag]);
+    profile.tag.splice(index, 1);
+    setProfile({...profile, tag: [...profile.tag]});
   };
 
   const updateProfile = () => {
-    dispatch(showNotification({ message: "Profile Updated", status: 1 }));
+    dispatch(createProfile({ ...profile, complete: true  }));
   };
 
-  const changeAvatar = (e) => {};
-
-  const updateFormValue = ({ updateType, value }) => {
-    console.log(updateType);
+  const setHandleProfile = (e) => {
+    console.log(profile);
+    setProfile({ ...profile, [e.target.name]: e.target.value });
   };
 
   return (
@@ -48,13 +53,10 @@ function ProfileSettings() {
                 <input
                   type="file"
                   className=" top-36 z-10 absolute opacity-0 overflow-hidden h-60 w-120 ml-120 hover:scale-110 transition-shadow cursor-pointer"
-                  onChange={changeAvatar()}
                 />
               </div>
               <div className="mt-16 p-14 ">
-                <button
-                  className="btn btn-primary float-right"
-                >
+                <button className="btn btn-primary float-right">
                   ChangeAvatar
                 </button>
               </div>
@@ -64,43 +66,43 @@ function ProfileSettings() {
 
             <div className="w-[57%] grid grid-cols-1 md:grid-cols-1 gap-10 mt-10 items-center ">
               <InputText
-                labelTitle="Username"
-                defaultValue="alex@dashwind.com"
-                updateFormValue={updateFormValue}
+                name={"username"}
+                labelTitle={"Username:"}
+                placeholder={"alex@dashwind.com"}
+                labelStyle={"text-[30px]"}
+                onChange={setHandleProfile}
               />
               <InputText
-                labelTitle="Name"
-                defaultValue="Alex"
-                updateFormValue={updateFormValue}
+                name={"name"}
+                labelTitle={"Name:"}
+                placeholder={"Alex"}
+                labelStyle={"text-[30px]"}
+                onChange={setHandleProfile}
               />
               <div className="w-full flex gap-36 items-center">
                 <label className=" ml-3">Bio</label>
                 <SelectBoxSmall
+                  name={"bio"}
                   class="w-full"
                   options={["Full Stack", "Frontend", "Backend", "Designer"]}
+                  onChange={setHandleProfile}
                 />
               </div>
-              {/* <InputText
-                labelTitle="Bio"
-                defaultValue=""
-                updateFormValue={updateFormValue}
-              /> */}
               <div className="w-full flex justify-between gap-[100px] items-center">
                 <label className="ml-3">Category</label>
-                <SelectBoxSmall class="w-full" options={["React", "Vue", "Angular"]} />
+                <SelectBoxSmall
+                  class="w-full"
+                  options={["React", "Vue", "Angular"]}
+                />
                 <div className="">
-                  <button
-                    className="btn btn-primary float-right"
-                  >
-                    Add
-                  </button>
+                  <button className="btn btn-primary float-right" onClick={addTags}>Add</button>
                 </div>
               </div>
               <div
                 className={`form-control w-4/5 m-2 flex sm:flex-row flex-col input border-2`}
               >
-                {tag.length > 0 &&
-                  tag.map((value, index) => (
+                {profile.tag.length > 0 &&
+                  profile.tag.map((value, index) => (
                     <div
                       key={index}
                       className="flex sm:flex-row flex-col items-center m-1 w-max border-2 mr-2"
