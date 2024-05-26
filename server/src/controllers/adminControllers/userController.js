@@ -67,63 +67,53 @@ exports.getUser = (req, res) => {
 // make a controller for change profile information
 exports.changeInfo = (req, res) => {
   const id = req.params.id;
-  userModel.findById(id, (err, user) => {
-    if (err) {
+  userModel
+    .findByIdAndUpdate(id, req.body)
+    .then(() => {
+      res
+        .status(200)
+        .json({ msg: "Profile information changed successfully." });
+    })
+    .catch(() => {
       res.status(404).json({ msg: "Can not find user" });
-    } else {
-      bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(req.body.password, salt, (err, hash) => {
-          console.log(hash);
-          user.password = hash;
-          user.save((err) => {
-            if (err) {
-              res.status(500).json({ msg: "Server error" });
-            } else {
-              res
-                .status(200)
-                .json({ msg: "Profile information changed successfully." });
-            }
-          });
-        });
-      });
-    }
-  });
+    });
 };
 
 // make a controller for change password
 exports.changePassword = (req, res) => {
   const id = req.params.id;
-  userModel.findById(id, (err, user) => {
-    if (err) {
-      res.status(404).json({ msg: "Can not find user" });
-    } else {
-      bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(req.body.password, salt, (err, hash) => {
-          console.log(hash);
-          user.password = hash;
-          user.save((err) => {
-            if (err) {
-              res.status(500).json({ msg: "Server error" });
-            } else {
-              res
-                .status(200)
-                .json({ msg: "Profile information changed successfully." });
-            }
+  const { currentPassword, newPassword } = req.body;
+  userModel
+    .findById(id)
+    .then((user) => {
+      if (user.show_pwd(currentPassword, user.password)) {
+        user.password = newPassword;
+        user
+          .save()
+          .then(() => {
+            res
+              .status(200)
+              .json({ msg: "Profile information changed successfully." });
+          })
+          .catch(() => {
+            res.status(500).json({ msg: "Server error" });
           });
-        });
-      });
-    }
-  });
+      } else {
+        res.status(401).json({ msg: "Don't Match Password" });
+      }
+    })
+    .catch(() => {
+      res.status(404).json({ msg: "Can not find user" });
+    });
 };
 
 // make a controller for change password
 exports.changeAvatar = (req, res) => {
   const id = req.params.id;
   const { avatar } = req.body;
-  userModel.findById(id, (err, user) => {
-    if (err) {
-      res.status(404).json({ msg: "Can not find user" });
-    } else {
+  userModel
+    .findById(id)
+    .then(() => {
       user.avatar = avatar;
       user.save((err) => {
         if (err) {
@@ -132,17 +122,8 @@ exports.changeAvatar = (req, res) => {
           res.status(200).json({ msg: "Profile avatar changed successfully." });
         }
       });
-    }
-  });
-};
-
-// make a controller for get seller
-exports.getSeller = (req, res) => {
-  // userModel.find({ role: "seller" }, (err, result) => {
-  //   if (err) {
-  //     res.status(404).json({ msg: "Can not find seller." });
-  //   } else {
-  //     res.status(200).json({ result: result });
-  //   }
-  // });
+    })
+    .catch(() => {
+      res.status(404).json({ msg: "Can not find user" });
+    });
 };
