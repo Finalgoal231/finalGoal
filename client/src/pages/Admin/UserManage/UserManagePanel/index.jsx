@@ -1,80 +1,9 @@
-import { useEffect, useState } from "react";
-import FunnelIcon from "@heroicons/react/24/outline/FunnelIcon";
-import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 import { Link } from "react-router-dom";
 import { BiSolidEditAlt } from "react-icons/bi";
 import TitleCard from "../../../../components/Cards/TitleCard";
-import StanSearchBar from "../../../../components/Input/StanSearchBar";
 import { useSelector } from "react-redux";
-
-const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => {
-  const { users } = useSelector((state) => state.admin);
-  const [filterParam, setFilterParam] = useState("");
-  const [searchText, setSearchText] = useState("");
-  const bioFilters = users.map((item, index) => {
-    return item.bio;
-  });
-
-  const showFiltersAndApply = (params) => {
-    applyFilter(params);
-    setFilterParam(params);
-  };
-
-  const removeAppliedFilter = () => {
-    removeFilter();
-    setFilterParam("");
-    setSearchText("");
-  };
-
-  useEffect(() => {
-    if (searchText === "") {
-      removeAppliedFilter();
-    } else {
-      applySearch(searchText);
-    }
-  }, [searchText]);
-
-  return (
-    <div className="inline-block float-right">
-      <StanSearchBar
-        searchText={searchText}
-        styleClass="mr-4"
-        setSearchText={setSearchText}
-      />
-      {filterParam !== "" && (
-        <button
-          onClick={() => removeAppliedFilter()}
-          className="btn btn-xs mr-2 btn-active btn-ghost normal-case"
-        >
-          {filterParam}
-          <XMarkIcon className="w-4 ml-2" />
-        </button>
-      )}
-      <div className="dropdown dropdown-bottom dropdown-end">
-        <label tabIndex={0} className="btn btn-sm btn-outline">
-          <FunnelIcon className="w-5 mr-2" />
-          Filter
-        </label>
-        <ul
-          tabIndex={0}
-          className="dropdown-content menu p-2 text-sm shadow bg-base-100 rounded-box w-52"
-        >
-          {bioFilters.map((l, k) => {
-            return (
-              <li key={k}>
-                <div onClick={() => showFiltersAndApply(l)}>{l}</div>
-              </li>
-            );
-          })}
-          <div className="divider mt-0 mb-0"></div>
-          <li>
-            <div onClick={() => removeAppliedFilter()}>Remove Filter</div>
-          </li>
-        </ul>
-      </div>
-    </div>
-  );
-};
+import { useState } from "react";
+import TopSideButtons from "./TopSideButtons";
 
 function UserManagePanel() {
   const { users } = useSelector((state) => state.admin);
@@ -84,6 +13,8 @@ function UserManagePanel() {
     setUserData(users);
   };
 
+  // Filter according to bio
+
   const applyFilter = (params) => {
     let filteredUserData = users.filter((t) => {
       return t.bio === params;
@@ -91,7 +22,7 @@ function UserManagePanel() {
     setUserData(filteredUserData);
   };
 
-  // Search according to name
+  // Search according to name && username
   const applySearch = (value) => {
     let filteredUserData = users.filter((t) => {
       return (
@@ -102,6 +33,10 @@ function UserManagePanel() {
     setUserData(filteredUserData);
   };
 
+  const editUser = (i) => {
+    
+  }
+
   return (
     <>
       <TitleCard
@@ -109,6 +44,7 @@ function UserManagePanel() {
         topMargin="mt-2"
         TopSideButtons={
           <TopSideButtons
+            users={users}
             applySearch={applySearch}
             applyFilter={applyFilter}
             removeFilter={removeFilter}
@@ -151,7 +87,7 @@ function UserManagePanel() {
                     <td>{l.role}</td>
                     <td>
                       <div className="flex justify-center">
-                        <Link to={"/admin/user/edit"}>
+                        <Link to={`/admin/user/edit/${l._id}`}>
                           <button
                             type="button"
                             className="flex px-4 py-2 bg-slate-500 hover:bg-slate-600 dark:hover:bg-slate-400 text-[15px] text-white rounded-full cursor-pointer transition duration-300 ease-out"

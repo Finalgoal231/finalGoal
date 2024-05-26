@@ -3,9 +3,11 @@ import { showNotification } from "../../../../../features/common/headerSlice";
 import TitleCard from "../../../../../components/Cards/TitleCard";
 import InputText from "../../../../../components/Input/InputText";
 import InputDisabled from "../../../../../components/Input/DisabledText";
+import { useParams } from "react-router-dom";
 
 function EditManage() {
   const dispatch = useDispatch();
+  const { id } = useParams();
 
   const updateAccount = () => {
     dispatch(showNotification({ message: "Account Updated", status: 1 }));
