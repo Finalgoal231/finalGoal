@@ -44,7 +44,7 @@ function App() {
                     {/* <Route path="/newArticle/:id" element={<NewArticle />} /> */}
                     {/* <Route path="/answer/article/:id" element={<AnswerArticle />} /> */}
                     {/* Place new routes over this */}
-                    <Route path="/" element={<Layout />} />
+                    <Route path="/*" element={<Layout />} />
                     {/* <Route path="*" element={<Navigate to={token ? "/" : "/signin"} replace />} /> */}
                 </Routes>
             </Router>

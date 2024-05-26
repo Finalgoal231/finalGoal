@@ -16,17 +16,20 @@ const NewArticle = () => {
         category: "",
         content: "",
     });
+    console.log(newArticle);
     const setHandleArticle = (e) => {
         setNewArticle({ ...newArticle, [e.target.name]: e.target.value });
     };
     const addTags = (e) => {
         if (e.key === "Enter") {
             setData([...tags, e.target.value]);
+            setNewArticle({ ...newArticle, tags });
             e.target.value = "";
         }
     };
     const deleteTags = (index) => {
         tags.splice(index, 1);
+        setNewArticle({ ...newArticle, tags });
         setData([...tags]);
     };
     useEffect(() => {
