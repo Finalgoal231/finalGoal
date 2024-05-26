@@ -9,13 +9,14 @@ opts.secretOrKey = config.secretOrKey;
 module.exports = (passport) => {
   passport.use(
     new JwtStrategy(opts, (jwt_payload, done) => {
-      User.findOne({username: jwt_payload.username})
+      User.findOne({ username: jwt_payload.username })
         .then((user) => {
-          console.log("token", user);
-          if (user) return done(null, user)
+          if (user) return done(null, user);
           return done(null, false);
         })
-        .catch((err) => {console.log(err)});
+        .catch((err) => {
+          console.log(err);
+        });
     })
   );
 };

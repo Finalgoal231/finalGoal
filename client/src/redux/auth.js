@@ -1,6 +1,4 @@
 import axios from "axios";
-import { setAuth } from "../redux/authSlice";
-import { useDispatch } from "react-redux";
 
 const checkAuth = (dispatch) => {
   // const dispatch = useDispatch();

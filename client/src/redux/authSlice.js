@@ -4,10 +4,8 @@ import axios from "axios";
 import { requestServer } from "../utils/requestServer";
 
 export const signin = createAsyncThunk("/api/auth/signin", async (payload) => {
-    console.log(payload);
     try {
         const res = await requestServer("post", "/api/auth/signin", payload);
-        console.log(res);
         return res.data;
     } catch (e) {
         if (e.response) {
@@ -18,10 +16,8 @@ export const signin = createAsyncThunk("/api/auth/signin", async (payload) => {
 });
 
 export const updateAvatar = createAsyncThunk("updateAvatar", async (payload) => {
-    // console.log(payload);
     const formData = new FormData();
     formData.append("avatar", payload.avatar);
-    console.log(formData)
     try {
         const res = await requestServer("put", "/api/admin/user/avatar/" + payload.id, formData);
         return res.data;
@@ -35,7 +31,6 @@ export const updateAvatar = createAsyncThunk("updateAvatar", async (payload) => 
 
 export const changeInfo = createAsyncThunk();
 export const changePassword = createAsyncThunk();
-export const changeAvatar = createAsyncThunk();
 
 export const createPassword = createAsyncThunk("createPassword", async (data) => {
     try {
@@ -93,7 +88,6 @@ export const userSlice = createSlice({
             state.isLoading = true;
         },
         [signin.fulfilled]: (state, { payload }) => {
-            // console.log(payload);
             if (payload.token) {
                 axios.defaults.headers.common["Authorization"] = payload.token;
                 localStorage.setItem("token", payload.token);
@@ -115,7 +109,7 @@ export const userSlice = createSlice({
             alert(payload.msg);
             state.isLoading = false;
         },
-        [createPassword.fulfilled]: (state, { payload }) => {
+        [createPassword.pending]: (state, { payload }) => {
             alert(payload.msg);
             state.isLoading = true;
         },
@@ -123,8 +117,16 @@ export const userSlice = createSlice({
             alert(payload.msg);
             state.isLoading = false;
         },
-        [createProfile.fulfilled]: (state, { payload }) => {
+        [createProfile.pending]: (state, { payload }) => {
             alert(payload.msg);
+            state.isLoading = true;
+        },
+        [updateAvatar.fulfilled]: (state, {payload}) => {
+            localStorage.setItem("user", JSON.stringify(payload.user))
+            state.user = payload.user;
+            state.isLoading = false;
+        },
+        [updateAvatar.pending]: (state, {payload}) => {
             state.isLoading = true;
         },
     },

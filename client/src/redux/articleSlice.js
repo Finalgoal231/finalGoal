@@ -25,20 +25,40 @@ export const deleteArticle = createAsyncThunk("deleteArticle", async (data) => {
   return res.data;
 });
 export const addComment = createAsyncThunk("addComment", async (payload) => {
-  const res = await requestServer("put", `/api/article/comment/${payload.id}`, payload.data);
+  const res = await requestServer(
+    "put",
+    `/api/article/comment/${payload.id}`,
+    payload.data
+  );
   return res.data;
 });
-export const addFavourite = createAsyncThunk("addFavoyrute", async (payload) => {
-  const res = await requestServer("put", `/api/article/favorite/${payload}`);
-  return res.data;
-});
+export const addFavourite = createAsyncThunk(
+  "addFavourite",
+  async (payload) => {
+    const { index, from } = payload;
+    const res = await requestServer(
+      "put",
+      `/api/article/favorite/${index}`,
+      {from}
+    );
+    return res.data;
+  }
+);
 
 export const articleSlice = createSlice({
   name: "user",
   initialState: {
     isLoading: false,
     article: [],
-    selected: { avatar: "default.png", from: "", title: "", category: "express", content: "", tags: [], favorite: [] },
+    selected: {
+      avatar: "default.png",
+      from: "",
+      title: "",
+      category: "express",
+      content: "",
+      tags: [],
+      favorite: [],
+    },
     error: "",
     isAuthenicated: false,
     message: "",

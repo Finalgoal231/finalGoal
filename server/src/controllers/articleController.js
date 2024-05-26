@@ -48,12 +48,12 @@ exports.getAllArticles = (req, res) => {
       {
         path: "from",
         select:
-          "role avatar category delected complete _id name username follower createdAt",
+          "role avatar category delected complete _id name username followers following createdAt",
       },
       {
         path: "favorite.user",
-        select:
-          "role avatar category delected complete _id name username follower createdAt",
+        // select:
+        //   "role avatar category delected complete _id name username follower createdAt",
       },
       { path: "comment.ans" },
     ])
@@ -73,19 +73,18 @@ exports.getHomeArticles = (req, res) => {
     .populate([
       {
         path: "from",
-        select:
-          "role avatar category delected complete _id name username follower createdAt",
+        // select:
+        // "role avatar category delected complete _id name username follower createdAt",
       },
       {
         path: "favorite.user",
-        select:
-          "role avatar category delected complete _id name username follower createdAt",
+        // select:
+        // "role avatar category delected complete _id name username follower createdAt",
       },
       { path: "comment.ans" },
     ])
     .sort({ createdAt: -1 })
     .then((articles) => {
-      console.log(articles);
       res.status(201).json({ article: articles });
     })
     .catch(() => {
@@ -121,7 +120,7 @@ exports.addComment = (req, res) => {
 
   Article.findById(id)
     .then((article) => {
-      article.comment.push({article: newArticle._id});
+      article.comment.push({ article: newArticle._id });
       article
         .save()
         .then(res.status(201).json({ msg: "article" }))
@@ -137,18 +136,21 @@ exports.addComment = (req, res) => {
 // make a controller for get all article
 exports.addFavorite = (req, res) => {
   let id = req.params.id;
-  console.log(req.body);
   Article.findById(id)
     .then((article) => {
-      article.favorite.push({ user: req.body.from });
-      article
-        .save()
-        .then(res.status(201).json({ msg: "Success" }))
-        .catch((err) => {
-          res.status(500).json({ msg: "Can't do action" });
-        });
+      let flag = false;
+      article.favorite.map((item, index) => {
+        if (item.user == req.body.from) {
+          flag = true;
+        }
+      });
+      if (flag) res.status(201).json({ msg: "Already like this article" });
+      else {
+        article.favorite.push({ user: req.body.from });
+        article.save().then(res.status(201).json({ msg: "Success" }));
+      }
     })
-    .catch(() => {
-      res.status(500).json({ msg: "Can't do action article" });
+    .catch((err) => {
+      res.status(500).json({ msg: "Can not do action at this article" });
     });
 };

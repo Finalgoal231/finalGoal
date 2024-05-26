@@ -13,7 +13,7 @@ function Header() {
     const dispatch = useDispatch();
     const { noOfNotifications, pageTitle } = useSelector((state) => state.header);
     const [currentTheme, setCurrentTheme] = useState(localStorage.getItem("theme"));
-    const user = JSON.parse(localStorage.getItem("user"));
+    const { user } = useSelector(state => state.auth);
     useEffect(() => {
         themeChange(false);
         if (currentTheme === null) {
@@ -82,7 +82,7 @@ function Header() {
                         <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                             <div className="w-10 rounded-full">
                                 <img
-                                    src={!user.avatar ? "http://192.168.6.2:3000/avatars/9?s=287" : user.avatar}
+                                    src={user.avatar}
                                     alt="profile"
                                 />
                             </div>
