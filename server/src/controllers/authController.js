@@ -6,20 +6,27 @@ const User = require("../models/userModel");
 
 // make a controller for signup
 exports.signup = async (req, res) => {
-  const newUser = new User(req.body);
-  newUser.password = await newUser.hide_pwd(req.body.password);
-  newUser
-    .save()
-    .then(() => {
-      res.status(201).json({
-        msg: "Create a new user successfully.",
+  const isNew = await User.exists({ username: req.body.username });
+  if (!isNew) {
+    const newUser = new User(req.body);
+    newUser.password = await newUser.hide_pwd(req.body.password);
+    newUser
+      .save()
+      .then(() => {
+        res.status(201).json({
+          msg: "Create a new user successfully.",
+        });
+      })
+      .catch(() => {
+        res.status(500).json({
+          msg: "Server Error",
+        });
       });
-    })
-    .catch(() => {
-      res.status(500).json({
-        msg: "Please enter again your infomation correctly",
-      });
+  } else {
+    res.status(400).json({
+      msg: "This user is exist.",
     });
+  }
 };
 
 // make a controller for signin
@@ -50,7 +57,7 @@ exports.signin = async (req, res) => {
         );
       } else {
         res.status(401).json({
-          message: "Password is incorrect.",
+          msg: "Password is incorrect.",
           user: user,
         });
       }
