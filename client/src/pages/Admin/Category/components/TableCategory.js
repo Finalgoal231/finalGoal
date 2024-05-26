@@ -18,8 +18,8 @@ function TableCategory() {
   const del = useCallback(
     (id) => {
       dispatch(deleteCategory({ _id: id }))
-        .then(() => NotificationManager.success("Update Category Success!"))
-        .catch(() => NotificationManager.error("Update Category Error!"));
+        .then(() => NotificationManager.success("Update Category Success!","SUCCESS"))
+        .catch(() => NotificationManager.error("Update Category Error!","ERROR"));
     },
     [dispatch]
   );

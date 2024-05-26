@@ -41,19 +41,19 @@ function Register() {
         .then(() => {
           NotificationManager.success(
             "Congratulations! Registered!",
-            "Success"
+            "SUCCESS"
           );
           setTimeout(() => {
             navigate("/signin");
-          }, 2000);
+          }, 1500);
         })
         .catch(() =>
-          NotificationManager.error("Already Registered User!", "Error")
+          NotificationManager.error("Already Registered User!", "ERROR")
         );
     } else {
       NotificationManager.warning(
         "Password and confirm password must be equal!!!",
-        "Warning"
+        "WARNING"
       );
     }
   };
