@@ -9,11 +9,14 @@ const Team = lazy(() => import("../pages/Settings/Team"));
 const ProfileSettings = lazy(() => import("../pages/Settings/ProfileSettings"));
 const Cagegory = lazy(() => import("../pages/Admin/Category"));
 const UserManage = lazy(() => import("../pages/Admin/UserManage"));
+const Profile = lazy(() => import("../features/profile"));
 const ChangePassword = lazy(() => import("../pages/Settings/ChangePassword"));
 const EditAccount = lazy(() => import("../pages/Admin/UserManage/EditAccount"));
 const AllArticle = lazy(() => import("../pages/Article/AllArticle"));
 const MyArticle = lazy(() => import("../pages/Article/MyArticle"));
-const FavouriteArticle = lazy(() => import("../pages/Article/FavouriteArticle"));
+const FavouriteArticle = lazy(() =>
+  import("../pages/Article/FavouriteArticle")
+);
 const NewArticle = lazy(() => import("../pages/Article/NewArticle"));
 const Draft = lazy(() => import("../pages/Article/Draft"));
 const AnswerArticle = lazy(() => import("../pages/Article/AnswerArticle"));
@@ -32,6 +35,10 @@ const routes = [
     component: UserManage,
   },
   {
+    path: "/admin/profile/:id",
+    component: Profile,
+  },
+  {
     path: "/admin/user/edit/:id",
     component: EditAccount,
   },
@@ -40,28 +47,28 @@ const routes = [
     component: Cagegory,
   },
   {
-      path: "/allarticle",
-      component: AllArticle,
+    path: "/allarticle",
+    component: AllArticle,
   },
   {
-      path: "/myArticle",
-      component: MyArticle,
+    path: "/myArticle",
+    component: MyArticle,
   },
   {
-      path: "/favouriteArticle",
-      component: FavouriteArticle,
+    path: "/favouriteArticle",
+    component: FavouriteArticle,
   },
   {
-      path: "/draft",
-      component: Draft,
+    path: "/draft",
+    component: Draft,
   },
   {
-      path: "/newArticle/:id",
-      component: NewArticle,
+    path: "/newArticle/:id",
+    component: NewArticle,
   },
   {
-      path: "/answer/article/:id",
-      component: AnswerArticle,
+    path: "/answer/article/:id",
+    component: AnswerArticle,
   },
   {
     path: "/settings-team",

@@ -75,7 +75,9 @@ function UserManagePanel() {
                     </td>
                     <td>
                       <div>
-                        <div className="font-bold">{l.name}</div>
+                        <Link to={`/admin/profile/${l._id}`}>
+                          <div className="font-bold">{l.name}</div>{" "}
+                        </Link>
                       </div>
                     </td>
                     <td>{l.username}</td>
