@@ -1,21 +1,19 @@
-import { useDispatch } from "react-redux";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 import Toolbar from "./components/Toolbar";
 import ArticleCard from "./components/ArticleCard";
 import { useNavigate } from "react-router-dom";
-const article = [
-    {
-        _id: "8shcnqkk2949fjj",
-        from: "master",
-        avatar: "default.png",
-        title: "What is redux?",
-        content: "This is aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-        createdAt: "2024-5-20",
-    },
-];
+import { getAllArticles } from "../../redux/articleSlice";
+
 function Dashboard() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    useEffect(() => {
+        dispatch(getAllArticles);
+    }, [dispatch]);
+
+    // const [article, setArticle] = useState(null);
+    const { article } = useSelector((state) => state.article);
     const setHandleAddArticle = () => {
         navigate(`/newArticle/${0}`);
     };
