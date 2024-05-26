@@ -16,7 +16,7 @@ const articleSchema = new mongoose.Schema({
   },
   favorite: [
     {
-      favoritor: {
+      user: {
         type: mongoose.Schema.ObjectId,
         ref: "User",
         required: true,
@@ -37,41 +37,13 @@ const articleSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  parent: { type: mongoose.Schema.ObjectId, ref: "Article", default: null },
   comment: [
     {
       ans: {
-        from: {
-          type: mongoose.Schema.ObjectId,
-          ref: "User",
-          required: true,
-        },
-        title: {
-          type: String,
-          require: true,
-        },
-        content: {
-          type: String,
-          required: true,
-        },
-        favorite: [
-          {
-            type: mongoose.Schema.ObjectId,
-            ref: "User",
-            required: true,
-          },
-        ],
-        delected: {
-          type: Date,
-          default: null,
-        },
-        complete: {
-          type: Boolean,
-          default: false,
-        },
-        createdAt: {
-          type: Date,
-          default: Date.now,
-        },
+        type: mongoose.Schema.ObjectId,
+        ref: "Article",
+        required: true,
       },
     },
   ],

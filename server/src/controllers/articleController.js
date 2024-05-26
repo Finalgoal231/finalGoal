@@ -55,11 +55,7 @@ exports.getAllArticles = (req, res) => {
         select:
           "role avatar category delected complete _id name username follower createdAt",
       },
-      {
-        path: "comment.ans.from",
-        select:
-          "role avatar category delected complete _id name username follower createdAt",
-      },
+      { path: "comment.ans" },
     ])
     .sort({ createdAt: -1 })
     .then((articles) => {
@@ -85,11 +81,7 @@ exports.getHomeArticles = (req, res) => {
         select:
           "role avatar category delected complete _id name username follower createdAt",
       },
-      {
-        path: "comment.ans.from",
-        select:
-          "role avatar category delected complete _id name username follower createdAt",
-      },
+      { path: "comment.ans" },
     ])
     .sort({ createdAt: -1 })
     .then((articles) => {
@@ -115,9 +107,21 @@ exports.getAArticle = (req, res) => {
 // make a controller for get all article
 exports.addComment = (req, res) => {
   let id = req.params.id;
+  const newArticle = new Article({ ...req.body, parent: id });
+  newArticle
+    .save()
+    .then(() => {
+      res.status(201).json({ msg: "Add comment successfully." });
+    })
+    .catch(() => {
+      res.status(400).json({ msg: "Can't add comment" });
+    });
+
+  //================ Can be ERROR ====================//
+
   Article.findById(id)
     .then((article) => {
-      article.comment.push(req.body);
+      article.comment.push({article: newArticle._id});
       article
         .save()
         .then(res.status(201).json({ msg: "article" }))
