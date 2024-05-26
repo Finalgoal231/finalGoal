@@ -1,9 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import TitleCard from "../../../components/Cards/TitleCard";
 import InputText from "../../../components/Input/InputText";
+import { useDispatch } from "react-redux";
+import { createPassword } from "../../../redux/authSlice";
 
 const ChangePassword = () => {
-  const updateFormValue = () => {};
+  const dispatch = useDispatch();
+  const [newData, setNewData] = useState({
+    currentPassword: "",
+    newpassword: "",
+    confirmpassword: ""
+  })
+  const setHandlePassword = (e) => {
+    console.log(newData);
+    setNewData({...newData, [e.target.name]: e.target.value});
+  }
+
+  const setHandleSend = () => {
+    dispatch(createPassword({ ...newData, complete: true }));
+};
   return (
     <div>
       <TitleCard className="" title="Change password " topMargin="mt-10">
@@ -16,20 +31,26 @@ const ChangePassword = () => {
             />
           </div>
           <div className="w-[70%] grid grid-cols-1 md:grid-cols-1 gap-20">
-            <InputText
-              labelTitle="Current password"
-              defaultValue=""
-              updateFormValue={updateFormValue}
+             <InputText
+                name={"currentPassword"}
+                labelTitle={"Current password:"}
+                placeholder={"Input Title of Current Password"}
+                labelStyle={"text-[30px]"}
+                onChange={setHandlePassword}
             />
-            <InputText
-              labelTitle="New password"
-              defaultValue=""
-              updateFormValue={updateFormValue}
+             <InputText
+                name={"newpassword"}
+                labelTitle={"New password:"}
+                placeholder={"Input Title of  New Password"}
+                labelStyle={"text-[30px]"}
+                onChange={setHandlePassword}
             />
-            <InputText
-              labelTitle="Confirm password"
-              defaultValue=""
-              updateFormValue={updateFormValue}
+             <InputText
+                name={"confirmpassword"}
+                labelTitle={"Confirm password:"}
+                placeholder={"Input Title of  Confirm Password"}
+                labelStyle={"text-[30px]"}
+                onChange={setHandlePassword}
             />
           </div>
         </div>
@@ -39,7 +60,7 @@ const ChangePassword = () => {
           </button>
         </div>
         <div className="mt-16">
-          <button className="btn btn-primary float-right">Save</button>
+          <button className="btn btn-primary float-right" onClick={setHandleSend}>Save</button>
         </div>
       </TitleCard>
     </div>

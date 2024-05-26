@@ -21,12 +21,28 @@ export const changeInfo = createAsyncThunk();
 export const changePassword = createAsyncThunk();
 export const changeAvatar = createAsyncThunk();
 
+export const createPassword = createAsyncThunk("createPassword", async (data) => {
+    try {
+        const res = await requestServer("post", "/api/password/create", data);
+        return res.data;
+    } catch (e) {
+        if (e.response) {
+            return { ...e.response.data, error: true };
+        }
+        return { error: true, message: e.message };
+    }
+});
+
 export const userSlice = createSlice({
     name: "user",
     initialState: {
         isLoading: false,
         user: null,
         error: "",
+        password: {
+            current: "",
+            new: "",
+        },
         isAuthenicated: false,
     },
     reducers: {
@@ -66,6 +82,15 @@ export const userSlice = createSlice({
         [signin.rejected]: (state, { payload }) => {
             state.error = payload.message;
             state.isLoading = false;
+        },
+
+        [createPassword.fulfilled]: (state, { payload }) => {
+            alert(payload.msg);
+            state.isLoading = false;
+        },
+        [createPassword.fulfilled]: (state, { payload }) => {
+            alert(payload.msg);
+            state.isLoading = true;
         },
     },
 });
