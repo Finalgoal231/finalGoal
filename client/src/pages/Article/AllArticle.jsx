@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Toolbar from "../../features/dashboard/components/Toolbar";
 import ArticleCard from "../../features/dashboard/components/ArticleCard";
 import {
@@ -9,10 +9,7 @@ import {
   deleteArticle,
   addFavourite,
 } from "../../redux/articleSlice";
-import {
-  showNotification,
-  setPageTitle,
-} from "../../features/common/headerSlice";
+import { setPageTitle } from "../../features/common/headerSlice";
 // import { setIsLoading } from "../../redux/articleSlice";
 
 function AllArticle() {
@@ -21,7 +18,6 @@ function AllArticle() {
   }, []);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const value = useSelector((state) => state.article);
   const { user } = useSelector((state) => state.auth);
   const setHandleAddArticle = () => {

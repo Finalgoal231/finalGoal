@@ -32,9 +32,7 @@ exports.deleteArticle = (req, res) => {
   Article.findById(id)
     .then((article) => {
       article.delected = new Date();
-      article
-        .save()
-        .then(res.status(201).json({ msg: "Article deleted successfully" }));
+      article.save().then(res.status(201).json({ msg: "Article deleted successfully" }));
     })
     .catch((err) => {
       res.status(400).json({ err: err });
@@ -43,7 +41,8 @@ exports.deleteArticle = (req, res) => {
 
 // make a controller for get all article
 exports.getAllArticles = (req, res) => {
-  Article.find({ delected: null, complete: true })
+  console.log(req.query);
+  Article.find({ delected: null, complete: req.query.complete })
     .populate([
       {
         path: "from",
@@ -59,7 +58,6 @@ exports.getAllArticles = (req, res) => {
     ])
     .sort({ createdAt: -1 })
     .then((articles) => {
-      console.log(articles);
       res.status(201).json({ article: articles });
     })
     .catch(() => {

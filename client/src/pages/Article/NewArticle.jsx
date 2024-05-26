@@ -13,7 +13,7 @@ const NewArticle = () => {
   const dispatch = useDispatch();
   const value = useSelector((state) => state.article);
   const selected_id = useParams();
-  console.log(selected_id);
+  
   const [newArticle, setNewArticle] = useState({
     from: JSON.parse(localStorage.getItem("user"))._id,
     title: "",

@@ -8,33 +8,33 @@ import { showNotification } from "../common/headerSlice";
 // import { setIsLoading } from "../../redux/articleSlice";
 
 function Dashboard() {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    const value = useSelector((state) => state.article);
-    console.log(value.isLoading);
-    const setHandleAddArticle = () => {
-        navigate(`/newArticle/${0}`);
-    };
-    const setHandleAddAnswerArticle = (index) => {
-        navigate(`/answer/article/${index}`);
-    };
-    const onFavouriteClick = () => {
-        console.log("Favourite");
-    };
-    const setHandleDelete = (index) => {
-      if (window.confirm("Are you delete this Article?")) {
-        dispatch(deleteArticle(index));
-      }
-    };
-    const setHandleEdit = (index) => {
-      dispatch(getAArticles(index));
-      navigate(`/newArticle/${index}`);
-    };
-    useEffect(() => {
-        dispatch(getAllArticles());
-        // dispatch(setIsLoading(false));
-    }, [dispatch, value.isLoading]);
+  const value = useSelector((state) => state.article);
+
+  const setHandleAddArticle = () => {
+    navigate(`/newArticle/${0}`);
+  };
+  const setHandleAddAnswerArticle = (index) => {
+    navigate(`/answer/article/${index}`);
+  };
+  const onFavouriteClick = () => {
+    console.log("Favourite");
+  };
+  const setHandleDelete = (index) => {
+    if (window.confirm("Are you delete this Article?")) {
+      dispatch(deleteArticle(index));
+    }
+  };
+  const setHandleEdit = (index) => {
+    dispatch(getAArticles(index));
+    navigate(`/newArticle/${index}`);
+  };
+  useEffect(() => {
+    dispatch(getAllArticles());
+    // dispatch(setIsLoading(false));
+  }, [dispatch, value.isLoading]);
 
   return (
     <>
@@ -44,10 +44,11 @@ function Dashboard() {
           <div key={i}>
             <ArticleCard
               title={v.title}
-              avatar={v.avatar}
+              avatar={v.from.avatar}
               content={v.content}
               date={v.createdAt}
-              from={v.from}
+              from={v.from.name}
+              favouriteNum={v.favorite.length}
               onAnswerClick={() => {
                 setHandleAddAnswerArticle(v._id);
               }}
