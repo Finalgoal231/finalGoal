@@ -32,7 +32,7 @@ const routes = [
     component: UserManage,
   },
   {
-    path: "/admin/user/edit",
+    path: "/admin/user/edit/:id",
     component: EditAccount,
   },
   {
