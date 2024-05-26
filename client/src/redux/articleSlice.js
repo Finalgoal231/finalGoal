@@ -4,74 +4,85 @@ import axios from "axios";
 import { requestServer } from "../utils/requestServer";
 
 export const getAllArticles = createAsyncThunk("getAllArticle", async () => {
-    try {
-        const res = await requestServer("get", "/api/article/home");
-        return res.data;
-    } catch (e) {
-        if (e.response) {
-            return { ...e.response.data, error: true };
-        }
-        return { error: true, message: e.message };
-    }
+  const res = await requestServer("get", "/api/article/home");
+  return res.data;
+});
+export const getAArticles = createAsyncThunk("getAArticle", async (data) => {
+  const res = await requestServer("get", `/api/article/${data}`);
+  return res.data;
 });
 export const createArticle = createAsyncThunk("createArticle", async (data) => {
-    try {
-        const res = await requestServer("post", "/api/article/create", data);
-        return res.data;
-    } catch (e) {
-        if (e.response) {
-            return { ...e.response.data, error: true };
-        }
-        return { error: true, message: e.message };
-    }
+  const res = await requestServer("post", "/api/article/create", data);
+  if (data.complete === true) return res.data;
+  else return { msg: "Save to Draft!!!" };
+});
+export const updateArticle = createAsyncThunk("updateArticle", async (payload) => {
+  const res = await requestServer("put", `/api/article/${payload.id}`, payload.data);
+  return res.data;
+});
+export const deleteArticle = createAsyncThunk("deleteArticle", async (data) => {
+  const res = await requestServer("delete", `/api/article/${data}`);
+  return res.data;
+});
+export const addComment = createAsyncThunk("addComment", async (payload) => {
+  const res = await requestServer("put", `/api/article/comment/${payload.id}`, payload.data);
+  return res.data;
+});
+export const addFavourite = createAsyncThunk("addFavoyrute", async (payload) => {
+  const res = await requestServer("put", `/api/article/favorite/${payload}`);
+  return res.data;
 });
 
 export const articleSlice = createSlice({
-    name: "user",
-    initialState: {
-        isLoading: false,
-        article: [],
-        error: "",
-        isAuthenicated: false,
+  name: "user",
+  initialState: {
+    isLoading: false,
+    article: [],
+    selected: { avatar: "default.png", from: "", title: "", category: "express", content: "", tags: [], favorite: [] },
+    error: "",
+    isAuthenicated: false,
+    message: "",
+  },
+  reducers: {
+    setIsLoading: (state, action) => {
+      state.isLoading = action.payload;
     },
-    reducers: {
-        setIsLoading: (state, action) => {
-            state.isLoading = action.payload;
-        },
-        // setAuth: (state, { payload }) => {
-        //     state.user = payload.user;
-        //     state.isAuthenicated = true;
-        // },
-        // signout: (state, { payload }) => {
-        //     delete axios.defaults.headers.common["Authorization"];
-        //     localStorage.removeItem("token");
-        //     localStorage.removeItem("user");
-        //     state.isAuthenicated = payload;
-        //     state.user = null;
-        // },
+  },
+  extraReducers: {
+    [getAllArticles.fulfilled]: (state, { payload }) => {
+      state.article = payload.article;
+      state.isLoading = false;
     },
-    extraReducers: {
-        [getAllArticles.fulfilled]: (state, { payload }) => {
-            state.article = payload.article;
-            state.isLoading = false;
-        },
-        [getAllArticles.pending]: (state) => {
-            state.isLoading = false;
-        },
-        [getAllArticles.rejected]: (state, { payload }) => {
-            state.error = payload.message;
-            state.isLoading = false;
-        },
-        [createArticle.fulfilled]: (state, { payload }) => {
-            alert(payload.msg);
-            state.isLoading = false;
-        },
-        [createArticle.fulfilled]: (state, { payload }) => {
-            alert(payload.msg);
-            state.isLoading = true;
-        },
+    [getAllArticles.pending]: (state) => {
+      state.isLoading = false;
     },
+    [getAArticles.fulfilled]: (state, { payload }) => {
+      state.selected = payload.article;
+      state.isLoading = true;
+    },
+    [createArticle.fulfilled]: (state, { payload }) => {
+      console.log(payload);
+      state.message = payload.msg;
+      state.isLoading = true;
+    },
+    [updateArticle.fulfilled]: (state, { payload }) => {
+      state.message = payload.msg;
+      state.isLoading = true;
+    },
+    [deleteArticle.fulfilled]: (state, { payload }) => {
+      state.message = payload.msg;
+      state.isLoading = true;
+    },
+    [addComment.fulfilled]: (state, { payload }) => {
+      console.log(payload);
+      state.message = "Success Comment!";
+      state.isLoading = true;
+    },
+    [addFavourite.fulfilled]: (state, { payload }) => {
+      state.isLoading = true;
+    },
+  },
 });
 
-export const { setIsLoading, setAuth, signout } = articleSlice.actions;
+export const { setIsLoading } = articleSlice.actions;
 export default articleSlice.reducer;
