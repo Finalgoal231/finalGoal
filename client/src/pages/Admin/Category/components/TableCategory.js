@@ -2,6 +2,7 @@ import { useCallback } from "react";
 import { BiSolidEditAlt, BiSolidTrashAlt } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteCategory, getCategory } from "../../../../redux/adminSlice";
+import { NotificationManager } from "react-notifications";
 
 function TableCategory() {
   const dispatch = useDispatch();
@@ -16,7 +17,9 @@ function TableCategory() {
 
   const del = useCallback(
     (id) => {
-      dispatch(deleteCategory({ _id: id }));
+      dispatch(deleteCategory({ _id: id }))
+        .then(() => NotificationManager.success("Update Category Success!"))
+        .catch(() => NotificationManager.error("Update Category Error!"));
     },
     [dispatch]
   );
