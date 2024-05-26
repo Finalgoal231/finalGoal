@@ -80,7 +80,7 @@ function ProfileSettings() {
                 onChange={setHandleProfile}
               />
               <div className="w-full flex gap-36 items-center">
-                <label className=" ml-3">Bio</label>
+                <label className=" ml-3 font-bold text-3xl ">Bio</label>
                 <SelectBoxSmall
                   name={"bio"}
                   class="w-full"
@@ -88,10 +88,10 @@ function ProfileSettings() {
                   onChange={setHandleProfile}
                 />
               </div>
-              <div className="w-full flex justify-between gap-[100px] items-center">
-                <label className="ml-3">Category</label>
+              <div className="w-full flex justify-between gap-[60px] items-center">
+                <label className="ml-3 font-bold text-3xl">Category</label>
                 <SelectBoxSmall
-                  class="w-full"
+                  class="w-full "
                   options={["React", "Vue", "Angular"]}
                 />
                 <div className="">
