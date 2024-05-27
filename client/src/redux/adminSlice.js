@@ -53,29 +53,29 @@ export const adminSlice = createSlice({
       state.category._id = action.payload.val._id;
     },
   },
-  extraReducers: (builder) => {
-    builder.addCase(allUser.fulfilled, (state, action) => {
+  extraReducers: {
+    [allUser.fulfilled]: (state, action) => {
       state.users = action.payload.users;
-    });
-    builder.addCase(getUser.fulfilled, (state, action) => {
+    },
+    [getUser.fulfilled]: (state, action) => {
       state.user = action.payload.user;
-    });
-    builder.addCase(permissionUser.fulfilled, (state, action) => {
+    },
+    [permissionUser.fulfilled]: (state, action) => {
       state.user = action.payload;
-    });
-    builder.addCase(getAllCategory.fulfilled, (state, action) => {
+    },
+    [getAllCategory.fulfilled]: (state, action) => {
       state.categories = action.payload.result;
       state.flag = true;
-    });
-    builder.addCase(createCategory.fulfilled, (state, action) => {
+    },
+    [createCategory.fulfilled]: (state) => {
       state.flag = false;
-    });
-    builder.addCase(updateCategory.fulfilled, (state, action) => {
+    },
+    [updateCategory.fulfilled]: (state) => {
       state.flag = false;
-    });
-    builder.addCase(deleteCategory.fulfilled, (state, action) => {
+    },
+    [deleteCategory.fulfilled]: (state) => {
       state.flag = false;
-    });
+    },
   },
 });
 
