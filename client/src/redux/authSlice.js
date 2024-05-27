@@ -2,139 +2,156 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { requestServer } from "../utils/requestServer";
+const base_url = "http://localhost:4000/api/admin";
 
-export const signin = createAsyncThunk("/api/auth/signin", async (payload) => {
-    try {
-        const res = await requestServer("post", "/api/auth/signin", payload);
-        return res.data;
-    } catch (e) {
-        if (e.response) {
-            return { ...e.response};
-        }
-        return { error: true, message: "Server is not running correctly." };
+export const signin = createAsyncThunk("signin", async (payload) => {
+  try {
+    const res = await requestServer("post", "/api/auth/signin", payload);
+    return res.data;
+  } catch (e) {
+    if (e.response) {
+      return { ...e.response };
     }
+    return { error: true, message: "Server is not running correctly." };
+  }
 });
 
-export const updateAvatar = createAsyncThunk("updateAvatar", async (payload) => {
+export const updateAvatar = createAsyncThunk(
+  "updateAvatar",
+  async (payload) => {
     const formData = new FormData();
     formData.append("avatar", payload.avatar);
     try {
-        const res = await requestServer("put", "/api/admin/user/avatar/" + payload.id, formData);
-        return res.data;
+      const res = await requestServer(
+        "put",
+        "/api/admin/user/avatar/" + payload.id,
+        formData
+      );
+      return res.data;
     } catch (e) {
-        if (e.response) {
-            return { ...e.response.data, error: true };
-        }
-        return { error: true, message: "Server is not running correctly." };
+      if (e.response) {
+        return { ...e.response.data, error: true };
+      }
+      return { error: true, message: "Server is not running correctly." };
     }
-});
-
-export const addFollower = createAsyncThunk("updateAvatar", async (payload) => {
-    try {
-        const res = await requestServer("put", "/api/admin/user/follow/" + payload.id, {from: payload.from});
-        return res.data;
-    } catch (e) {
-        if (e.response) {
-            return { ...e.response.data, error: true };
-        }
-        return { error: true, message: "Server is not running correctly." };
-    }
-});
+  }
+);
 
 export const changeInfo = createAsyncThunk();
+
 export const changePassword = createAsyncThunk();
 
-export const createPassword = createAsyncThunk("createPassword", async (data) => {
+export const createPassword = createAsyncThunk(
+  "createPassword",
+  async (data) => {
     try {
-        const res = await requestServer("post", "/api/password/create", data);
-        return res.data;
+      const res = await requestServer("post", "/api/password/create", data);
+      return res.data;
     } catch (e) {
-        if (e.response) {
-            return { ...e.response.data, error: true };
-        }
-        return { error: true, message: e.message };
+      if (e.response) {
+        return { ...e.response.data, error: true };
+      }
+      return { error: true, message: e.message };
     }
-});
+  }
+);
+
 export const createProfile = createAsyncThunk("createProfile", async (data) => {
-    try {
-        const res = await requestServer("post", "/api/profile/create", data);
-        return res.data;
-    } catch (e) {
-        if (e.response) {
-            return { ...e.response.data, error: true };
-        }
-        return { error: true, message: e.message };
+  try {
+    const res = await requestServer("post", "/api/profile/create", data);
+    return res.data;
+  } catch (e) {
+    if (e.response) {
+      return { ...e.response.data, error: true };
     }
+    return { error: true, message: e.message };
+  }
+});
+
+export const getUser = createAsyncThunk("getUser", async (params) => {
+  const res = await axios.get(base_url + `/user/${params}`);
+  return res.data;
+});
+
+export const addFollower = createAsyncThunk("addFollow", async (payload) => {
+  try {
+    const res = await requestServer(
+      "put",
+      "/api/admin/user/follow/" + payload.id,
+      { from: payload.from }
+    );
+    console.log(res.data);
+    return res.data;
+  } catch (e) {
+    if (e.response) {
+      return { ...e.response.data, error: true };
+    }
+    return { error: true, message: "Server is not running correctly." };
+  }
 });
 
 export const userSlice = createSlice({
-    name: "user",
-    initialState: {
-        isLoading: false,
-        user: null,
-        error: "",
-        password: {
-            current: "",
-            new: "",
-        },
-        isAuthenicated: false,
+  name: "user",
+  initialState: {
+    isLoading: false,
+    user: null,
+    selectUser: {},
+    error: "",
+    password: {
+      current: "",
+      new: "",
     },
-    reducers: {
-        resetError: (state) => {
-            state.error = "";
-        },
-        setAuth: (state, { payload }) => {
-            state.user = payload.user;
-            state.isAuthenicated = true;
-        },
-        signout: (state, { payload }) => {
-            delete axios.defaults.headers.common["Authorization"];
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-            state.isAuthenicated = payload;
-            state.user = null;
-        },
+    isAuthenicated: false,
+  },
+  reducers: {
+    resetError: (state) => {
+      state.error = "";
     },
-    extraReducers: {
-        [signin.fulfilled]: (state, { payload }) => {
-            if (payload.token) {
-                console.log(payload);
-                axios.defaults.headers.common["Authorization"] = payload.token;
-                localStorage.setItem("token", payload.token);
-                localStorage.setItem("user", JSON.stringify(payload.user));
-                state.user = payload.user;
-                state.isAuthenicated = true;
-                state.isLoading = false;
-            } else {
-                state.isAuthenicated = false;
-            }
-        },
-        [createPassword.fulfilled]: (state, { payload }) => {
-            alert(payload.msg);
-            state.isLoading = false;
-        },
-        [createPassword.pending]: (state, { payload }) => {
-            alert(payload.msg);
-            state.isLoading = true;
-        },
-        [createProfile.fulfilled]: (state, { payload }) => {
-            alert(payload.msg);
-            state.isLoading = false;
-        },
-        [createProfile.pending]: (state, { payload }) => {
-            alert(payload.msg);
-            state.isLoading = true;
-        },
-        [updateAvatar.fulfilled]: (state, {payload}) => {
-            if(payload.user.avatar)
-            localStorage.setItem("user", JSON.stringify(payload.user))
-            state.user = payload.user;
-            state.isLoading = false;
-        },
-        [updateAvatar.pending]: (state, {payload}) => {
-            state.isLoading = true;
-        },
+    setAuth: (state, { payload }) => {
+      state.user = payload.user;
+      state.isAuthenicated = true;
     },
+    signout: (state, { payload }) => {
+      delete axios.defaults.headers.common["Authorization"];
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      state.isAuthenicated = payload;
+      state.user = null;
+    },
+  },
+  extraReducers: {
+    [getUser.fulfilled]: (state, action) => {
+      state.selectUser = action.payload.user;
+    },
+    [addFollower.fulfilled]: (state, { payload }) => {
+      if (payload.user !== undefined) {
+        state.user = payload.user;
+        state.selectUser = payload.selectUser;
+      }
+    },
+    [signin.fulfilled]: (state, { payload }) => {
+      if (payload.token) {
+        console.log(payload);
+        axios.defaults.headers.common["Authorization"] = payload.token;
+        localStorage.setItem("token", payload.token);
+        localStorage.setItem("user", JSON.stringify(payload.user));
+        state.user = payload.user;
+        state.isAuthenicated = true;
+        state.isLoading = false;
+      } else {
+        state.isAuthenicated = false;
+      }
+    },
+    [updateAvatar.fulfilled]: (state, { payload }) => {
+      if (payload.user.avatar)
+        localStorage.setItem("user", JSON.stringify(payload.user));
+      state.user = payload.user;
+      state.isLoading = false;
+    },
+    [updateAvatar.pending]: (state, { payload }) => {
+      state.isLoading = true;
+    },
+  },
 });
 
 export const { resetError, setAuth, signout } = userSlice.actions;

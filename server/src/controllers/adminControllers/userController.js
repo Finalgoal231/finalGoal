@@ -140,17 +140,28 @@ exports.addFollower = (req, res) => {
   console.log(id, from);
   User.findById(id)
     .then((user) => {
-      console.log("===========err================\n", user);
-      user.followers.push({ user: from });
-      user.save().then(() => {
-        User.findById(from).then((user) => {
-          user.following.push({ user: id });
-          user.save().then(res.status(201).json({ msg: "Success" }));
-        });
+      let flag = true;
+      user.followers.map((item, index) => {
+        console.log(item);
+        if (item.user == from) {
+          flag = false;
+        }
       });
+      if (flag) {
+        user.followers.push({ user: from });
+        user.save().then(() => {
+          User.findById(from).then((selectUser) => {
+            selectUser.following.push({ selectUser: id });
+            selectUser
+              .save()
+              .then(res.status(201).json({ msg: "Success", user, selectUser }));
+          });
+        });
+      } else {
+        res.status(400).json({ msg: "Already followed." });
+      }
     })
     .catch((err) => {
-      console.log("===========err================\n", err);
       res.status(500).json({ msg: "Can not follow this user" });
     });
 };

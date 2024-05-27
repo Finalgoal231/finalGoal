@@ -1,17 +1,16 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getUser } from "../../../redux/adminSlice";
+import { addFollower, getUser } from "../../../redux/authSlice";
 import moment from "moment";
-import { addFollower } from "../../../redux/authSlice";
 import MyArticle from "../../../pages/Article/MyArticle";
 
 const ProfileInfo = () => {
   const dispatch = useDispatch();
 
   const { id } = useParams();
-  const { user } = useSelector((state) => state.auth);
-  const { selectUser } = useSelector((state) => state.admin);
+  const { user, selectUser } = useSelector((state) => state.auth);
+  console.log(user, selectUser)
 
   const followUser = () => {
     dispatch(addFollower({id: id, from: user._id}))
