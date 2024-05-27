@@ -155,6 +155,7 @@ exports.getHomeArticles = (req, res) => {
       { path: "comment.ans" },
     ])
     .sort({ createdAt: -1 })
+    .limit(5)
     .then((articles) => {
       res.status(201).json({ article: articles });
     })

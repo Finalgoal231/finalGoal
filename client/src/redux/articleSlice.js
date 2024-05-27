@@ -3,6 +3,13 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { requestServer } from "../utils/requestServer";
 
+export const getHomeArticles = createAsyncThunk("getHomeArticle", async (data) => {
+  const res = await axios.get(
+    process.env.REACT_APP_BASE_URL + "/api/article/home", {params: data.followers}
+  );
+  return res.data;
+});
+
 export const getAllArticles = createAsyncThunk("getAllArticle", async () => {
   const res = await axios.get(
     process.env.REACT_APP_BASE_URL + "/api/article/all"
@@ -128,6 +135,10 @@ export const articleSlice = createSlice({
       state.isLoading = false;
     },
     [getFavoriteArticles.fulfilled]: (state, { payload }) => {
+      state.articles = [...payload.article];
+      state.isLoading = false;
+    },
+    [getHomeArticles.fulfilled]: (state, { payload }) => {
       state.articles = [...payload.article];
       state.isLoading = false;
     },

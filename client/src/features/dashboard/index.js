@@ -4,13 +4,11 @@ import { useNavigate, Link } from "react-router-dom";
 import Toolbar from "./components/Toolbar";
 import ArticleCard from "./components/ArticleCard";
 import {
-  getAllArticles,
   getAArticles,
   deleteArticle,
   addFavourite,
+  getHomeArticles,
 } from "../../redux/articleSlice";
-import { showNotification } from "../common/headerSlice";
-// import { setIsLoading } from "../../redux/articleSlice";
 
 function Dashboard() {
   const dispatch = useDispatch();
@@ -18,6 +16,11 @@ function Dashboard() {
 
   const value = useSelector((state) => state.article);
   const { user } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    dispatch(getHomeArticles(user));
+  }, [dispatch, value.isLoading]);
+
   const setHandleAddArticle = () => {
     navigate(`/newArticle/${0}`);
   };
@@ -37,10 +40,6 @@ function Dashboard() {
     dispatch(getAArticles(index));
     navigate(`/newArticle/${index}`);
   };
-  useEffect(() => {
-    dispatch(getAllArticles());
-    // dispatch(setIsLoading(false));
-  }, [dispatch, value.isLoading]);
 
   return (
     <>
@@ -67,6 +66,7 @@ function Dashboard() {
               onEditArticle={() => {
                 setHandleEdit(v._id);
               }}
+              show={false}
             />
           </div>
         );
