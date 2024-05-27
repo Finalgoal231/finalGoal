@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { getUser, permissionUser } from "../../../../../redux/adminSlice";
 import InputDisabled from "../../../../../components/Input/Inputdisabled";
 import SelectBoxSmall from "../../../../../components/Input/SelectBoxSmall";
+import { NotificationManager } from "react-notifications";
 
 function EditManage() {
   const dispatch = useDispatch();
@@ -16,7 +17,9 @@ function EditManage() {
   }, [dispatch, id, user.role]);
 
   const updateAccount = () => {
-    dispatch(permissionUser({ params: id, role: role }));
+    dispatch(permissionUser({ params: id, role: role }))
+      .then(() => NotificationManager.success("Update Role Success!"))
+      .catch(() => NotificationManager.error("Update Role Error!"));
   };
 
   return (
