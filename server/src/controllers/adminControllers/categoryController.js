@@ -50,8 +50,14 @@ exports.deleteCategory = (req, res) => {
 
 // make a controller for get all category
 exports.getAllCategory = (req, res) => {
-  Category.find({ delected: null })
-    .sort({ createdAt: -1 })
+  const { sortIndex, searchVal } = req.query;
+  const query = {
+    delected: null,
+    title: { $regex: new RegExp(searchVal, "i") },
+  };
+  console.log(query);
+  Category.find(query)
+    .sort({ [sortIndex]: -1 })
     .then((result) => {
       res.status(201).json({ result: result });
     })

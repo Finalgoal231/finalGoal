@@ -6,11 +6,13 @@ import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BiSolidEditAlt } from "react-icons/bi";
 import { NotificationManager } from "react-notifications";
+import StanSearchBar from "../../../../components/Input/StanSearchBar";
 
-function InputCategory() {
+function InputCategory({searchVal, setSearchVal}) {
   const dispatch = useDispatch();
   const { category } = useSelector((state) => state.admin);
-  const [data, setData] = useState({ title: "", _id: "" });
+  const [searchText, setSearchText] = useState("");
+  const [data, setData] = useState({ title: "", _id: "" }); 
 
   useEffect(() => {
     setData(category);
@@ -71,6 +73,11 @@ function InputCategory() {
           <div className="mt-[1px]">Update</div>
         </button>
       )}
+      <StanSearchBar
+        searchText={searchVal}
+        styleClass="mr-4 float-right"
+        setSearchText={setSearchVal}
+      />
     </TitleCard>
   );
 }

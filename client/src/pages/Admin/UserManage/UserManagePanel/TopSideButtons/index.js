@@ -28,7 +28,6 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch, users }) => {
       applySearch(searchText);
     }
   }, [searchText, users]);
-
   return (
     <div className="flex justify-end items-center">
       <StanSearchBar

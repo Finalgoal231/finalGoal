@@ -19,8 +19,8 @@ export const permissionUser = createAsyncThunk("roleUser", async (data) => {
   });
   return res.data;
 });
-export const getAllCategory = createAsyncThunk("getAllCategory", async () => {
-  const res = await axios.get(base_url + "/category/all");
+export const getAllCategory = createAsyncThunk("getAllCategory", async (data) => {
+  const res = await axios.get(base_url + "/category/all", {params: data});
   return res.data;
 });
 export const createCategory = createAsyncThunk("addCategory", async (data) => {

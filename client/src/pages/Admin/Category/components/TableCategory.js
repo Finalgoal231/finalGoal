@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteCategory, getCategory } from "../../../../redux/adminSlice";
 import { NotificationManager } from "react-notifications";
 
-function TableCategory() {
+function TableCategory({setSortIndex}) {
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.admin);
 
@@ -34,7 +34,7 @@ function TableCategory() {
           <thead>
             <tr>
               <th>No</th>
-              <th>Category</th>
+              <th className="cursor-pointer" onClick={()=>setSortIndex("title")}>Category</th>
               <th>Action</th>
             </tr>
           </thead>
