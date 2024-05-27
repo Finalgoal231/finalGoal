@@ -4,18 +4,15 @@ import axios from "axios";
 import { requestServer } from "../utils/requestServer";
 
 export const getHomeArticles = createAsyncThunk("getHomeArticle", async (data) => {
-  const res = await axios.get(
-    process.env.REACT_APP_BASE_URL + "/api/article/home", {params: data.followers}
-  );
+  const res = await axios.get(process.env.REACT_APP_BASE_URL + "/api/article/home", { params: data.followers });
   return res.data;
 });
 
-export const getAllArticles = createAsyncThunk("getAllArticle", async () => {
-  const res = await axios.get(process.env.REACT_APP_BASE_URL + "/api/article/all");
+export const getAllArticles = createAsyncThunk("getAllArticle", async (data) => {
+  const res = await axios.get(process.env.REACT_APP_BASE_URL + "/api/article/all", { params: data });
   return res.data;
 });
 export const getDraftArticles = createAsyncThunk("getDraftArticles", async (payload) => {
-  console.log(payload);
   const res = await axios.get(process.env.REACT_APP_BASE_URL + "/api/article/draft", { params: payload });
   return res.data;
 });
@@ -24,7 +21,6 @@ export const getMyArticles = createAsyncThunk("getMyArticles", async (payload) =
   return res.data;
 });
 export const getFavoriteArticles = createAsyncThunk("getFavoriteArticles", async (payload) => {
-  console.log(payload);
   const res = await axios.get(process.env.REACT_APP_BASE_URL + "/api/article/favorite", { params: payload });
   return res.data;
 });
@@ -38,7 +34,8 @@ export const createArticle = createAsyncThunk("createArticle", async (data) => {
   else return { msg: "Save to Draft!!!" };
 });
 export const updateArticle = createAsyncThunk("updateArticle", async (payload) => {
-  const res = await requestServer("put", `/api/article/${payload._id}`, payload);
+  console.log(payload);
+  const res = await requestServer("put", `/api/article/${payload.id}`, payload.data);
   return res.data;
 });
 export const deleteArticle = createAsyncThunk("deleteArticle", async (data) => {
@@ -50,8 +47,8 @@ export const addComment = createAsyncThunk("addComment", async (payload) => {
   return res.data;
 });
 export const addFavourite = createAsyncThunk("addFavourite", async (payload) => {
-  const { index, from } = payload;
-  const res = await requestServer("put", `/api/article/favorite/${index}`, {
+  const { id, from } = payload;
+  const res = await requestServer("put", `/api/article/favorite/${id}`, {
     from,
   });
   return res.data;

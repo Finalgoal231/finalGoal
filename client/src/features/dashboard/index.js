@@ -43,7 +43,7 @@ function Dashboard() {
 
   return (
     <>
-      <Toolbar onAddClick={setHandleAddArticle} />
+      {/* <Toolbar onAddClick={setHandleAddArticle} /> */}
       {value.articles.map((v, i) => {
         return (
           <div key={i}>
