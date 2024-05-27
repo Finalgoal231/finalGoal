@@ -47,11 +47,11 @@ const NewArticle = () => {
       <ArticleCard
         type={"answer"}
         title={value.selected.title}
-        avatar={value.selected.avatar}
+        avatar={value.selected.from.avatar}
         favouriteNum={value.selected.favorite.length}
         content={value.selected.content}
         date={value.selected.createdAt}
-        from={value.selected.from}
+        from={value.selected.from.name}
       />
       <div className="">
         <InputText

@@ -2,10 +2,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { requestServer } from "../utils/requestServer";
+import socket from "../utils/socket";
 
 export const getAllArticles = createAsyncThunk("getAllArticle", async (payload) => {
-  console.log(payload);
-  const res = await requestServer("get", "/api/article/all", { params: payload });
+  const res = await axios.get(process.env.REACT_APP_BASE_URL + "/api/article/all", { params: payload });
   return res.data;
 });
 export const getAArticles = createAsyncThunk("getAArticle", async (data) => {
@@ -63,6 +63,7 @@ export const articleSlice = createSlice({
       state.isLoading = true;
     },
     [createArticle.fulfilled]: (state, { payload }) => {
+      socket.emit("createArticle", payload.msg);
       state.message = payload.msg;
       state.isLoading = true;
     },

@@ -42,7 +42,7 @@ exports.deleteArticle = (req, res) => {
 // make a controller for get all article
 exports.getAllArticles = (req, res) => {
   console.log(req.query);
-  Article.find({ delected: null, complete: true })
+  Article.find({ delected: null, complete: req.query.complete })
     .populate([
       {
         path: "from",

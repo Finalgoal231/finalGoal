@@ -38,30 +38,34 @@ function AllArticle() {
   return (
     <>
       <Toolbar onAddClick={setHandleAddArticle} />
-      {value.article.map((v, i) => {
-        return (
-          <div key={i}>
-            <ArticleCard
-              type={"draft"}
-              title={v.title}
-              avatar={v.from.avatar}
-              favouriteNum={v.favorite.length}
-              content={v.content}
-              date={v.createdAt}
-              from={v.from.name}
-              onDeleteArticle={() => {
-                setHandleDelete(v._id);
-              }}
-              onEditArticle={() => {
-                setHandleEdit(v._id);
-              }}
-              onSendClick={() => {
-                setHandleSendArticle(v);
-              }}
-            />
-          </div>
-        );
-      })}
+      {value.article.length ? (
+        value.article.map((v, i) => {
+          return (
+            <div key={i}>
+              <ArticleCard
+                type={"draft"}
+                title={v.title}
+                avatar={v.from.avatar}
+                favouriteNum={v.favorite.length}
+                content={v.content}
+                date={v.createdAt}
+                from={v.from.name}
+                onDeleteArticle={() => {
+                  setHandleDelete(v._id);
+                }}
+                onEditArticle={() => {
+                  setHandleEdit(v._id);
+                }}
+                onSendClick={() => {
+                  setHandleSendArticle(v);
+                }}
+              />
+            </div>
+          );
+        })
+      ) : (
+        <div className="text-[50px] text-red-500">No Data</div>
+      )}
     </>
   );
 }

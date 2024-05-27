@@ -66,8 +66,10 @@ const authCtr = require("./src/controllers/authController");
 authCtr.defaultAdmin();
 
 // app listens to defined port
-app.listen(process.env.APP_PORT, () => {
+const server = app.listen(process.env.APP_PORT, () => {
   console.log(
     `Our Team-App backend server running on:  + ${process.env.APP_PORT}`
   );
 });
+
+require("./src/configs/socket").initialize(server);
