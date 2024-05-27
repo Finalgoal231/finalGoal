@@ -55,11 +55,14 @@ export const articleSlice = createSlice({
   initialState: {
     isLoading: false,
     article: [],
-    selected: { avatar: "default.png", from: {}, title: "", category: "express", content: "", tags: [], favorite: [] },
+    selected: { avatar: "default.png", from: {}, title: "", category: "", content: "", tags: [], favorite: [] },
     error: "",
     isAuthenicated: false,
     message: "",
     socketMsg: [],
+    searchVal: "",
+    sortIndex: "",
+    categoryIndex: "",
   },
   reducers: {
     setIsLoading: (state, action) => {
@@ -67,6 +70,15 @@ export const articleSlice = createSlice({
     },
     setSocketMsg: (state, action) => {
       state.socketMsg = [...state.socketMsg, action.payload];
+    },
+    setSearchVal: (state, action) => {
+      state.searchVal = action.payload;
+    },
+    setSortIndex: (state, action) => {
+      state.sortIndex = action.payload;
+    },
+    setCategoryIndex: (state, action) => {
+      state.categoryIndex = action.payload;
     },
   },
   extraReducers: {
@@ -90,7 +102,7 @@ export const articleSlice = createSlice({
       state.isLoading = false;
     },
     [getAArticles.fulfilled]: (state, { payload }) => {
-      state.selected = payload.article;
+      state.selected = { ...payload.article };
       state.isLoading = true;
     },
     [createArticle.fulfilled]: (state, { payload }) => {
@@ -116,5 +128,5 @@ export const articleSlice = createSlice({
   },
 });
 
-export const { setIsLoading, setSocketMsg } = articleSlice.actions;
+export const { setIsLoading, setSocketMsg, setSearchVal, setSortIndex, setCategoryIndex } = articleSlice.actions;
 export default articleSlice.reducer;

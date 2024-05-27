@@ -9,11 +9,19 @@ const Toolbar = (prop) => {
     <>
       <div className="flex justify-around items-center flex-col gap-2 sm:flex-row">
         <div className="flex flex-row">
-          <SearchBar />
-          <Button subject={"Search"} />
+          <SearchBar onChange={prop.setSearchval} />
+          <Button subject={"Search"} onClick={prop.setSearch} />
         </div>
-        <SelectBoxSmall class={"text-[15px]"} options={["Latest", "Comment", "favourite", "title"]} />
-        <SelectBoxSmall class={"text-[15px]"} options={["React", "Express", "Node.js", "MongoDB"]} />
+        <SelectBoxSmall
+          class={"text-[15px]"}
+          options={["Latest", "Comment", "favourite", "title"]}
+          onChange={prop.setSortIndex}
+        />
+        <SelectBoxSmall
+          class={"text-[15px]"}
+          options={["React", "Express", "Node.js", "MongoDB"]}
+          onChange={prop.setCategoryIndex}
+        />
         <button
           type="button"
           className="flex px-4 py-2 bg-green-600 hover:bg-green-700 dark:hover:bg-green-500 text-[20px] text-white rounded-[6px] cursor-pointer transition duration-300 ease-out"
