@@ -39,7 +39,7 @@ const TEAM_MEMBERS = [
     },
     {
         name: "Yonex",
-        avatar: "default.png",
+        avatar: "http://192.168.6.2:3000/avatars/9",
         email: "yandex@gmail.com",
         role: "manager",
         bio: "FullStack",
