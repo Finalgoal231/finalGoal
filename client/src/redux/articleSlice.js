@@ -58,10 +58,11 @@ export const createArticle = createAsyncThunk("createArticle", async (data) => {
 export const updateArticle = createAsyncThunk(
   "updateArticle",
   async (payload) => {
+    console.log(payload)
     const res = await requestServer(
       "put",
-      `/api/article/${payload._id}`,
-      payload
+      `/api/article/${payload.id}`,
+      payload.data
     );
     return res.data;
   }
