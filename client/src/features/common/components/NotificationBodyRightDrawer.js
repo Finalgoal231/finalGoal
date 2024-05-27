@@ -4,17 +4,11 @@ import { useSelector } from "react-redux";
 
 function NotificationBodyRightDrawer() {
   const [arr, setArr] = useState([""]);
-  const state = useSelector((state) => state.NotificationBodyRightDrawer);
+  const state = useSelector((state) => state.article);
   console.log(state);
-  useEffect(() => {
-    socket.on("createArticle-resend", function (msg) {
-      console.log(msg);
-      setArr([...arr, msg]);
-    });
-  });
   return (
     <>
-      {arr.map((v, i) => {
+      {state.socketMsg.map((v, i) => {
         return (
           <div key={i} className={"grid mt-3 card bg-base-200 rounded-box p-3"}>
             {v}

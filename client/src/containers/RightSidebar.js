@@ -43,7 +43,7 @@ function RightSidebar() {
                             {
                                 {
                                     [RIGHT_DRAWER_TYPES.NOTIFICATION]: (
-                                        <NotificationBodyRightDrawer {...extraObject} closeRightDrawer={close} />
+                                        <NotificationBodyRightDrawer closeRightDrawer={close} />
                                     ),
                                     [RIGHT_DRAWER_TYPES.DEFAULT]: <div></div>,
                                 }[bodyType]

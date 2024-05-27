@@ -43,7 +43,6 @@ function AllArticle() {
       <Toolbar onAddClick={setHandleAddArticle} />
       {value.article.length &&
         value.article.map((v, i) => {
-          console.log(v);
           return (
             <div key={i}>
               <ArticleCard
