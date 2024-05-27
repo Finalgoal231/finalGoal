@@ -14,12 +14,11 @@ const ChangePassword = lazy(() => import("../pages/Settings/ChangePassword"));
 const EditAccount = lazy(() => import("../pages/Admin/UserManage/EditAccount"));
 const AllArticle = lazy(() => import("../pages/Article/AllArticle"));
 const MyArticle = lazy(() => import("../pages/Article/MyArticle"));
-const FavouriteArticle = lazy(() =>
-  import("../pages/Article/FavouriteArticle")
-);
+const FavouriteArticle = lazy(() => import("../pages/Article/FavouriteArticle"));
 const NewArticle = lazy(() => import("../pages/Article/NewArticle"));
 const Draft = lazy(() => import("../pages/Article/Draft"));
 const AnswerArticle = lazy(() => import("../pages/Article/AnswerArticle"));
+const ShowArticle = lazy(() => import("../pages/Article/ShowArticle"));
 
 const routes = [
   {
@@ -69,6 +68,10 @@ const routes = [
   {
     path: "/answerArticle/:id",
     component: AnswerArticle,
+  },
+  {
+    path: "/showArticle/:id",
+    component: ShowArticle,
   },
   {
     path: "/settings-team",

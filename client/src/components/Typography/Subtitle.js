@@ -1,7 +1,5 @@
- function Subtitle({styleClass, children}){
-    return(
-        <div className={`text-2xl font-semibold ${styleClass}`}>{children}</div>
-    )
+function Subtitle({ styleClass, children, onClick }) {
+  return <div className={`text-2xl font-semibold ${styleClass}`} onClick={onClick}>{children}</div>;
 }
 
-export default Subtitle
+export default Subtitle;

@@ -15,6 +15,7 @@ function MyArticle() {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const value = useSelector((state) => state.article);
+
   const setHandleAddArticle = () => {
     navigate(`/newArticle/${0}`);
   };
@@ -41,37 +42,47 @@ function MyArticle() {
 
   return (
     <>
-      <Toolbar onAddClick={setHandleAddArticle} />
-      {value.article.length ? (
-        value.article.map((v, i) => {
-          return (
-            <div key={i}>
-              <ArticleCard
-                title={v.title}
-                avatar={v.from.avatar}
-                favouriteNum={v.favorite.length}
-                content={v.content}
-                date={v.createdAt}
-                from={v.from.name}
-                onFavouriteClick={() => {
-                  onFavouriteArticle(v._id);
-                }}
-                onDeleteArticle={() => {
-                  setHandleDelete(v._id);
-                }}
-                onEditArticle={() => {
-                  setHandleEdit(v._id);
-                }}
-                onCommentClick={() => {
-                  setHandleCommentArticle(v._id);
-                }}
-              />
-            </div>
-          );
-        })
-      ) : (
-        <div className="text-[50px] text-red-500">No Data</div>
-      )}
+      <div className="flex flex-col items-end">
+        <ArticleCard
+          type={"answer"}
+          title={value.selected.title}
+          avatar={value.selected.from.avatar}
+          favouriteNum={value.selected.favorite.length}
+          content={value.selected.content}
+          date={value.selected.createdAt}
+          from={value.selected.from.name}
+        />
+        {value.selected.ans.length ? (
+          value.selected.ans.map((v, i) => {
+            return (
+              <div key={i} className="flex flex-col w-4/5">
+                <ArticleCard
+                  title={v.title}
+                  avatar={v.from.avatar}
+                  favouriteNum={v.favorite.length}
+                  content={v.content}
+                  date={v.createdAt}
+                  from={v.from.name}
+                  onFavouriteClick={() => {
+                    onFavouriteArticle(v._id);
+                  }}
+                  onDeleteArticle={() => {
+                    setHandleDelete(v._id);
+                  }}
+                  onEditArticle={() => {
+                    setHandleEdit(v._id);
+                  }}
+                  onCommentClick={() => {
+                    setHandleCommentArticle(v._id);
+                  }}
+                />
+              </div>
+            );
+          })
+        ) : (
+          <div className="text-[50px] text-red-500">No Data</div>
+        )}
+      </div>
     </>
   );
 }
