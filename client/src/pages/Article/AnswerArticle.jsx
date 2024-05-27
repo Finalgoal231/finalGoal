@@ -10,11 +10,13 @@ import Input from "../../components/Input/Input";
 import TextAreaInput from "../../components/Input/TextAreaInput";
 import { Button } from "../../components/Button";
 import { addComment } from "../../redux/articleSlice";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ArticleCard from "../../features/dashboard/components/ArticleCard";
+import { NotificationManager } from "react-notifications";
 
 const AnswerArticle = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const value = useSelector((state) => state.article);
   const selected_id = useParams();
   const [newArticle, setNewArticle] = useState({
@@ -29,7 +31,16 @@ const AnswerArticle = () => {
     setNewArticle({ ...newArticle, [e.target.name]: e.target.value });
   };
   const setHandleComment = () => {
-    dispatch(addComment({ id: selected_id.id, data: newArticle }));
+    if (newArticle.title !== "" && newArticle.content !== "") {
+      dispatch(addComment({ id: selected_id.id, data: newArticle })).then(
+        () => {
+          NotificationManager.success("Comment Success", "SUCCESS");
+        }
+      );
+      setTimeout(() => {navigate("/allarticle")},2000);
+    } else {
+      NotificationManager.error("Input correctly!", "ERROR");
+    }
   };
   const addTags = (e) => {
     if (e.key === "Enter") {
@@ -46,9 +57,7 @@ const AnswerArticle = () => {
   };
   useEffect(() => {
     dispatch(setPageTitle({ title: "Comment Article" }));
-    if (value.isLoading)
-      dispatch(showNotification({ message: value.message, status: 1 }));
-  }, [dispatch, selected_id.id, value.isLoading, value.message]);
+  }, [dispatch]);
   return (
     <>
       <ArticleCard

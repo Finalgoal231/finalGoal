@@ -3,8 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link, useParams } from "react-router-dom";
 import Toolbar from "../../features/dashboard/components/Toolbar";
 import ArticleCard from "../../features/dashboard/components/ArticleCard";
-import { getAllArticles, getAArticles, deleteArticle, addFavourite, getMyArticles } from "../../redux/articleSlice";
-import { showNotification, setPageTitle } from "../../features/common/headerSlice";
+import {
+  getAllArticles,
+  getAArticles,
+  deleteArticle,
+  addFavourite,
+  getMyArticles,
+} from "../../redux/articleSlice";
+import {
+  showNotification,
+  setPageTitle,
+} from "../../features/common/headerSlice";
 import { socketEmit } from "../../containers/Layout";
 import { NotificationManager } from "react-notifications";
 // import { setIsLoading } from "../../redux/articleSlice";
@@ -22,7 +31,12 @@ function ShowArticle() {
     dispatch(setPageTitle({ title: "Show Article" }));
   }, [dispatch, id]);
   const onFavouriteArticle = (index) => {
-    dispatch(addFavourite({ index, from: user._id }));
+    dispatch(addFavourite({ index, from: user._id })).then(() =>
+      NotificationManager.success(
+        `You favourite to ${user.username}`,
+        "SUCCESS"
+      )
+    );
   };
   useEffect(() => {
     if (flag) {
@@ -31,11 +45,11 @@ function ShowArticle() {
         msg: `${article.from.name} liked your Article-${article.title}`,
       });
       socketEmit("comment", {
-        author: article.from.name,
-        msg: `${article.from.name} commented on your Article`,
+        author: user.username,
+        msg: `${user.username} commented on your Article`,
       });
     }
-  }, [article.from.name, article.title, flag]);
+  }, [article.from.name, article.title, flag, user.username]);
   const setHandleCommentArticle = (index) => {
     dispatch(getAArticles(index));
     navigate(`/answerArticle/${index}`);
@@ -45,14 +59,19 @@ function ShowArticle() {
       if (window.confirm("Are you delete this Article?")) {
         dispatch(deleteArticle(index));
       }
-    }else NotificationManager.warning("You are user. You don't delete Article","Warning")
+    } else
+      NotificationManager.warning(
+        "You are user. You don't delete Article",
+        "Warning"
+      );
   };
   const setHandleEdit = (index) => {
     navigate(`/newArticle/${index}`);
   };
   useEffect(() => {
     // dispatch(getMyArticles({ from: user._id }));
-    if (article.isLoading) dispatch(showNotification({ message: article.message, status: 1 }));
+    if (article.isLoading)
+      dispatch(showNotification({ message: article.message, status: 1 }));
   }, [dispatch, user._id, article.isLoading, article.message]);
   return (
     <>

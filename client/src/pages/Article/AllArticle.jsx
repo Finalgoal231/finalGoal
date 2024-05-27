@@ -13,6 +13,10 @@ import {
   setCategoryIndex,
 } from "../../redux/articleSlice";
 import { setPageTitle } from "../../features/common/headerSlice";
+import {
+  NotificationContainer,
+  NotificationManager,
+} from "react-notifications";
 // import { socketEmit } from "../../containers/Layout";
 // import { setIsLoading } from "../../redux/articleSlice";
 
@@ -33,7 +37,9 @@ function AllArticle() {
     navigate(`/showArticle/${index}`);
   };
   const onFavouriteArticle = (index, from) => {
-    dispatch(addFavourite({ index, from: user._id }));
+    dispatch(addFavourite({ index, from: user._id })).then(() => {
+      NotificationManager.success(`You favourited ${user.username}'s article`);
+    });
   };
 
   const setHandleCommentArticle = (index) => {
