@@ -15,7 +15,6 @@ function MyArticle() {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const value = useSelector((state) => state.article);
-
   const setHandleAddArticle = () => {
     navigate(`/newArticle/${0}`);
   };
@@ -52,8 +51,8 @@ function MyArticle() {
           date={value.selected.createdAt}
           from={value.selected.from.name}
         />
-        {value.selected.ans.length ? (
-          value.selected.ans.map((v, i) => {
+        {value.selected.comment.length ? (
+          value.selected.comment.map((v, i) => {
             return (
               <div key={i} className="flex flex-col w-4/5">
                 <ArticleCard
