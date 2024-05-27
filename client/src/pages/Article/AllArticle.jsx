@@ -82,6 +82,7 @@ function AllArticle() {
                 content={v.content}
                 date={v.createdAt}
                 from={v.from.name}
+                id={v.from._id}
                 onFavouriteClick={() => {
                   onFavouriteArticle(v._id, v.from._id);
                 }}

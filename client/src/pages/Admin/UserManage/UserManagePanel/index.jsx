@@ -67,11 +67,13 @@ function UserManagePanel() {
                   <tr key={k}>
                     <td>{k + 1}</td>
                     <td>
-                      <div className="avatar">
-                        <div className="mask mask-circle w-12 h-12">
-                          <img src={l.avatar} alt="Avatar" />
+                      <Link to={`/admin/profile/${l._id}`}>
+                        <div className="avatar">
+                          <div className="mask mask-circle w-12 h-12">
+                            <img src={l.avatar} alt="Avatar" />
+                          </div>
                         </div>
-                      </div>
+                      </Link>
                     </td>
                     <td>
                       <div>
