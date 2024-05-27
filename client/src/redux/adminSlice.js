@@ -4,8 +4,9 @@ import axios from "axios";
 
 const base_url = process.env.REACT_APP_BASE_URL + "/api/admin";
 
-export const allUser = createAsyncThunk("allUser", async () => {
-  const res = await axios.get(base_url + "/user/all");
+export const allUser = createAsyncThunk("allUser", async (sortIndex) => {
+  console.log(sortIndex)
+  const res = await axios.get(base_url + "/user/all", {params: {sortIndex}});
   return res.data;
 });
 export const getUser = createAsyncThunk("getUser", async (params) => {

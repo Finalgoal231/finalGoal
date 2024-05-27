@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import TopSideButtons from "./TopSideButtons";
 
-function UserManagePanel() {
+function UserManagePanel({setSortIndex}) {
   const { users } = useSelector((state) => state.admin);
   const [userData, setUserData] = useState(users);
 
@@ -54,8 +54,8 @@ function UserManagePanel() {
               <tr>
                 <th>No</th>
                 <th>Avatar</th>
-                <th>Name</th>
-                <th>Username</th>
+                <th className="cursor-pointer" onClick={()=>{setSortIndex("name")}}>Name</th>
+                <th className="cursor-pointer" onClick={()=>{setSortIndex("username")}}>Username</th>
                 <th>Bio</th>
                 <th>Role</th>
                 <th>Edit</th>

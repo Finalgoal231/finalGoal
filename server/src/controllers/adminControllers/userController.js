@@ -2,9 +2,12 @@ const User = require("../../models/userModel");
 
 // make a controller for get all users
 exports.allUser = (req, res) => {
+  const { sortIndex } = req.query;
+  console.log(sortIndex);
+  console.log("first");
   User.find({ delected: null })
     .populate([{ path: "followers.user" }, { path: "following.user" }])
-    .sort({ createdAt: -1 })
+    .sort({ [sortIndex]: 1 })
     .then((users) => {
       res.status(201).json({ users: users });
     })
@@ -37,11 +40,9 @@ exports.delUser = (req, res) => {
   User.findById(id)
     .then((user) => {
       user.delected = new Date();
-      user
-        .save()
-        .then(()=>{
-          res.status(201).json({ msg: "User deleted successfully", user: user })}
-        );
+      user.save().then(() => {
+        res.status(201).json({ msg: "User deleted successfully", user: user });
+      });
     })
     .catch((err) => {
       res.status(400).json({ err: err });
@@ -154,9 +155,11 @@ exports.addFollower = async (req, res) => {
               }
             });
             selectUser.following.splice(flag - 1, 1);
-            selectUser
-              .save()
-              .then(()=>{res.status(201).json({ msg: "Success", user: selectUser, selectUser: user })});
+            selectUser.save().then(() => {
+              res
+                .status(201)
+                .json({ msg: "Success", user: selectUser, selectUser: user });
+            });
           });
         });
       } else {
@@ -164,9 +167,11 @@ exports.addFollower = async (req, res) => {
         user.save().then(() => {
           User.findById(from).then((selectUser) => {
             selectUser.following.push({ user: id });
-            selectUser
-              .save()
-              .then(()=>{res.status(201).json({ msg: "Success", user: selectUser, selectUser: user })});
+            selectUser.save().then(() => {
+              res
+                .status(201)
+                .json({ msg: "Success", user: selectUser, selectUser: user });
+            });
           });
         });
       }
