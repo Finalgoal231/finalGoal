@@ -29,6 +29,18 @@ export const updateAvatar = createAsyncThunk("updateAvatar", async (payload) => 
     }
 });
 
+export const addFollower = createAsyncThunk("updateAvatar", async (payload) => {
+    try {
+        const res = await requestServer("put", "/api/admin/user/follow/" + payload.id, {from: payload.from});
+        return res.data;
+    } catch (e) {
+        if (e.response) {
+            return { ...e.response.data, error: true };
+        }
+        return { error: true, message: "Server is not running correctly." };
+    }
+});
+
 export const changeInfo = createAsyncThunk();
 export const changePassword = createAsyncThunk();
 

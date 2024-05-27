@@ -52,6 +52,7 @@ exports.delUser = (req, res) => {
 exports.getUser = (req, res) => {
   const id = req.params.id;
   User.findById(id)
+    .populate([{ path: "followers.user" }, { path: "following.user" }])
     .then((user) => {
       res.status(201).json({ user: user });
     })
@@ -118,9 +119,10 @@ exports.changeAvatar = (req, res) => {
         user
           .save()
           .then(() => {
-            res
-              .status(200)
-              .json({ msg: "Profile avatar changed successfully.", user: user });
+            res.status(200).json({
+              msg: "Profile avatar changed successfully.",
+              user: user,
+            });
           })
           .catch(() => {
             res.status(500).json({ msg: "Server error" });
@@ -134,32 +136,21 @@ exports.changeAvatar = (req, res) => {
 
 exports.addFollower = (req, res) => {
   let id = req.params.id;
-  console.log(req.body);
+  const { from } = req.body;
+  console.log(id, from);
   User.findById(id)
     .then((user) => {
-      user.followers.push({ user: req.body.from });
-      user
-        .save()
-        .then(() => {
-          User.findById(req.body.from)
-            .then((user) => {
-              user.following.push({ user: id });
-              user
-                .save()
-                .then(res.status(201).json({ msg: "Success" }))
-                .catch((err) => {
-                  res.status(500).json({ msg: "Can not follow this user" });
-                });
-            })
-            .catch(() => {
-              res.status(500).json({ msg: "Can not follow this user" });
-            });
-        })
-        .catch((err) => {
-          res.status(500).json({ msg: "Can not follow this user" });
+      console.log("===========err================\n", user);
+      user.followers.push({ user: from });
+      user.save().then(() => {
+        User.findById(from).then((user) => {
+          user.following.push({ user: id });
+          user.save().then(res.status(201).json({ msg: "Success" }));
         });
+      });
     })
-    .catch(() => {
+    .catch((err) => {
+      console.log("===========err================\n", err);
       res.status(500).json({ msg: "Can not follow this user" });
     });
 };

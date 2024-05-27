@@ -19,5 +19,6 @@ router.get("/:id", middleware, userManageCtrl.getUser);
 router.put("/:id", middleware, userManageCtrl.changeInfo);
 router.put("/password/:id", middleware, userManageCtrl.changePassword);
 router.put("/avatar/:id", userManageCtrl.changeAvatar);
+router.put("/follow/:id", userManageCtrl.addFollower);
 
 module.exports = router;

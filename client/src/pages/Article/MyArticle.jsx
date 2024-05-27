@@ -16,7 +16,7 @@ import {
 } from "../../features/common/headerSlice";
 // import { setIsLoading } from "../../redux/articleSlice";
 
-function MyArticle() {
+function MyArticle(props) {
   useEffect(() => {
     dispatch(setPageTitle({ title: "My Article" }));
   }, []);
@@ -44,7 +44,7 @@ function MyArticle() {
     navigate(`/newArticle/${index}`);
   };
   useEffect(() => {
-    dispatch(getMyArticles({ from: user._id }));
+    dispatch(getMyArticles({ from: props.id || user._id }));
     if (value.isLoading)
       dispatch(showNotification({ message: value.message, status: 1 }));
   }, [dispatch, value.isLoading, value.message]);
