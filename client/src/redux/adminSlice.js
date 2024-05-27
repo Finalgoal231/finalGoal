@@ -71,7 +71,6 @@ export const adminSlice = createSlice({
       state.flag = false;
     });
     builder.addCase(updateCategory.fulfilled, (state, action) => {
-      state.category.title = "";
       state.flag = false;
     });
     builder.addCase(deleteCategory.fulfilled, (state, action) => {

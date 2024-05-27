@@ -5,6 +5,7 @@ import { createCategory, updateCategory } from "../../../../redux/adminSlice";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BiSolidEditAlt } from "react-icons/bi";
+import { NotificationManager } from "react-notifications";
 
 function InputCategory() {
   const dispatch = useDispatch();
@@ -17,16 +18,20 @@ function InputCategory() {
 
   const create = useCallback(() => {
     if (data.title !== "") {
-      dispatch(createCategory({ title: data.title }));
+      dispatch(createCategory({ title: data.title }))
+      .then(() => NotificationManager.success("Create Category Success!"))
+      .catch(() => NotificationManager.error("Create Category Error!"));
       setData({ title: "", _id: "" });
     } else {
-      alert("Input Correctly!");
+      NotificationManager.error("Input Correctly!");
     }
   }, [dispatch, data]);
 
   const edit = useCallback(
     (val) => {
-      dispatch(updateCategory({ title: val.title, _id: val._id }));
+      dispatch(updateCategory({ title: val.title, _id: val._id }))
+        .then(() => NotificationManager.success("Update Category Success!"))
+        .catch(() => NotificationManager.error("Update Category Error!"));
       setData({ title: "", _id: "" });
     },
     [dispatch]
