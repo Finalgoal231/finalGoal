@@ -19,19 +19,19 @@ function InputCategory() {
   const create = useCallback(() => {
     if (data.title !== "") {
       dispatch(createCategory({ title: data.title }))
-      .then(() => NotificationManager.success("Create Category Success!"))
-      .catch(() => NotificationManager.error("Create Category Error!"));
+      .then(() => NotificationManager.success("Create Category Success!", "SUCCESS"))
+      .catch(() => NotificationManager.error("Create Category Error!","ERROR"));
       setData({ title: "", _id: "" });
     } else {
-      NotificationManager.error("Input Correctly!");
+      NotificationManager.error("Input Correctly!","ERROR");
     }
   }, [dispatch, data]);
 
   const edit = useCallback(
     (val) => {
       dispatch(updateCategory({ title: val.title, _id: val._id }))
-        .then(() => NotificationManager.success("Update Category Success!"))
-        .catch(() => NotificationManager.error("Update Category Error!"));
+        .then(() => NotificationManager.success("Update Category Success!", "SUCCESS"))
+        .catch(() => NotificationManager.error("Update Category Error!","ERROR"));
       setData({ title: "", _id: "" });
     },
     [dispatch]

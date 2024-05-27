@@ -9,7 +9,7 @@ export const signin = createAsyncThunk("/api/auth/signin", async (payload) => {
         return res.data;
     } catch (e) {
         if (e.response) {
-            return { ...e.response.data, error: true };
+            return { ...e.response};
         }
         return { error: true, message: "Server is not running correctly." };
     }
@@ -84,11 +84,9 @@ export const userSlice = createSlice({
         },
     },
     extraReducers: {
-        [signin.pending]: (state) => {
-            state.isLoading = true;
-        },
         [signin.fulfilled]: (state, { payload }) => {
             if (payload.token) {
+                console.log(payload);
                 axios.defaults.headers.common["Authorization"] = payload.token;
                 localStorage.setItem("token", payload.token);
                 localStorage.setItem("user", JSON.stringify(payload.user));
@@ -96,14 +94,13 @@ export const userSlice = createSlice({
                 state.isAuthenicated = true;
                 state.isLoading = false;
             } else {
-                state.error = payload.message;
-                state.isLoading = false;
+                state.isAuthenicated = false;
             }
         },
-        [signin.rejected]: (state, { payload }) => {
-            state.error = payload.message;
-            state.isLoading = false;
-        },
+        // [signin.rejected]: (state, { payload }) => {
+        //     state.error = payload.message;
+        //     state.isLoading = false;
+        // },
 
         [createPassword.fulfilled]: (state, { payload }) => {
             alert(payload.msg);

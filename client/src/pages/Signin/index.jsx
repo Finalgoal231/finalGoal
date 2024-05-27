@@ -9,39 +9,19 @@ import {
   NotificationManager,
 } from "react-notifications";
 import "react-notifications/lib/notifications.css";
-import ErrorText from "../../components/Typography/ErrorText";
 import Logo from "../../components/Logo";
-import { resetError, signin } from "../../redux/authSlice";
+import { signin } from "../../redux/authSlice";
 import { Input } from "../Component/Input";
-
-// import use
 
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { isAuthenicated, error, isLoading, user } = useSelector(
-    (state) => state.auth
-  );
+  const { user } = useSelector((state) => state.auth);
   const [form, setForm] = useState({
     username: "",
     password: "",
   });
-
-  useEffect(() => {
-    if (isAuthenicated) {
-      NotificationManager.success(`Welcome ${user.name}!`, "success");
-      setTimeout(() => {
-        navigate("/dashboard");
-      }, 1000);
-    }
-  }, [isAuthenicated]);
-
-  useEffect(() => {
-    setTimeout(() => {
-      dispatch(resetError());
-    }, 3000);
-  }, [error]);
 
   const handleChange = useCallback(
     (e) => {
@@ -55,7 +35,23 @@ function Login() {
   const handleSubmit = useCallback(
     (e) => {
       e.preventDefault();
-      dispatch(signin(form));
+      dispatch(signin(form))
+        .then((result) => {
+          console.log(result);
+          if (result.payload.status === 401) {
+            NotificationManager.warning("Password incorrectly", "WARNING");
+          } else if (result.payload.status === 404) {
+            NotificationManager.info("Not Registered User", "WARNING");
+          } else {
+            NotificationManager.success(`Welcome !!!`, "SUCCESS");
+            setTimeout(() => {
+              navigate("/dashboard");
+            }, 1500);
+          }
+        })
+        .catch(() => {
+          NotificationManager.error("Network Error", "ERROR");
+        });
     },
     [form]
   );
@@ -70,44 +66,39 @@ function Login() {
               Sign In
             </h1>
             <div className="mb-3">
-              {isLoading === true ? (
-                <div>Loading</div>
-              ) : (
-                <form
-                  onSubmitCapture={(e) => {
-                    handleSubmit(e);
-                  }}
-                >
-                  <div className="mb-4">
+              <form
+                onSubmitCapture={(e) => {
+                  handleSubmit(e);
+                }}
+              >
+                <div className="mb-4">
                   <Input
                     type={"text"}
                     name={"username"}
                     value={form.username}
                     onChange={handleChange}
                   />
-                  </div>
-                  <div className="mb-4">
+                </div>
+                <div className="mb-4">
                   <Input
                     type={"password"}
                     name={"password"}
                     value={form.password}
                     onChange={handleChange}
                   />
-                  </div>
-                  <ErrorText Style="mt-8">{error}</ErrorText>
-                  <button type="submit" className={"btn btn-primary w-full"}>
-                    Signin
-                  </button>
-                  <div className="text-center mt-4">
-                    Are you new here?{"  "}
-                    <Link to="/signup">
-                      <span className="inline-block hover:text-primary underline hover:cursor-pointer transition duration-200">
-                        Signup
-                      </span>
-                    </Link>
-                  </div>
-                </form>
-              )}
+                </div>
+                <button type="submit" className={"btn btn-primary w-full"}>
+                  Signin
+                </button>
+                <div className="text-center mt-4">
+                  Are you new here?
+                  <Link to="/signup">
+                    <span className="inline-block hover:text-primary underline hover:cursor-pointer transition duration-200 mx-10">
+                      Signup
+                    </span>
+                  </Link>
+                </div>
+              </form>
             </div>
           </div>
         </div>

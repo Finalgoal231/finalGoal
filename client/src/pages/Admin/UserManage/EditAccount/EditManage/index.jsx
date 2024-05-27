@@ -18,8 +18,8 @@ function EditManage() {
 
   const updateAccount = () => {
     dispatch(permissionUser({ params: id, role: role }))
-      .then(() => NotificationManager.success("Update Role Success!"))
-      .catch(() => NotificationManager.error("Update Role Error!"));
+      .then(() => NotificationManager.success("Update Role Success!","SUCCESS"))
+      .catch(() => NotificationManager.error("Update Role Error!","ERROR"));
   };
 
   return (
