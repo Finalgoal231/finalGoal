@@ -22,7 +22,9 @@ const ArticleCard = (prop) => {
           <div className="card flex w-11/12 p-3 bg-base-100 shadow-xl">
             <div className="flex justify-between">
               <div className="flex flex-row items-center">
-                <Subtitle styleClass={"inline-block cursor-pointer"}>{prop.title}</Subtitle>
+                <Subtitle styleClass={"inline-block cursor-pointer"} onClick={prop.setShowArticle}>
+                  {prop.title}
+                </Subtitle>
                 <BiSolidEditAlt className="text-[30px] ml-4 cursor-pointer" onClick={prop.onEditArticle} />
               </div>
               <XMarkIcon className="h-7 w-7 cursor-pointer" onClick={prop.onDeleteArticle} />
@@ -34,7 +36,7 @@ const ArticleCard = (prop) => {
         <div className="flex flex-col md:flex-row justify-around items-center w-full">
           <p className=" flex flex-row text-[20px] items-center">
             <AiOutlineCalendar className="text-[20px]" />
-            {moment(prop.date).format("YYYY-MM-DD")}
+            {prop.date ? moment(prop.date).format("YYYY-MM-DD") : ""}
           </p>
           <p className="flex flex-row text-[20px] items-center">
             <UserIcon className="h-5 w-5" />
@@ -46,7 +48,7 @@ const ArticleCard = (prop) => {
               <Button subject={"Comment"} class="text-[15px] m-2" onClick={prop.onCommentClick} />
             </>
           ) : (
-            <Button subject={"Send"} class="text-[15px] m-2" onClick={prop.onSendClick} />
+            <Button subject={"✔"} class="text-[15px] m-2" onClick={prop.onSendClick} />
           )}
         </div>
       </div>

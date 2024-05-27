@@ -10,7 +10,7 @@ import { addComment } from "../../redux/articleSlice";
 import { useParams } from "react-router-dom";
 import ArticleCard from "../../features/dashboard/components/ArticleCard";
 
-const NewArticle = () => {
+const AnswerArticle = () => {
   const dispatch = useDispatch();
   const value = useSelector((state) => state.article);
   const selected_id = useParams();
@@ -51,7 +51,7 @@ const NewArticle = () => {
         favouriteNum={value.selected.favorite.length}
         content={value.selected.content}
         date={value.selected.createdAt}
-        from={value.selected.from.name}
+        from={value.selected.from.username}
       />
       <div className="">
         <InputText
@@ -110,4 +110,4 @@ const NewArticle = () => {
     </>
   );
 };
-export default NewArticle;
+export default AnswerArticle;

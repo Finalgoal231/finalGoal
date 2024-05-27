@@ -3,20 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import Toolbar from "../../features/dashboard/components/Toolbar";
 import ArticleCard from "../../features/dashboard/components/ArticleCard";
-import {
-  getAllArticles,
-  getAArticles,
-  deleteArticle,
-  addFavourite,
-  getMyArticles,
-} from "../../redux/articleSlice";
-import {
-  showNotification,
-  setPageTitle,
-} from "../../features/common/headerSlice";
+import { getAllArticles, getAArticles, deleteArticle, addFavourite, getMyArticles } from "../../redux/articleSlice";
+import { showNotification, setPageTitle } from "../../features/common/headerSlice";
 // import { setIsLoading } from "../../redux/articleSlice";
 
-function MyArticle() {
+function MyArticle(props) {
   useEffect(() => {
     dispatch(setPageTitle({ title: "My Article" }));
   }, []);
@@ -44,7 +35,7 @@ function MyArticle() {
     navigate(`/newArticle/${index}`);
   };
   useEffect(() => {
-    dispatch(getMyArticles({ from: user._id }));
+    dispatch(getMyArticles({ from: props.id || user._id }));
     if (value.isLoading)
       dispatch(showNotification({ message: value.message, status: 1 }));
   }, [dispatch, value.isLoading, value.message]);

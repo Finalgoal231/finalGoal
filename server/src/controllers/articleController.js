@@ -155,16 +155,8 @@ exports.getFavoriteArticles = async (req, res) => {
 exports.getHomeArticles = (req, res) => {
   Article.find({ delected: null, complete: true })
     .populate([
-      {
-        path: "from",
-        // select:
-        // "role avatar category delected complete _id name username follower createdAt",
-      },
-      {
-        path: "favorite.user",
-        // select:
-        // "role avatar category delected complete _id name username follower createdAt",
-      },
+      { path: "from" },
+      { path: "favorite.user" },
       { path: "comment.ans" },
     ])
     .sort({ createdAt: -1 })
@@ -179,6 +171,11 @@ exports.getHomeArticles = (req, res) => {
 exports.getAArticle = (req, res) => {
   let id = req.params.id;
   Article.findById(id)
+    .populate([
+      { path: "from" },
+      { path: "favorite.user" },
+      { path: "comment.ans" },
+    ])
     .then((article) => {
       res.status(201).json({ article: article });
     })

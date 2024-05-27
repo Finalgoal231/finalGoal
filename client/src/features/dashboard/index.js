@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import Toolbar from "./components/Toolbar";
 import ArticleCard from "./components/ArticleCard";
-import { getAllArticles, getAArticles, deleteArticle } from "../../redux/articleSlice";
+import { getAllArticles, getAArticles, deleteArticle, addFavourite } from "../../redux/articleSlice";
 import { showNotification } from "../common/headerSlice";
 // import { setIsLoading } from "../../redux/articleSlice";
 
@@ -12,15 +12,16 @@ function Dashboard() {
   const navigate = useNavigate();
 
   const value = useSelector((state) => state.article);
-
+  const { user } = useSelector((state) => state.auth);
   const setHandleAddArticle = () => {
     navigate(`/newArticle/${0}`);
   };
-  const setHandleAddAnswerArticle = (index) => {
-    navigate(`/answer/article/${index}`);
+  const setHandleCommentArticle = (index) => {
+    dispatch(getAArticles(index));
+    navigate(`/answerArticle/${index}`);
   };
-  const onFavouriteClick = () => {
-    console.log("Favourite");
+  const onFavouriteClick = (index) => {
+    dispatch(addFavourite({ id: index, from: user._id }));
   };
   const setHandleDelete = (index) => {
     if (window.confirm("Are you delete this Article?")) {
@@ -50,9 +51,11 @@ function Dashboard() {
               from={v.from.name}
               favouriteNum={v.favorite.length}
               onAnswerClick={() => {
-                setHandleAddAnswerArticle(v._id);
+                setHandleCommentArticle(v._id);
               }}
-              onFavouriteClick={onFavouriteClick}
+              onFavouriteClick={() => {
+                onFavouriteClick(v._id);
+              }}
               onDeleteArticle={() => {
                 setHandleDelete(v._id);
               }}
@@ -63,14 +66,18 @@ function Dashboard() {
           </div>
         );
       })}
-      <div className="text-center mt-4">
-        Already Have An Account?{" "}
-        <Link to="/signin">
-          <span className="text-[20px] inline-block hover:text-primary underline hover:cursor-pointer transition duration-200">
-            Signin
-          </span>
-        </Link>
-      </div>
+      {user.token ? (
+        <div className="text-center mt-4">
+          Already Have An Account?{" "}
+          <Link to="/signin">
+            <span className="text-[20px] inline-block hover:text-primary underline hover:cursor-pointer transition duration-200">
+              Signin
+            </span>
+          </Link>
+        </div>
+      ) : (
+        ""
+      )}
     </>
   );
 }

@@ -1,10 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-function SearchBar({ searchText, setSearchText, className }) {
+function SearchBar({ searchText, onChange, className }) {
   const dispatch = useDispatch();
-  const updateSearchInput = (value) => {
-    console.log(value);
-  };
 
   return (
     <div className={`inline-block ${className}`}>
@@ -13,7 +10,7 @@ function SearchBar({ searchText, setSearchText, className }) {
           type="search"
           value={searchText}
           placeholder={"Search..."}
-          onChange={(e) => updateSearchInput(e.target.value)}
+          onChange={onChange}
           className="input input-md input-bordered  w-full max-w-xs"
         />
       </div>
