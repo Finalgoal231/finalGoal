@@ -33,7 +33,7 @@ export const createArticle = createAsyncThunk("createArticle", async (data) => {
   else return { msg: "Save to Draft!!!" };
 });
 export const updateArticle = createAsyncThunk("updateArticle", async (payload) => {
-  const res = await requestServer("put", `/api/article/${payload.id}`, payload.data);
+  const res = await requestServer("put", `/api/article/${payload._id}`, payload);
   return res.data;
 });
 export const deleteArticle = createAsyncThunk("deleteArticle", async (data) => {
