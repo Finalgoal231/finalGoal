@@ -29,21 +29,21 @@ const ChangePassword = () => {
           <div className="w-[70%] grid grid-cols-1 md:grid-cols-1 gap-20">
             <InputText
               name={"currentPassword"}
-              labelTitle={"Current Password:"}
+              labelTitle={"Current:"}
               placeholder={"Input Current Password"}
               labelStyle={"text-[20px]"}
               onChange={setHandlePassword}
             />
             <InputText
               name={"newpassword"}
-              labelTitle={"New Password:"}
+              labelTitle={"New:"}
               placeholder={"Input New Password"}
               labelStyle={"text-[20px]"}
               onChange={setHandlePassword}
             />
             <InputText
               name={"confirmpassword"}
-              labelTitle={"Confirm Password:"}
+              labelTitle={"Confirm:"}
               placeholder={"Input Confirm Password"}
               labelStyle={"text-[20px]"}
               onChange={setHandlePassword}
@@ -62,9 +62,9 @@ const ChangePassword = () => {
               <div className="absolute passBtn"></div>
             </div>
           </div>
-          <div className="mt-16">
+          <div className="mt-16 mr-20">
             <div className="flex items-center flex-col relative">
-              <button className="btn btn-primary w-20 h-8">Cancel</button>
+              <button className="btn w-20 h-8">Cancel</button>
               <div className="absolute passBtn"></div>
             </div>
           </div>

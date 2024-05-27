@@ -37,7 +37,15 @@ export const updateAvatar = createAsyncThunk(
   }
 );
 
-export const changeInfo = createAsyncThunk();
+export const changeInfo = createAsyncThunk("changeInfo", async (payload) => {
+  console.log(payload);
+  const res = await requestServer(
+    "put",
+    `/api/admin/user/${payload.params}`,
+    payload.payload
+  );
+  return res.data;
+});
 
 export const changePassword = createAsyncThunk();
 

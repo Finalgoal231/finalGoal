@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import TitleCard from "../../../components/Cards/TitleCard";
 import InputText from "../../../components/Input/InputText";
 import { BsPlusLg } from "react-icons/bs";
-import { createProfile } from "../../../redux/authSlice";
+import { changeInfo } from "../../../redux/authSlice";
 import ProfileAvatar from "../../../components/Avatar";
 import SelectBoxBig from "../../../components/Input/SelectBoxBig";
 import { mapValues, uniq } from "lodash";
@@ -17,17 +17,20 @@ function ProfileSettings() {
   const [profile, setProfile] = useState({
     username: user.username,
     name: user.name,
-    bio: user.bio,
-    category: user.category,
+    bio: "FullStack",
+    category: "",
   });
+  const [selectTag, setSelectTag] = useState();
+  const [tag, setTag] = useState([]);
 
   useEffect(() => {
     setCates(Object.values(mapValues(categories, (cate) => cate.title)));
   }, [categories]);
 
-  const [selectTag, setSelectTag] = useState();
-  const [tag, setTag] = useState([]);
-
+  const handleChange = (e) => {
+    setProfile({ ...profile, [e.target.name]: e.target.value });
+  };
+  console.log(profile);
   const setHandleTag = (e) => {
     setSelectTag(e.target.value);
   };
@@ -36,6 +39,7 @@ function ProfileSettings() {
     if (selectTag) {
       let uniqTag = uniq([...tag, selectTag]);
       setTag(uniqTag);
+      profile.category = uniqTag;
     }
   };
 
@@ -45,23 +49,35 @@ function ProfileSettings() {
   };
 
   const updateProfile = () => {
-    dispatch(createProfile({ ...profile, complete: true }));
+    dispatch(changeInfo({ params: user._id, payload: profile }));
   };
 
   const setHandleProfile = (e) => {
     setProfile({ ...profile, [e.target.name]: e.target.value });
   };
+  console.log(profile.category);
 
   return (
     <>
       <TitleCard title="Profile Settings" topMargin="mt-2">
         <div className="flex justify-center">
-          <ProfileAvatar />
+          <div className="mt-5">Name</div>
+          <InputText
+            name={"name"}
+            value={profile.name}
+            onChange={(e) => handleChange(e)}
+          />
+          <div className="px-10">
+            <ProfileAvatar />
+          </div>
+
+          <div className="mt-5">Username</div>
+          <InputText
+            value={profile.username}
+            onChange={(e) => handleChange(e)}
+          />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-5">
-          <InputText labelTitle="Name" value={profile.name} />
-          <InputText labelTitle="Username" value={profile.username} />
-        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-5"></div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-5">
           <SelectBoxBig
             label={"Bio"}
