@@ -59,7 +59,7 @@ export const adminSlice = createSlice({
       state.users = action.payload.users;
     },
     [getUser.fulfilled]: (state, action) => {
-      state.selectUser = action.payload.user;
+      state.user = action.payload.user;
     },
     [permissionUser.fulfilled]: (state, action) => {
       state.user = action.payload;
