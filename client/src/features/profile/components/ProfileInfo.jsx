@@ -1,19 +1,31 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { addFollower, getUser } from "../../../redux/authSlice";
 import moment from "moment";
 import MyArticle from "../../../pages/Article/MyArticle";
+import { mapValues } from "lodash";
 
 const ProfileInfo = () => {
+  const [flag, setFlag] = useState(false);
+
   const dispatch = useDispatch();
 
   const { id } = useParams();
   const { user, selectUser } = useSelector((state) => state.auth);
-  console.log(user, selectUser)
+  console.log("user: ", user, "\nselect: ", selectUser);
+
+  useEffect(() => {
+    setFlag(
+      Object.values(
+        mapValues(selectUser.followers, (user) => user.user)
+      ).includes(user._id)
+    );
+  }, []);
 
   const followUser = () => {
-    dispatch(addFollower({id: id, from: user._id}))
+    dispatch(addFollower({ id: id, from: user._id }));
+    setFlag(!flag);
   };
 
   useEffect(() => {
@@ -62,18 +74,32 @@ const ProfileInfo = () => {
                   Joined at {moment(selectUser.createdAt).format("YYYY-MM-DD")}
                 </div>
               </div>
-              <div className="w-full mt-5">
-                <button
-                  type="button"
-                  className="px-4 py-2 border hover:bg-green-600 dark:hover:bg-green-500 border-green-600 dark:border-green-500 text-[15px] text-green-600 dark:text-green-500 hover:text-white dark:hover:text-white rounded-[6px] cursor-pointer transition duration-300 ease-out w-full"
-                  onClick={() => followUser()}
-                >
-                  Follow
-                </button>
-              </div>
+              {id !== user._id && (
+                <div className="w-full mt-5">
+                  {flag ? (
+                    <button
+                      type="button"
+                      className="px-4 py-2 border hover:bg-green-600 dark:hover:bg-green-500 border-green-600 dark:border-green-500 text-[15px] text-green-600 dark:text-green-500 hover:text-white dark:hover:text-white rounded-[6px] cursor-pointer transition duration-300 ease-out w-full"
+                      onClick={() => followUser()}
+                    >
+                      Follow
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => followUser()}
+                      className="px-4 py-2 border hover:bg-red-500 border-red-500 text-[15px] text-red-500 hover:text-white rounded-[6px] cursor-pointer transition duration-300 ease-out w-full"
+                    >
+                      Unfollow
+                    </button>
+                  )}
+                </div>
+              )}
             </div>
           </div>
-          <div className="w-2/3"><MyArticle id={id} /></div>
+          <div className="w-2/3">
+            <MyArticle id={id} />
+          </div>
         </div>
       )}
     </div>

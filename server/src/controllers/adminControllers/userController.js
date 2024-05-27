@@ -39,8 +39,8 @@ exports.delUser = (req, res) => {
       user.delected = new Date();
       user
         .save()
-        .then(
-          res.status(201).json({ msg: "User deleted successfully", user: user })
+        .then(()=>{
+          res.status(201).json({ msg: "User deleted successfully", user: user })}
         );
     })
     .catch((err) => {
@@ -134,31 +134,43 @@ exports.changeAvatar = (req, res) => {
   });
 };
 
-exports.addFollower = (req, res) => {
+exports.addFollower = async (req, res) => {
   let id = req.params.id;
   const { from } = req.body;
   console.log(id, from);
   User.findById(id)
     .then((user) => {
-      let flag = true;
+      let flag = 0;
       user.followers.map((item, index) => {
-        console.log(item);
         if (item.user == from) {
-          flag = false;
+          flag = index + 1;
         }
       });
       if (flag) {
-        user.followers.push({ user: from });
+        user.followers.splice(flag - 1, 1);
         user.save().then(() => {
           User.findById(from).then((selectUser) => {
-            selectUser.following.push({ selectUser: id });
+            selectUser.following.map((item, index) => {
+              if (item.user == id) {
+                flag = index + 1;
+              }
+            });
+            selectUser.following.splice(flag - 1, 1);
             selectUser
               .save()
-              .then(res.status(201).json({ msg: "Success", user, selectUser }));
+              .then(()=>{res.status(201).json({ msg: "Success", user: selectUser, selectUser: user })});
           });
         });
       } else {
-        res.status(400).json({ msg: "Already followed." });
+        user.followers.push({ user: from });
+        user.save().then(() => {
+          User.findById(from).then((selectUser) => {
+            selectUser.following.push({ user: id });
+            selectUser
+              .save()
+              .then(()=>{res.status(201).json({ msg: "Success", user: selectUser, selectUser: user })});
+          });
+        });
       }
     })
     .catch((err) => {
