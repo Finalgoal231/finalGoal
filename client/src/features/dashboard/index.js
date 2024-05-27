@@ -54,7 +54,7 @@ function Dashboard() {
               date={v.createdAt}
               from={v.from.name}
               favouriteNum={v.favorite.length}
-              onAnswerClick={() => {
+              onCommentClick={() => {
                 setHandleCommentArticle(v._id);
               }}
               onFavouriteClick={() => {
@@ -71,18 +71,6 @@ function Dashboard() {
           </div>
         );
       })}
-      {user.token ? (
-        <div className="text-center mt-4">
-          Already Have An Account?{" "}
-          <Link to="/signin">
-            <span className="text-[20px] inline-block hover:text-primary underline hover:cursor-pointer transition duration-200">
-              Signin
-            </span>
-          </Link>
-        </div>
-      ) : (
-        ""
-      )}
     </>
   );
 }

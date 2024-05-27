@@ -81,8 +81,8 @@ export const addComment = createAsyncThunk("addComment", async (payload) => {
 export const addFavourite = createAsyncThunk(
   "addFavourite",
   async (payload) => {
-    const { index, from } = payload;
-    const res = await requestServer("put", `/api/article/favorite/${index}`, {
+    const { id, from } = payload;
+    const res = await requestServer("put", `/api/article/favorite/${id}`, {
       from,
     });
     return res.data;
