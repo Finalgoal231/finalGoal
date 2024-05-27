@@ -35,7 +35,7 @@ function AllArticle() {
     navigate(`/newArticle/${index}`);
   };
   useEffect(() => {
-    dispatch(getAllArticles({ complete: true }));
+    dispatch(getAllArticles());
   }, [dispatch, value.isLoading, value.message]);
 
   return (

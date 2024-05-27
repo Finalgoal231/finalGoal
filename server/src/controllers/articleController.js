@@ -1,4 +1,5 @@
 const Article = require("../models/articleModel");
+const User = require("../models/userModel");
 
 // make a controller for create a article
 exports.createArticle = (req, res) => {
@@ -32,7 +33,9 @@ exports.deleteArticle = (req, res) => {
   Article.findById(id)
     .then((article) => {
       article.delected = new Date();
-      article.save().then(res.status(201).json({ msg: "Article deleted successfully" }));
+      article
+        .save()
+        .then(res.status(201).json({ msg: "Article deleted successfully" }));
     })
     .catch((err) => {
       res.status(400).json({ err: err });
@@ -41,8 +44,8 @@ exports.deleteArticle = (req, res) => {
 
 // make a controller for get all article
 exports.getAllArticles = (req, res) => {
-  console.log(req.query);
-  Article.find({ delected: null, complete: req.query.complete })
+  console.log("getAllArticles", req.query);
+  Article.find({ delected: null, complete: true })
     .populate([
       {
         path: "from",
@@ -51,8 +54,91 @@ exports.getAllArticles = (req, res) => {
       },
       {
         path: "favorite.user",
-        // select:
-        //   "role avatar category delected complete _id name username follower createdAt",
+        select:
+          "role avatar category delected complete _id name username follower createdAt",
+      },
+      { path: "comment.ans" },
+    ])
+    .sort({ createdAt: -1 })
+    .then((articles) => {
+      res.status(201).json({ article: articles });
+    })
+    .catch(() => {
+      res.status(500).json({ msg: "Can't get article" });
+    });
+};
+
+// make a controller for get all article
+exports.getMyArticles = (req, res) => {
+  console.log("getMyArticles", req.query);
+  const { from } = req.query;
+  Article.find({ delected: null, complete: true, from: from })
+    .populate([
+      {
+        path: "from",
+        select:
+          "role avatar category delected complete _id name username followers following createdAt",
+      },
+      {
+        path: "favorite.user",
+        select:
+          "role avatar category delected complete _id name username follower createdAt",
+      },
+      { path: "comment.ans" },
+    ])
+    .sort({ createdAt: -1 })
+    .then((articles) => {
+      res.status(201).json({ article: articles });
+    })
+    .catch(() => {
+      res.status(500).json({ msg: "Can't get article" });
+    });
+};
+
+// make a controller for get all article
+exports.getDraftArticles = (req, res) => {
+  console.log("getDraftArticles", req.query);
+  const { from } = req.query;
+  Article.find({ delected: null, complete: false, from: from })
+    .populate([
+      {
+        path: "from",
+        select:
+          "role avatar category delected complete _id name username followers following createdAt",
+      },
+      {
+        path: "favorite.user",
+        select:
+          "role avatar category delected complete _id name username follower createdAt",
+      },
+      { path: "comment.ans" },
+    ])
+    .sort({ createdAt: -1 })
+    .then((articles) => {
+      res.status(201).json({ article: articles });
+    })
+    .catch(() => {
+      res.status(500).json({ msg: "Can't get article" });
+    });
+};
+
+// make a controller for get all article
+exports.getFavoriteArticles = async (req, res) => {
+  console.log("getFavoriteArticles", req.query);
+  const { favorite } = req.query;
+  const following = await User.findById(favorite);
+  console.log(following);
+  Article.find({ delected: null, complete: false })
+    .populate([
+      {
+        path: "from",
+        select:
+          "role avatar category delected complete _id name username followers following createdAt",
+      },
+      {
+        path: "favorite.user",
+        select:
+          "role avatar category delected complete _id name username follower createdAt",
       },
       { path: "comment.ans" },
     ])

@@ -3,8 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import Toolbar from "../../features/dashboard/components/Toolbar";
 import ArticleCard from "../../features/dashboard/components/ArticleCard";
-import { getAllArticles, getAArticles, deleteArticle, addFavourite } from "../../redux/articleSlice";
-import { showNotification, setPageTitle } from "../../features/common/headerSlice";
+import {
+  getAllArticles,
+  getAArticles,
+  deleteArticle,
+  addFavourite,
+  getFavoriteArticles,
+} from "../../redux/articleSlice";
+import {
+  showNotification,
+  setPageTitle,
+} from "../../features/common/headerSlice";
 // import { setIsLoading } from "../../redux/articleSlice";
 
 function FavouriteArticle() {
@@ -13,13 +22,13 @@ function FavouriteArticle() {
   }, []);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const userId = JSON.parse(localStorage.getItem("user"))._id;
+  const { user } = useSelector((state) => state.auth);
   const value = useSelector((state) => state.article);
   const setHandleAddArticle = () => {
     navigate(`/newArticle/${0}`);
   };
   const onFavouriteArticle = (index) => {
-    dispatch(addFavourite({ id: index, from: userId }));
+    dispatch(addFavourite({ id: index, from: user._id }));
   };
   const setHandleCommentArticle = (index) => {
     dispatch(getAArticles(index));
@@ -35,9 +44,10 @@ function FavouriteArticle() {
     navigate(`/newArticle/${index}`);
   };
   useEffect(() => {
-    dispatch(getAllArticles({ favorite: userId }));
-    if (value.isLoading) dispatch(showNotification({ message: value.message, status: 1 }));
-  }, [dispatch, value.isLoading, value.message]);
+    dispatch(getFavoriteArticles({ favorite: user._id }));
+    if (value.isLoading)
+      dispatch(showNotification({ message: value.message, status: 1 }));
+  }, [dispatch, value.isLoading, value.message, user._id]);
 
   return (
     <>

@@ -97,11 +97,6 @@ export const userSlice = createSlice({
                 state.isAuthenicated = false;
             }
         },
-        // [signin.rejected]: (state, { payload }) => {
-        //     state.error = payload.message;
-        //     state.isLoading = false;
-        // },
-
         [createPassword.fulfilled]: (state, { payload }) => {
             alert(payload.msg);
             state.isLoading = false;
@@ -119,6 +114,7 @@ export const userSlice = createSlice({
             state.isLoading = true;
         },
         [updateAvatar.fulfilled]: (state, {payload}) => {
+            if(payload.user.avatar)
             localStorage.setItem("user", JSON.stringify(payload.user))
             state.user = payload.user;
             state.isLoading = false;

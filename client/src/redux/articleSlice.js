@@ -4,8 +4,23 @@ import axios from "axios";
 import { requestServer } from "../utils/requestServer";
 import socket from "../utils/socket";
 
-export const getAllArticles = createAsyncThunk("getAllArticle", async (payload) => {
-  const res = await axios.get(process.env.REACT_APP_BASE_URL + "/api/article/all", { params: payload });
+export const getAllArticles = createAsyncThunk("getAllArticle", async () => {
+  const res = await axios.get(process.env.REACT_APP_BASE_URL + "/api/article/all");
+  return res.data;
+});
+export const getDraftArticles = createAsyncThunk("getDraftArticles", async (payload) => {
+  console.log(payload);
+  const res = await axios.get(process.env.REACT_APP_BASE_URL + "/api/article/draft", { params: payload });
+  return res.data;
+});
+export const getMyArticles = createAsyncThunk("getMyArticles", async (payload) => {
+  console.log(payload);
+  const res = await axios.get(process.env.REACT_APP_BASE_URL + "/api/article/my", { params: payload });
+  return res.data;
+});
+export const getFavoriteArticles = createAsyncThunk("getFavoriteArticles", async (payload) => {
+  console.log(payload);
+  const res = await axios.get(process.env.REACT_APP_BASE_URL + "/api/article/favorite", { params: payload });
   return res.data;
 });
 export const getAArticles = createAsyncThunk("getAArticle", async (data) => {
@@ -58,6 +73,18 @@ export const articleSlice = createSlice({
     },
   },
   extraReducers: {
+    [getMyArticles.fulfilled]: (state, { payload }) => {
+      state.article = [...payload.article];
+      state.isLoading = false;
+    },
+    [getDraftArticles.fulfilled]: (state, { payload }) => {
+      state.article = [...payload.article];
+      state.isLoading = false;
+    },
+    [getFavoriteArticles.fulfilled]: (state, { payload }) => {
+      state.article = [...payload.article];
+      state.isLoading = false;
+    },
     [getAllArticles.fulfilled]: (state, { payload }) => {
       state.article = [...payload.article];
       state.isLoading = false;

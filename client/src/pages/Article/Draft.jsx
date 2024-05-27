@@ -3,16 +3,27 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import Toolbar from "../../features/dashboard/components/Toolbar";
 import ArticleCard from "../../features/dashboard/components/ArticleCard";
-import { getAllArticles, getAArticles, deleteArticle, updateArticle } from "../../redux/articleSlice";
-import { showNotification, setPageTitle } from "../../features/common/headerSlice";
+import {
+  getAArticles,
+  deleteArticle,
+  updateArticle,
+  getDraftArticles,
+} from "../../redux/articleSlice";
+import {
+  showNotification,
+  setPageTitle,
+} from "../../features/common/headerSlice";
 // import { setIsLoading } from "../../redux/articleSlice";
 
-function AllArticle() {
+function DraftArticle() {
   useEffect(() => {
-    dispatch(setPageTitle({ title: "All Article" }));
+    dispatch(setPageTitle({ title: "Draft Article" }));
   }, []);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { user } = useSelector((state) => state.auth);
+  console.log(user);
 
   const value = useSelector((state) => state.article);
   const setHandleAddArticle = () => {
@@ -31,8 +42,9 @@ function AllArticle() {
     navigate(`/newArticle/${index}`);
   };
   useEffect(() => {
-    dispatch(getAllArticles({ complete: false }));
-    if (value.isLoading) dispatch(showNotification({ message: value.message, status: 1 }));
+    dispatch(getDraftArticles({ from: user._id }));
+    if (value.isLoading)
+      dispatch(showNotification({ message: value.message, status: 1 }));
   }, [dispatch, value.isLoading, value.message]);
 
   return (
@@ -70,4 +82,4 @@ function AllArticle() {
   );
 }
 
-export default AllArticle;
+export default DraftArticle;
