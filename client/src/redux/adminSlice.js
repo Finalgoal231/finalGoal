@@ -74,6 +74,7 @@ export const adminSlice = createSlice({
       state.flag = false;
     },
     [deleteCategory.fulfilled]: (state) => {
+      state.category.title = "";
       state.flag = false;
     },
   },
