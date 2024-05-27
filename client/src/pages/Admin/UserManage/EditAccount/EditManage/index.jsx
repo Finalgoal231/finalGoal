@@ -6,6 +6,7 @@ import { getUser, permissionUser } from "../../../../../redux/adminSlice";
 import InputDisabled from "../../../../../components/Input/Inputdisabled";
 import SelectBoxSmall from "../../../../../components/Input/SelectBoxSmall";
 import { NotificationManager } from "react-notifications";
+import { BiSolidEditAlt } from "react-icons/bi";
 
 function EditManage() {
   const dispatch = useDispatch();
@@ -18,8 +19,10 @@ function EditManage() {
 
   const updateAccount = () => {
     dispatch(permissionUser({ params: id, role: role }))
-      .then(() => NotificationManager.success("Update Role Success!","SUCCESS"))
-      .catch(() => NotificationManager.error("Update Role Error!","ERROR"));
+      .then(() =>
+        NotificationManager.success("Update Role Success!", "SUCCESS")
+      )
+      .catch(() => NotificationManager.error("Update Role Error!", "ERROR"));
   };
 
   return (
@@ -37,16 +40,25 @@ function EditManage() {
         </div>
         <div className="divider"></div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+        <div className="flex justify-start gap-10">
           <SelectBoxSmall
             value={role}
             options={["Admin", "Manager", "User"]}
             class="w-full"
             onChange={(e) => setRole(e.target.value)}
           />
-          <button className="btn btn-primary" onClick={() => updateAccount()}>
-            Roll Update
+          <button
+            type="button"
+            className="flex px-4 py-2 bg-sky-500 hover:bg-sky-600 dark:hover:bg-slate-400 text-[15px] text-white rounded-[5px] cursor-pointer transition duration-300 ease-out"
+          >
+            <BiSolidEditAlt className="text-[21px] mt-[4px] mr-[3px]" />
+            <div className="mt-[3px]" onClick={() => updateAccount()}>
+              Update
+            </div>
           </button>
+          {/* <button className="btn btn-primary" onClick={() => updateAccount()}>
+            Roll Update
+          </button> */}
         </div>
       </TitleCard>
     </>

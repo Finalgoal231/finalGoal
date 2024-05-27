@@ -88,7 +88,7 @@ function UserManagePanel() {
                         <Link to={`/admin/user/edit/${l._id}`}>
                           <button
                             type="button"
-                            className="flex px-4 py-2 bg-slate-500 hover:bg-slate-600 dark:hover:bg-slate-400 text-[15px] text-white rounded-full cursor-pointer transition duration-300 ease-out"
+                            className="flex px-4 py-2 bg-sky-500 hover:bg-sky-600 dark:hover:bg-slate-400 text-[15px] text-white rounded-[5px] cursor-pointer transition duration-300 ease-out"
                           >
                             <BiSolidEditAlt className="text-[21px] mt-[2px] mr-[3px]" />
                             <div className="mt-[1px]">Edit</div>
