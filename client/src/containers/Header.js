@@ -70,9 +70,6 @@ function Header() {
           <button className="btn btn-ghost ml-4  btn-circle" onClick={() => openNotification()}>
             <div className="indicator">
               <BellIcon className="h-6 w-6" />
-              {socketMsg.length > 0 ? (
-                <span className="indicator-item badge badge-secondary badge-sm">{socketMsg.length}</span>
-              ) : null}
             </div>
           </button>
 

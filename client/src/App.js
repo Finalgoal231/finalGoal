@@ -1,17 +1,16 @@
 import React, { lazy, useEffect } from "react";
 import "./App.css";
-import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import { themeChange } from "theme-change";
 import checkAuth from "./redux/auth";
 import initializeApp from "./redux/init";
 import { useDispatch } from "react-redux";
 import { setAuth } from "./redux/authSlice";
-import NewArticle from "./pages/Article/NewArticle";
-import AnswerArticle from "./pages/Article/AnswerArticle";
-import socket from "./utils/socket";
-import { openRightDrawer } from "./features/common/rightDrawerSlice";
-import { setSocketMsg } from "./redux/articleSlice";
-// Importing pages
 const Layout = lazy(() => import("./containers/Layout"));
 const Singin = lazy(() => import("./pages/Signin"));
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
@@ -33,21 +32,8 @@ function App() {
     dispatch(setAuth(payload));
   }
   useEffect(() => {
-    // 👆 daisy UI themes initialization
     themeChange(false);
   }, []);
-
-  useEffect(() => {
-    socket.on("connection-success", function (msg) {
-      console.log("socket server message", msg);
-    });
-    socket.on("createArticle-resend", function (msg) {
-      dispatch(setSocketMsg(msg));
-    });
-    socket.on("signin-resend", function (msg) {
-      dispatch(setSocketMsg(msg));
-    });
-  }, [dispatch]);
 
   return (
     <>
@@ -56,9 +42,6 @@ function App() {
           <Route path="/signin" element={<Singin />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/signup" element={<Signup />} />
-          {/* <Route path="/newArticle/:id" element={<NewArticle />} /> */}
-          {/* <Route path="/answer/article/:id" element={<AnswerArticle />} /> */}
-          {/* Place new routes over this */}
           <Route path="/*" element={<Layout />} />
           {/* <Route path="*" element={<Navigate to={token ? "/" : "/signin"} replace />} /> */}
         </Routes>

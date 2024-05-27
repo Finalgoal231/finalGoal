@@ -11,7 +11,7 @@ const routes = require("./src/routes");
 const { notFoundRoute, errorHandler } = require("./src/configs/errorHandler");
 
 // import fileUpload
-const fileUpload = require('express-fileupload');
+const fileUpload = require("express-fileupload");
 
 // loads environment variables from .env file
 env.config();
@@ -40,9 +40,11 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(passport.initialize());
 
-app.use(fileUpload({
-  limits: { fileSize: 3 * 1024 * 1024 }
-}));
+app.use(
+  fileUpload({
+    limits: { fileSize: 3 * 1024 * 1024 },
+  })
+);
 
 require("./src/configs/passport")(passport);
 
@@ -66,10 +68,8 @@ const authCtr = require("./src/controllers/authController");
 authCtr.defaultAdmin();
 
 // app listens to defined port
-const server = app.listen(process.env.APP_PORT, () => {
+app.listen(process.env.APP_PORT, () => {
   console.log(
     `Our Team-App backend server running on:  + ${process.env.APP_PORT}`
   );
 });
-
-require("./src/configs/socket").initialize(server);

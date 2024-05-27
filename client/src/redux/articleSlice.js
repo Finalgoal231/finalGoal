@@ -2,7 +2,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { requestServer } from "../utils/requestServer";
-import socket from "../utils/socket";
 
 export const getAllArticles = createAsyncThunk("getAllArticle", async () => {
   const res = await axios.get(
@@ -104,7 +103,6 @@ export const articleSlice = createSlice({
     error: "",
     isAuthenicated: false,
     message: "",
-    socketMsg: [],
     searchVal: "",
     sortIndex: "",
     categoryIndex: "",
@@ -112,9 +110,6 @@ export const articleSlice = createSlice({
   reducers: {
     setIsLoading: (state, action) => {
       state.isLoading = action.payload;
-    },
-    setSocketMsg: (state, action) => {
-      state.socketMsg = [...state.socketMsg, action.payload];
     },
     setSearchVal: (state, action) => {
       state.searchVal = action.payload;
@@ -152,7 +147,6 @@ export const articleSlice = createSlice({
       state.isLoading = true;
     },
     [createArticle.fulfilled]: (state, { payload }) => {
-      socket.emit("createArticle", payload.msg);
       state.message = payload.msg;
       state.isLoading = true;
     },
@@ -176,7 +170,6 @@ export const articleSlice = createSlice({
 
 export const {
   setIsLoading,
-  setSocketMsg,
   setSearchVal,
   setSortIndex,
   setCategoryIndex,

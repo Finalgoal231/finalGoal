@@ -9,13 +9,12 @@ import "react-notifications/lib/notifications.css";
 import Logo from "../../components/Logo";
 import { signin } from "../../redux/authSlice";
 import { Input } from "../Component/Input";
-import socket from "../../utils/socket";
+import checkAuth from "../../redux/auth";
 
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { user } = useSelector((state) => state.auth);
   const [form, setForm] = useState({
     username: "",
     password: "",
@@ -35,14 +34,13 @@ function Login() {
       e.preventDefault();
       dispatch(signin(form))
         .then((result) => {
-          console.log(result);
+          checkAuth();
           if (result.payload.status === 401) {
             NotificationManager.warning("Password incorrectly", "WARNING");
           } else if (result.payload.status === 404) {
             NotificationManager.info("Not Registered User", "WARNING");
           } else {
             NotificationManager.success(`Welcome !!!`, "SUCCESS");
-            socket.emit("signin", form.username, `${form.username} Signin`);
             setTimeout(() => {
               navigate("/");
             }, 1500);
