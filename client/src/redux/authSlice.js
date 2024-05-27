@@ -2,7 +2,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { requestServer } from "../utils/requestServer";
-const base_url = "http://localhost:4000/api/admin";
+const base_url = process.env.REACT_APP_BASE_URL + "/api/admin";
 
 export const signin = createAsyncThunk("signin", async (payload) => {
   try {
