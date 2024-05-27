@@ -1,19 +1,14 @@
-import moment from "moment";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import TitleCard from "../../../components/Cards/TitleCard";
-import { showNotification } from "../../common/headerSlice";
 import InputText from "../../../components/Input/InputText";
-import TextAreaInput from "../../../components/Input/TextAreaInput";
-import ToogleInput from "../../../components/Input/ToogleInput";
-import Input from "../../../components/Input/Input";
-import SelectBoxSmall from "../../../components/Input/SelectBoxSmall";
+
 import { createProfile } from "../../../redux/authSlice";
 import ProfileAvatar from "../../../components/Avatar";
+import SelectBoxBig from "../../../components/Input/SelectBoxBig";
 
 function ProfileSettings() {
-  // const [profileInfo, setProfileInfo] = useState({
-  // });
+
   const dispatch = useDispatch();
   const [profile, setProfile] = useState({
     username: "",
@@ -39,7 +34,6 @@ function ProfileSettings() {
   };
 
   const setHandleProfile = (e) => {
-    console.log(profile);
     setProfile({ ...profile, [e.target.name]: e.target.value });
   };
   const updateFormValue = ({ updateType, value }) => {
@@ -48,10 +42,65 @@ function ProfileSettings() {
 
   return (
     <>
-      <TitleCard className="" title="Profile Settings" topMargin="mt-5">
+      <TitleCard title="Profile Settings" topMargin="mt-2">
+        <div className="flex justify-center">
+          <ProfileAvatar />
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-5">
+          <InputText labelTitle="Name" updateFormValue={updateFormValue} />
+          <InputText labelTitle="Username" updateFormValue={updateFormValue} />
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-5">
+          <SelectBoxBig
+            label={"Bio"}
+            name={"bio"}
+            class="w-full"
+            options={["Full Stack", "Frontend", "Backend", "Designer"]}
+            onChange={setHandleProfile}
+          />
+          <SelectBoxBig
+            label={"Category"}
+            class="w-full "
+            options={["React", "Vue", "Angular"]}
+          />
+        </div>
+        <div className="flex items-center">
+          <button className="btn btn-primary w-1/10" onClick={addTags}>
+            Category Add
+          </button>
+          <div
+            className={`form-control w-4/5 m-2 flex sm:flex-row flex-col input border-2`}
+          >
+            {profile.tag.length > 0 &&
+              profile.tag.map((value, index) => (
+                <div
+                  key={index}
+                  className="flex sm:flex-row flex-col items-center m-1 w-max border-2 mr-2"
+                >
+                  <div className=" text-[15px] mr-1">{value}</div>
+                  <button
+                    className="border-1 text-[15px]"
+                    onClick={() => deleteTags(index)}
+                  >
+                    &times;
+                  </button>
+                </div>
+              ))}
+          </div>
+          <div className="divider"></div>
+          <div className="mt-16">
+            <button
+              className="btn btn-primary float-right w-full"
+              onClick={() => updateProfile()}
+            >
+              Update Profile
+            </button>
+          </div>
+        </div>
+      </TitleCard>
+      {/* <TitleCard className="" title="Profile Settings" topMargin="mt-5">
         <div>
           <div className="flex gap-20">
-            <ProfileAvatar />
 
             <div className="w-px bg-white h-[50vh]"></div>
 
@@ -114,13 +163,6 @@ function ProfileSettings() {
                   ))}
               </div>
             </div>
-            {/* <div className="divider" ></div> */}
-
-            {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <InputText labelTitle="Language" defaultValue="English" updateFormValue={updateFormValue}/>
-                      <InputText labelTitle="Timezone" defaultValue="IST" updateFormValue={updateFormValue}/>
-                      <ToogleInput updateType="syncData" labelTitle="Sync Data" defaultValue={true} updateFormValue={updateFormValue}/>
-                  </div> */}
           </div>
 
           <div className="mt-16">
@@ -132,7 +174,7 @@ function ProfileSettings() {
             </button>
           </div>
         </div>
-      </TitleCard>
+      </TitleCard> */}
     </>
   );
 }
