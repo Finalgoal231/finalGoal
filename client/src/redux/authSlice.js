@@ -66,7 +66,6 @@ export const changePassword = createAsyncThunk(
 );
 
 export const getUser = createAsyncThunk("getUser", async (params) => {
-  console.log(params);
   const res = await axios.get(base_url + `/user/${params}`);
   return res.data;
 });
@@ -78,7 +77,6 @@ export const addFollower = createAsyncThunk("addFollow", async (payload) => {
       "/api/admin/user/follow/" + payload.id,
       { from: payload.from }
     );
-    console.log(res.data);
     return res.data;
   } catch (e) {
     if (e.response) {
@@ -129,7 +127,6 @@ export const userSlice = createSlice({
     },
     [signin.fulfilled]: (state, { payload }) => {
       if (payload.token) {
-        console.log(payload);
         axios.defaults.headers.common["Authorization"] = payload.token;
         localStorage.setItem("token", payload.token);
         localStorage.setItem("user", JSON.stringify(payload.user));

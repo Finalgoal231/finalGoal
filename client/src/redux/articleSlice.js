@@ -12,7 +12,6 @@ export const getAllArticles = createAsyncThunk("getAllArticle", async () => {
 export const getDraftArticles = createAsyncThunk(
   "getDraftArticles",
   async (payload) => {
-    console.log(payload);
     const res = await axios.get(
       process.env.REACT_APP_BASE_URL + "/api/article/draft",
       { params: payload }
@@ -23,7 +22,6 @@ export const getDraftArticles = createAsyncThunk(
 export const getMyArticles = createAsyncThunk(
   "getMyArticles",
   async (payload) => {
-    console.log(payload);
     const res = await axios.get(
       process.env.REACT_APP_BASE_URL + "/api/article/my",
       { params: payload }
@@ -34,7 +32,6 @@ export const getMyArticles = createAsyncThunk(
 export const getFavoriteArticles = createAsyncThunk(
   "getFavoriteArticles",
   async (payload) => {
-    console.log(payload);
     const res = await axios.get(
       process.env.REACT_APP_BASE_URL + "/api/article/favorite",
       { params: payload }
@@ -142,7 +139,6 @@ export const articleSlice = createSlice({
       state.isLoading = false;
     },
     [getAArticles.fulfilled]: (state, { payload }) => {
-      console.log(payload.article);
       state.article = payload.article;
       state.isLoading = true;
     },

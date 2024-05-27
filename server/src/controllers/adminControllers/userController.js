@@ -106,7 +106,6 @@ exports.changePassword = (req, res) => {
 // make a controller for change password
 exports.changeAvatar = (req, res) => {
   const id = req.params.id;
-  console.log("reach", id);
   const { avatar } = req.files;
   uploadPath = `C:\\Program Files\\gogs\\data\\avatars\\${id}.${avatar.name}`;
 
@@ -137,7 +136,6 @@ exports.changeAvatar = (req, res) => {
 exports.addFollower = async (req, res) => {
   let id = req.params.id;
   const { from } = req.body;
-  console.log(id, from);
   User.findById(id)
     .then((user) => {
       let flag = 0;

@@ -12,7 +12,6 @@ function EditManage() {
   const dispatch = useDispatch();
   const { id } = useParams();
   const { user } = useSelector((state) => state.admin);
-  console.log(user)
   const [role, setRole] = useState(user.role);
   useEffect(() => {
     dispatch(getUser(id));

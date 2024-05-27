@@ -44,7 +44,6 @@ exports.deleteArticle = (req, res) => {
 
 // make a controller for get all article
 exports.getAllArticles = (req, res) => {
-  console.log("getAllArticles", req.query);
   Article.find({ delected: null, complete: true })
     .populate([
       {
@@ -70,7 +69,6 @@ exports.getAllArticles = (req, res) => {
 
 // make a controller for get all article
 exports.getMyArticles = (req, res) => {
-  console.log("getMyArticles", req.query);
   const { from } = req.query;
   Article.find({ delected: null, complete: true, from: from })
     .populate([
@@ -97,7 +95,6 @@ exports.getMyArticles = (req, res) => {
 
 // make a controller for get all article
 exports.getDraftArticles = (req, res) => {
-  console.log("getDraftArticles", req.query);
   const { from } = req.query;
   Article.find({ delected: null, complete: false, from: from })
     .populate([
@@ -124,10 +121,8 @@ exports.getDraftArticles = (req, res) => {
 
 // make a controller for get all article
 exports.getFavoriteArticles = async (req, res) => {
-  console.log("getFavoriteArticles", req.query);
   const { favorite } = req.query;
   const following = await User.findById(favorite);
-  console.log(following);
   Article.find({ delected: null, complete: false })
     .populate([
       {
@@ -188,10 +183,6 @@ exports.getAArticle = (req, res) => {
 exports.addComment = (req, res) => {
   let id = req.params.id;
   const newArticle = new Article({ ...req.body, parent: id });
-  console.log({ ...req.body, parent: id });
-  console.log();
-  console.log(newArticle);
-  console.log();
   newArticle
     .save()
     .then(() => {

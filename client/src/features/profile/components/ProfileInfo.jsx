@@ -13,7 +13,6 @@ const ProfileInfo = () => {
 
   const { id } = useParams();
   const { user, selectUser } = useSelector((state) => state.auth);
-  console.log("user: ", user, "\nselect: ", selectUser);
 
   useEffect(() => {
     setFlag(

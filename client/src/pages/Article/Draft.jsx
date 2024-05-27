@@ -23,7 +23,6 @@ function DraftArticle() {
   const navigate = useNavigate();
 
   const { user } = useSelector((state) => state.auth);
-  console.log(user);
 
   const value = useSelector((state) => state.article);
   const setHandleAddArticle = () => {

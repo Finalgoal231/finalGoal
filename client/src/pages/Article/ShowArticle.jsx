@@ -45,12 +45,7 @@ function ShowArticle() {
   const setHandleEdit = (index) => {
     navigate(`/newArticle/${index}`);
   };
-  // useEffect(() => {
-  //   dispatch(getMyArticles({ from: user._id }));
-  //   if (article.isLoading)
-  //     dispatch(showNotification({ message: article.message, status: 1 }));
-  // }, [dispatch, user._id, article.isLoading, article.message]);
-  console.log(article);
+
   return (
     <>
       {article.length !== 0 && (
