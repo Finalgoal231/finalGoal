@@ -4,6 +4,7 @@ import InputText from "../../../components/Input/InputText";
 import { useDispatch } from "react-redux";
 import { createPassword } from "../../../redux/authSlice";
 import "../../../index.css";
+import ProfileAvatar from "../../../components/Avatar";
 
 const ChangePassword = () => {
   const dispatch = useDispatch();
@@ -24,13 +25,7 @@ const ChangePassword = () => {
     <div>
       <TitleCard title="Change Password " topMargin="mt-10">
         <div className="flex gap-20 mt-10">
-          <div className=" rounded-full overflow-hidden h-60 w-60 ml-20 hover: cursor-pointer">
-            <img src="./assets/avatar/avatar-17.jpg" />
-            <input
-              type="file"
-              className=" top-36 z-10 absolute opacity-0 overflow-hidden h-60 w-60 ml-120 hover:scale-110 transition-shadow cursor-pointer"
-            />
-          </div>
+          <ProfileAvatar />
           <div className="w-[70%] grid grid-cols-1 md:grid-cols-1 gap-20">
             <InputText
               name={"currentPassword"}

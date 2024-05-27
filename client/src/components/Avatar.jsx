@@ -4,7 +4,7 @@ import { updateAvatar } from "../redux/authSlice";
 
 function ProfileAvatar() {
   const [avatar, setAvatar] = useState();
-  const {user} = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
 
@@ -20,6 +20,7 @@ function ProfileAvatar() {
     <div>
       <div className="mt-4 rounded-full overflow-hidden h-60 w-60 hover: cursor-pointer">
         <img
+          className="h-60 w-60"
           src={avatar ? URL.createObjectURL(avatar) : user.avatar}
           alt="avatar"
         />
