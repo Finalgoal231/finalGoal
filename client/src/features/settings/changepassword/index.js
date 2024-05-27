@@ -1,25 +1,42 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TitleCard from "../../../components/Cards/TitleCard";
 import InputText from "../../../components/Input/InputText";
-import { useDispatch } from "react-redux";
-import { createPassword } from "../../../redux/authSlice";
-import "../../../index.css";
+import { useDispatch, useSelector } from "react-redux";
 import ProfileAvatar from "../../../components/Avatar";
+import { NotificationManager } from "react-notifications";
+import { changePassword } from "../../../redux/authSlice";
 
 const ChangePassword = () => {
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+  const [id, setId] = useState();
   const [newData, setNewData] = useState({
     currentPassword: "",
     newpassword: "",
-    confirmpassword: "",
   });
-  const setHandlePassword = (e) => {
-    console.log(newData);
+  const [conPass, setConPass] = useState("");
+
+  useEffect(() => {
+    setId(user._id);
+  }, [user._id]);
+
+  const handlePassword = (e) => {
     setNewData({ ...newData, [e.target.name]: e.target.value });
   };
 
+  const handleConPass = (e) => {
+    setConPass(e.target.value);
+  };
+
   const setHandleSend = () => {
-    dispatch(createPassword({ ...newData, complete: true }));
+    if (conPass === newData.newpassword) {
+      dispatch(changePassword({ params: id, payload: newData }));
+    } else {
+      NotificationManager.warning(
+        "Password and confirm password must be equal!!!",
+        "WARNING"
+      );
+    }
   };
   return (
     <div>
@@ -28,25 +45,28 @@ const ChangePassword = () => {
           <ProfileAvatar />
           <div className="w-[70%] grid grid-cols-1 md:grid-cols-1 gap-20">
             <InputText
+              type={"password"}
               name={"currentPassword"}
               labelTitle={"Current:"}
               placeholder={"Input Current Password"}
               labelStyle={"text-[20px]"}
-              onChange={setHandlePassword}
+              onChange={handlePassword}
             />
             <InputText
+              type={"password"}
               name={"newpassword"}
               labelTitle={"New:"}
               placeholder={"Input New Password"}
               labelStyle={"text-[20px]"}
-              onChange={setHandlePassword}
+              onChange={handlePassword}
             />
             <InputText
+              type={"password"}
               name={"confirmpassword"}
               labelTitle={"Confirm:"}
               placeholder={"Input Confirm Password"}
               labelStyle={"text-[20px]"}
-              onChange={setHandlePassword}
+              onChange={handleConPass}
             />
           </div>
         </div>
@@ -59,13 +79,11 @@ const ChangePassword = () => {
               >
                 Save
               </button>
-              <div className="absolute passBtn"></div>
             </div>
           </div>
           <div className="mt-16 mr-20">
             <div className="flex items-center flex-col relative">
               <button className="btn w-20 h-8">Cancel</button>
-              <div className="absolute passBtn"></div>
             </div>
           </div>
         </div>

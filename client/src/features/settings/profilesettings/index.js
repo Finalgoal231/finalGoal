@@ -7,6 +7,7 @@ import { changeInfo } from "../../../redux/authSlice";
 import ProfileAvatar from "../../../components/Avatar";
 import SelectBoxBig from "../../../components/Input/SelectBoxBig";
 import { mapValues, uniq } from "lodash";
+import { NotificationManager } from "react-notifications";
 
 function ProfileSettings() {
   const dispatch = useDispatch();
@@ -30,7 +31,6 @@ function ProfileSettings() {
   const handleChange = (e) => {
     setProfile({ ...profile, [e.target.name]: e.target.value });
   };
-  console.log(profile);
   const setHandleTag = (e) => {
     setSelectTag(e.target.value);
   };
@@ -50,12 +50,12 @@ function ProfileSettings() {
 
   const updateProfile = () => {
     dispatch(changeInfo({ params: user._id, payload: profile }));
+    NotificationManager.success("Updated profile successfully");
   };
 
   const setHandleProfile = (e) => {
     setProfile({ ...profile, [e.target.name]: e.target.value });
   };
-  console.log(profile.category);
 
   return (
     <>
@@ -73,6 +73,7 @@ function ProfileSettings() {
 
           <div className="mt-5">Username</div>
           <InputText
+            name={"username"}
             value={profile.username}
             onChange={(e) => handleChange(e)}
           />
