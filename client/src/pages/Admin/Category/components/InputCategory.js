@@ -19,19 +19,27 @@ function InputCategory() {
   const create = useCallback(() => {
     if (data.title !== "") {
       dispatch(createCategory({ title: data.title }))
-      .then(() => NotificationManager.success("Create Category Success!", "SUCCESS"))
-      .catch(() => NotificationManager.error("Create Category Error!","ERROR"));
+        .then(() =>
+          NotificationManager.success("Create Category Success!", "SUCCESS")
+        )
+        .catch(() =>
+          NotificationManager.error("Create Category Error!", "ERROR")
+        );
       setData({ title: "", _id: "" });
     } else {
-      NotificationManager.error("Input Correctly!","ERROR");
+      NotificationManager.error("Input Correctly!", "ERROR");
     }
   }, [dispatch, data]);
 
   const edit = useCallback(
     (val) => {
       dispatch(updateCategory({ title: val.title, _id: val._id }))
-        .then(() => NotificationManager.success("Update Category Success!", "SUCCESS"))
-        .catch(() => NotificationManager.error("Update Category Error!","ERROR"));
+        .then(() =>
+          NotificationManager.success("Update Category Success!", "SUCCESS")
+        )
+        .catch(() =>
+          NotificationManager.error("Update Category Error!", "ERROR")
+        );
       setData({ title: "", _id: "" });
     },
     [dispatch]
@@ -48,19 +56,19 @@ function InputCategory() {
         <button
           type="button"
           onClick={() => create()}
-          className="flex px-4 py-2 mt-5 w-20 bg-green-600 hover:bg-green-700 dark:hover:bg-green-500 text-[15px] text-white rounded-[6px] cursor-pointer transition duration-300 ease-out"
+          className="flex px-4 py-2 mt-5 w-24 bg-green-600 hover:bg-green-700 dark:hover:bg-green-500 text-[15px] text-white rounded-[6px] cursor-pointer transition duration-300 ease-out"
         >
           <BsPlusLg className="text-[21px] mt-[2px] mr-[3px]" />
-          <div className="mt-[1px]">New</div>
+          <div className="mt-[1px]">Create</div>
         </button>
       ) : (
         <button
           type="button"
           onClick={() => edit(data)}
-          className="flex px-4 py-2 mt-5 w-20 bg-sky-600 hover:bg-sky-700 dark:hover:bg-green-500 text-[15px] text-white rounded-[6px] cursor-pointer transition duration-300 ease-out"
+          className="flex px-4 py-2 mt-5 w-24 bg-sky-500 hover:bg-sky-600 dark:hover:bg-green-500 text-[15px] text-white rounded-[6px] cursor-pointer transition duration-300 ease-out"
         >
           <BiSolidEditAlt className="text-[21px] mt-[2px] mr-[3px]" />
-          <div className="mt-[1px]">Edit</div>
+          <div className="mt-[1px]">Update</div>
         </button>
       )}
     </TitleCard>

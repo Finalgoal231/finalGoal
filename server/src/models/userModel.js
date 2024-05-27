@@ -43,7 +43,7 @@ const userSchema = new mongoose.Schema({
       },
     },
   ],
-  category: [{ type: mongoose.Schema.ObjectId }],
+  category: [String],
   delected: {
     type: Date,
     default: null,

@@ -37,15 +37,24 @@ export const updateAvatar = createAsyncThunk(
   }
 );
 
-export const changeInfo = createAsyncThunk();
+export const changeInfo = createAsyncThunk("changeInfo", async (payload) => {
+  const res = await requestServer(
+    "put",
+    `/api/admin/user/${payload.params}`,
+    payload.payload
+  );
+  return res.data;
+});
 
-export const changePassword = createAsyncThunk();
-
-export const createPassword = createAsyncThunk(
-  "createPassword",
+export const changePassword = createAsyncThunk(
+  "changePassword",
   async (data) => {
     try {
-      const res = await requestServer("post", "/api/password/create", data);
+      const res = await requestServer(
+        "put",
+        `/api/admin/user/${data.params}`,
+        data.payload
+      );
       return res.data;
     } catch (e) {
       if (e.response) {
@@ -56,19 +65,8 @@ export const createPassword = createAsyncThunk(
   }
 );
 
-export const createProfile = createAsyncThunk("createProfile", async (data) => {
-  try {
-    const res = await requestServer("post", "/api/profile/create", data);
-    return res.data;
-  } catch (e) {
-    if (e.response) {
-      return { ...e.response.data, error: true };
-    }
-    return { error: true, message: e.message };
-  }
-});
-
 export const getUser = createAsyncThunk("getUser", async (params) => {
+  console.log(params);
   const res = await axios.get(base_url + `/user/${params}`);
   return res.data;
 });
