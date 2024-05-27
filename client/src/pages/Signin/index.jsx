@@ -4,14 +4,12 @@ import { useState, useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import {
-  NotificationContainer,
-  NotificationManager,
-} from "react-notifications";
+import { NotificationContainer, NotificationManager } from "react-notifications";
 import "react-notifications/lib/notifications.css";
 import Logo from "../../components/Logo";
 import { signin } from "../../redux/authSlice";
 import { Input } from "../Component/Input";
+import socket from "../../utils/socket";
 
 function Login() {
   const navigate = useNavigate();
@@ -30,7 +28,7 @@ function Login() {
         [e.target.name]: e.target.value,
       });
     },
-    [form]
+    [form],
   );
   const handleSubmit = useCallback(
     (e) => {
@@ -44,8 +42,9 @@ function Login() {
             NotificationManager.info("Not Registered User", "WARNING");
           } else {
             NotificationManager.success(`Welcome !!!`, "SUCCESS");
+            socket.emit("signin", form.username, `${form.username} Signin`);
             setTimeout(() => {
-              navigate("/dashboard");
+              navigate("/");
             }, 1500);
           }
         })
@@ -53,7 +52,7 @@ function Login() {
           NotificationManager.error("Network Error", "ERROR");
         });
     },
-    [form]
+    [form],
   );
   return (
     <div className="min-h-screen bg-pic flex items-center">
@@ -62,9 +61,7 @@ function Login() {
         <div className="grid md:grid-cols-2 sm:grid-cols-1 bg-base-100 rounded-xl">
           <Logo />
           <div className="py-24 px-10 w-full">
-            <h1 className="text-3xl text-center font-semibold mb-10 head">
-              Sign In
-            </h1>
+            <h1 className="text-3xl text-center font-semibold mb-10 head">Sign In</h1>
             <div className="mb-3">
               <form
                 onSubmitCapture={(e) => {
@@ -72,20 +69,10 @@ function Login() {
                 }}
               >
                 <div className="mb-4">
-                  <Input
-                    type={"text"}
-                    name={"username"}
-                    value={form.username}
-                    onChange={handleChange}
-                  />
+                  <Input type={"text"} name={"username"} value={form.username} onChange={handleChange} />
                 </div>
                 <div className="mb-4">
-                  <Input
-                    type={"password"}
-                    name={"password"}
-                    value={form.password}
-                    onChange={handleChange}
-                  />
+                  <Input type={"password"} name={"password"} value={form.password} onChange={handleChange} />
                 </div>
                 <button type="submit" className={"btn btn-primary w-full"}>
                   Signin

@@ -9,6 +9,8 @@ import { setAuth } from "./redux/authSlice";
 import NewArticle from "./pages/Article/NewArticle";
 import AnswerArticle from "./pages/Article/AnswerArticle";
 import socket from "./utils/socket";
+import { openRightDrawer } from "./features/common/rightDrawerSlice";
+import { setSocketMsg } from "./redux/articleSlice";
 // Importing pages
 const Layout = lazy(() => import("./containers/Layout"));
 const Singin = lazy(() => import("./pages/Signin"));
@@ -38,12 +40,14 @@ function App() {
   useEffect(() => {
     socket.on("connection-success", function (msg) {
       console.log("socket server message", msg);
-      socket.emit("login", "dolfari");
     });
-    socket.on("createArticle-resend", function(userid){
-        console.log("asdfasdfasdf", userid);
+    socket.on("createArticle-resend", function (msg) {
+      dispatch(setSocketMsg(msg));
     });
-  }, []);
+    socket.on("signin-resend", function (msg) {
+      dispatch(setSocketMsg(msg));
+    });
+  }, [dispatch]);
 
   return (
     <>

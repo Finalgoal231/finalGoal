@@ -44,18 +44,11 @@ export const addComment = createAsyncThunk("addComment", async (payload) => {
   const res = await requestServer("put", `/api/article/comment/${payload.id}`, payload.data);
   return res.data;
 });
-export const addFavourite = createAsyncThunk(
-  "addFavourite",
-  async (payload) => {
-    const { index, from } = payload;
-    const res = await requestServer(
-      "put",
-      `/api/article/favorite/${index}`,
-      {from}
-    );
-    return res.data;
-  }
-);
+export const addFavourite = createAsyncThunk("addFavourite", async (payload) => {
+  const { index, from } = payload;
+  const res = await requestServer("put", `/api/article/favorite/${index}`, { from });
+  return res.data;
+});
 
 export const articleSlice = createSlice({
   name: "user",
@@ -66,10 +59,14 @@ export const articleSlice = createSlice({
     error: "",
     isAuthenicated: false,
     message: "",
+    socketMsg: [],
   },
   reducers: {
     setIsLoading: (state, action) => {
       state.isLoading = action.payload;
+    },
+    setSocketMsg: (state, action) => {
+      state.socketMsg = [...state.socketMsg, action.payload];
     },
   },
   extraReducers: {
@@ -119,5 +116,5 @@ export const articleSlice = createSlice({
   },
 });
 
-export const { setIsLoading } = articleSlice.actions;
+export const { setIsLoading, setSocketMsg } = articleSlice.actions;
 export default articleSlice.reducer;
