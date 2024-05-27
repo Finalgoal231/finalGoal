@@ -3,12 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Toolbar from "../../features/dashboard/components/Toolbar";
 import ArticleCard from "../../features/dashboard/components/ArticleCard";
-import {
-  getAllArticles,
-  getAArticles,
-  deleteArticle,
-  addFavourite,
-} from "../../redux/articleSlice";
+import { getAllArticles, getAArticles, deleteArticle, addFavourite } from "../../redux/articleSlice";
 import { setPageTitle } from "../../features/common/headerSlice";
 // import { setIsLoading } from "../../redux/articleSlice";
 
@@ -40,7 +35,7 @@ function AllArticle() {
     navigate(`/newArticle/${index}`);
   };
   useEffect(() => {
-    dispatch(getAllArticles());
+    dispatch(getAllArticles({ complete: true }));
   }, [dispatch, value.isLoading, value.message]);
 
   return (
