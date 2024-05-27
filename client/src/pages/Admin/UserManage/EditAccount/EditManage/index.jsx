@@ -10,15 +10,14 @@ function EditManage() {
   const dispatch = useDispatch();
   const { id } = useParams();
   const { user } = useSelector((state) => state.admin);
-  const [role, setRole] = useState();
+  const [role, setRole] = useState("Admin");
   useEffect(() => {
     dispatch(getUser(id));
-  }, [dispatch, id]);
+  }, [dispatch, id, user.role]);
 
   const updateAccount = () => {
-    dispatch(permissionUser({params: id, role: role}));
+    dispatch(permissionUser({ params: id, role: role }));
   };
-
 
   return (
     <>
@@ -31,13 +30,13 @@ function EditManage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <InputDisabled labelTitle="Name" value={user.name} />
           <InputDisabled labelTitle="Username" value={user.username} />
-          <InputDisabled labelTitle="Roll" value={user.roll} />
+          <InputDisabled labelTitle="Roll" value={user.role} />
         </div>
         <div className="divider"></div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
           <SelectBoxSmall
-            value={`${role}`}
+            value={role}
             options={["Admin", "Manager", "User"]}
             class="w-full"
             onChange={(e) => setRole(e.target.value)}

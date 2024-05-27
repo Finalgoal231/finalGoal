@@ -20,18 +20,15 @@ exports.permissionUser = (req, res) => {
   User.findById(id)
     .then((user) => {
       user.role = role;
-      user
-        .save()
-        .then(() => {
-          res
-            .status(200)
-            .json({ msg: "User role changed successfully.", role: role });
-        })
-        .catch(() => {
-          res.status(500).json({ msg: "Server error" });
-        });
+      user.save().then(() => {
+        res
+          .status(200)
+          .json({ msg: "User role changed successfully.", user: user });
+      });
     })
-    .catch(res.status(404).json({ msg: "Can not find user" }));
+    .catch(() => {
+      res.status(500).json({ msg: "Server error" });
+    });
 };
 
 // make a controller for delete users
