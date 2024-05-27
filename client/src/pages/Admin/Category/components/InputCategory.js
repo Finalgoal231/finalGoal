@@ -16,8 +16,12 @@ function InputCategory() {
   }, [category]);
 
   const create = useCallback(() => {
-    dispatch(createCategory({ title: data.title }));
-    setData({ title: "", _id: "" });
+    if (data.title !== "") {
+      dispatch(createCategory({ title: data.title }));
+      setData({ title: "", _id: "" });
+    } else {
+      alert("Input Correctly!");
+    }
   }, [dispatch, data]);
 
   const edit = useCallback(
@@ -28,9 +32,7 @@ function InputCategory() {
     [dispatch]
   );
   return (
-    <>
-      <TitleCard title="Category" topMargin="mt-6" />
-
+    <TitleCard title="Category" topMargin="mt-6">
       <BigInputText
         labelTitle="Category"
         value={data.title}
@@ -56,7 +58,7 @@ function InputCategory() {
           <div className="mt-[1px]">Edit</div>
         </button>
       )}
-    </>
+    </TitleCard>
   );
 }
 

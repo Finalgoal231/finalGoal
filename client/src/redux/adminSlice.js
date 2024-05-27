@@ -12,8 +12,8 @@ export const getUser = createAsyncThunk("getUser", async (params) => {
   const res = await axios.get(base_url + `/user/${params}`);
   return res.data;
 });
-export const permissionUser = createAsyncThunk("rollUser", async (data) => {
-  const res = await axios.put(base_url + `/user/${data.params}`, {role: data.role});
+export const permissionUser = createAsyncThunk("roleUser", async (data) => {
+  const res = await axios.put(base_url + `/user/role/${data.params}`, {role: data.role});
   return res.data;
 });
 export const getAllCategory = createAsyncThunk("getAllCategory", async () => {
@@ -59,8 +59,7 @@ export const adminSlice = createSlice({
       state.user = action.payload.user;
     });
     builder.addCase(permissionUser.fulfilled, (state, action) => {
-      console.log(action.payload);
-      // state.user = action.payload.user;
+      state.user = action.payload;
     });
     builder.addCase(getAllCategory.fulfilled, (state, action) => {
       state.categories = action.payload.result;
