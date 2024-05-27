@@ -32,9 +32,7 @@ exports.deleteArticle = (req, res) => {
   Article.findById(id)
     .then((article) => {
       article.delected = new Date();
-      article
-        .save()
-        .then(res.status(201).json({ msg: "Article deleted successfully" }));
+      article.save().then(res.status(201).json({ msg: "Article deleted successfully" }));
     })
     .catch((err) => {
       res.status(400).json({ err: err });
@@ -43,23 +41,21 @@ exports.deleteArticle = (req, res) => {
 
 // make a controller for get all article
 exports.getAllArticles = (req, res) => {
+  console.log(req.query);
   Article.find({ delected: null, complete: true })
     .populate([
       {
         path: "from",
-        select:
-          "role avatar category delected complete _id name username follower createdAt",
+        select: "role avatar category delected complete _id name username follower createdAt",
       },
       {
         path: "favorite.favoritor",
-        select:
-          "role avatar category delected complete _id name username follower createdAt",
+        select: "role avatar category delected complete _id name username follower createdAt",
       },
       { path: "comment.ans" },
     ])
     .sort({ createdAt: -1 })
     .then((articles) => {
-      console.log(articles);
       res.status(201).json({ article: articles });
     })
     .catch(() => {
@@ -73,19 +69,16 @@ exports.getHomeArticles = (req, res) => {
     .populate([
       {
         path: "from",
-        select:
-          "role avatar category delected complete _id name username follower createdAt",
+        select: "role avatar category delected complete _id name username follower createdAt",
       },
       {
         path: "favorite.favoritor",
-        select:
-          "role avatar category delected complete _id name username follower createdAt",
+        select: "role avatar category delected complete _id name username follower createdAt",
       },
       { path: "comment.ans" },
     ])
     .sort({ createdAt: -1 })
     .then((articles) => {
-      console.log(articles);
       res.status(201).json({ article: articles });
     })
     .catch(() => {
@@ -121,7 +114,7 @@ exports.addComment = (req, res) => {
 
   Article.findById(id)
     .then((article) => {
-      article.comment.push({article: newArticle._id});
+      article.comment.push({ article: newArticle._id });
       article
         .save()
         .then(res.status(201).json({ msg: "article" }))
@@ -137,10 +130,9 @@ exports.addComment = (req, res) => {
 // make a controller for get all article
 exports.addFavorite = (req, res) => {
   let id = req.params.id;
-  console.log(req.body);
   Article.findById(id)
     .then((article) => {
-      article.favorite.push({ favoritor: req.body.from });
+      article.favorite.push({ user: req.body.from });
       article
         .save()
         .then(res.status(201).json({ msg: "Success" }))

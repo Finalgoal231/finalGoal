@@ -31,7 +31,7 @@ function AllArticle() {
     navigate(`/newArticle/${index}`);
   };
   useEffect(() => {
-    dispatch(getAllArticles());
+    dispatch(getAllArticles({ complete: false }));
     if (value.isLoading) dispatch(showNotification({ message: value.message, status: 1 }));
   }, [dispatch, value.isLoading, value.message]);
 
@@ -44,11 +44,11 @@ function AllArticle() {
             <ArticleCard
               type={"draft"}
               title={v.title}
-              avatar={v.avatar}
+              avatar={v.from.avatar}
               favouriteNum={v.favorite.length}
               content={v.content}
               date={v.createdAt}
-              from={v.from}
+              from={v.from.name}
               onDeleteArticle={() => {
                 setHandleDelete(v._id);
               }}

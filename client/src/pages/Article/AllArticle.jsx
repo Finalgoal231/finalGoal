@@ -13,13 +13,14 @@ function AllArticle() {
   }, []);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const userId = JSON.parse(localStorage.getItem("user"))._id;
   const value = useSelector((state) => state.article);
+  console.log(value);
   const setHandleAddArticle = () => {
     navigate(`/newArticle/${0}`);
   };
   const onFavouriteArticle = (index) => {
-    dispatch(addFavourite(index));
+    dispatch(addFavourite({ id: index, from: userId }));
   };
   const setHandleCommentArticle = (index) => {
     dispatch(getAArticles(index));
@@ -47,11 +48,11 @@ function AllArticle() {
           <div key={i}>
             <ArticleCard
               title={v.title}
-              avatar={v.avatar}
+              avatar={v.from.avatar}
               favouriteNum={v.favorite.length}
               content={v.content}
               date={v.createdAt}
-              from={v.from}
+              from={v.from.name}
               onFavouriteClick={() => {
                 onFavouriteArticle(v._id);
               }}

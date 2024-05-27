@@ -3,8 +3,9 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { requestServer } from "../utils/requestServer";
 
-export const getAllArticles = createAsyncThunk("getAllArticle", async () => {
-  const res = await requestServer("get", "/api/article/home");
+export const getAllArticles = createAsyncThunk("getAllArticle", async (payload) => {
+  console.log(payload);
+  const res = await requestServer("get", "/api/article/all", { params: payload });
   return res.data;
 });
 export const getAArticles = createAsyncThunk("getAArticle", async (data) => {
@@ -29,7 +30,8 @@ export const addComment = createAsyncThunk("addComment", async (payload) => {
   return res.data;
 });
 export const addFavourite = createAsyncThunk("addFavoyrute", async (payload) => {
-  const res = await requestServer("put", `/api/article/favorite/${payload}`);
+  console.log(payload.from);
+  const res = await requestServer("put", `/api/article/favorite/${payload.id}`, { from: payload.from });
   return res.data;
 });
 
@@ -38,7 +40,7 @@ export const articleSlice = createSlice({
   initialState: {
     isLoading: false,
     article: [],
-    selected: { avatar: "default.png", from: "", title: "", category: "express", content: "", tags: [], favorite: [] },
+    selected: { avatar: "default.png", from: {}, title: "", category: "express", content: "", tags: [], favorite: [] },
     error: "",
     isAuthenicated: false,
     message: "",
@@ -50,7 +52,7 @@ export const articleSlice = createSlice({
   },
   extraReducers: {
     [getAllArticles.fulfilled]: (state, { payload }) => {
-      state.article = payload.article;
+      state.article = [...payload.article];
       state.isLoading = false;
     },
     [getAllArticles.pending]: (state) => {
@@ -61,7 +63,6 @@ export const articleSlice = createSlice({
       state.isLoading = true;
     },
     [createArticle.fulfilled]: (state, { payload }) => {
-      console.log(payload);
       state.message = payload.msg;
       state.isLoading = true;
     },
@@ -74,7 +75,6 @@ export const articleSlice = createSlice({
       state.isLoading = true;
     },
     [addComment.fulfilled]: (state, { payload }) => {
-      console.log(payload);
       state.message = "Success Comment!";
       state.isLoading = true;
     },
