@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import InputText from "../../components/Input/InputText";
 import { useDispatch, useSelector } from "react-redux";
-import { setPageTitle, showNotification } from "../../features/common/headerSlice";
+import {
+  setPageTitle,
+  showNotification,
+} from "../../features/common/headerSlice";
 import SelectBox from "../../components/Input/SelectBoxSmall";
 import Input from "../../components/Input/Input";
 import TextAreaInput from "../../components/Input/TextAreaInput";
@@ -30,7 +33,10 @@ const AnswerArticle = () => {
   };
   const addTags = (e) => {
     if (e.key === "Enter") {
-      setNewArticle({ ...newArticle, tags: [...newArticle.tags, e.target.value] });
+      setNewArticle({
+        ...newArticle,
+        tags: [...newArticle.tags, e.target.value],
+      });
       e.target.value = "";
     }
   };
@@ -40,18 +46,19 @@ const AnswerArticle = () => {
   };
   useEffect(() => {
     dispatch(setPageTitle({ title: "Comment Article" }));
-    if (value.isLoading) dispatch(showNotification({ message: value.message, status: 1 }));
+    if (value.isLoading)
+      dispatch(showNotification({ message: value.message, status: 1 }));
   }, [dispatch, selected_id.id, value.isLoading, value.message]);
   return (
     <>
       <ArticleCard
         type={"answer"}
-        title={value.selected.title}
-        avatar={value.selected.from.avatar}
-        favouriteNum={value.selected.favorite.length}
-        content={value.selected.content}
-        date={value.selected.createdAt}
-        from={value.selected.from.username}
+        title={value.article.title}
+        avatar={value.article.from.avatar}
+        favouriteNum={value.article.favorite.length}
+        content={value.article.content}
+        date={value.article.createdAt}
+        from={value.article.from.username}
       />
       <div className="">
         <InputText
@@ -62,7 +69,9 @@ const AnswerArticle = () => {
           value={newArticle.title}
           onChange={setHandleArticle}
         />
-        <div className={`form-control w-full flex sm:flex-row flex-col justify-between`}>
+        <div
+          className={`form-control w-full flex sm:flex-row flex-col justify-between`}
+        >
           <label className="label w-1/5">
             <span className={"label-text text-[30px]"}>Category:</span>
           </label>
@@ -75,16 +84,28 @@ const AnswerArticle = () => {
             name={"category"}
           />
         </div>
-        <div className={`form-control w-full flex sm:flex-row flex-col justify-between`}>
+        <div
+          className={`form-control w-full flex sm:flex-row flex-col justify-between`}
+        >
           <label className="label w-[1/5]">
             <span className={"label-text text-[30px]"}>Tags:</span>
           </label>
-          <div className={`form-control w-4/5 mb-4 flex sm:flex-row flex-col input border-2`}>
+          <div
+            className={`form-control w-4/5 mb-4 flex sm:flex-row flex-col input border-2`}
+          >
             {newArticle.tags.length > 0 &&
               newArticle.tags.map((value, index) => (
-                <div key={index} className="flex sm:flex-row flex-col items-center m-1 w-max border-2 mr-2">
-                  <div className=" text-[15px] mr-1 text-ellipsis overflow-hidden max-w-[50px]">{value}</div>
-                  <button className="border-1 text-[15px]" onClick={() => deleteTags(index)}>
+                <div
+                  key={index}
+                  className="flex sm:flex-row flex-col items-center m-1 w-max border-2 mr-2"
+                >
+                  <div className=" text-[15px] mr-1 text-ellipsis overflow-hidden max-w-[50px]">
+                    {value}
+                  </div>
+                  <button
+                    className="border-1 text-[15px]"
+                    onClick={() => deleteTags(index)}
+                  >
                     &times;
                   </button>
                 </div>

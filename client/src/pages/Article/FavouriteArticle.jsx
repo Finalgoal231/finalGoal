@@ -52,8 +52,8 @@ function FavouriteArticle() {
   return (
     <>
       <Toolbar onAddClick={setHandleAddArticle} />
-      {value.article.length ? (
-        value.article.map((v, i) => {
+      {value.articles.length ? (
+        value.articles.map((v, i) => {
           return (
             <div key={i}>
               <ArticleCard

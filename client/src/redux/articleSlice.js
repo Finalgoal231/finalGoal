@@ -5,24 +5,44 @@ import { requestServer } from "../utils/requestServer";
 import socket from "../utils/socket";
 
 export const getAllArticles = createAsyncThunk("getAllArticle", async () => {
-  const res = await axios.get(process.env.REACT_APP_BASE_URL + "/api/article/all");
+  const res = await axios.get(
+    process.env.REACT_APP_BASE_URL + "/api/article/all"
+  );
   return res.data;
 });
-export const getDraftArticles = createAsyncThunk("getDraftArticles", async (payload) => {
-  console.log(payload);
-  const res = await axios.get(process.env.REACT_APP_BASE_URL + "/api/article/draft", { params: payload });
-  return res.data;
-});
-export const getMyArticles = createAsyncThunk("getMyArticles", async (payload) => {
-  console.log(payload);
-  const res = await axios.get(process.env.REACT_APP_BASE_URL + "/api/article/my", { params: payload });
-  return res.data;
-});
-export const getFavoriteArticles = createAsyncThunk("getFavoriteArticles", async (payload) => {
-  console.log(payload);
-  const res = await axios.get(process.env.REACT_APP_BASE_URL + "/api/article/favorite", { params: payload });
-  return res.data;
-});
+export const getDraftArticles = createAsyncThunk(
+  "getDraftArticles",
+  async (payload) => {
+    console.log(payload);
+    const res = await axios.get(
+      process.env.REACT_APP_BASE_URL + "/api/article/draft",
+      { params: payload }
+    );
+    return res.data;
+  }
+);
+export const getMyArticles = createAsyncThunk(
+  "getMyArticles",
+  async (payload) => {
+    console.log(payload);
+    const res = await axios.get(
+      process.env.REACT_APP_BASE_URL + "/api/article/my",
+      { params: payload }
+    );
+    return res.data;
+  }
+);
+export const getFavoriteArticles = createAsyncThunk(
+  "getFavoriteArticles",
+  async (payload) => {
+    console.log(payload);
+    const res = await axios.get(
+      process.env.REACT_APP_BASE_URL + "/api/article/favorite",
+      { params: payload }
+    );
+    return res.data;
+  }
+);
 export const getAArticles = createAsyncThunk("getAArticle", async (data) => {
   const res = await requestServer("get", `/api/article/${data}`);
   return res.data;
@@ -32,30 +52,55 @@ export const createArticle = createAsyncThunk("createArticle", async (data) => {
   if (data.complete === true) return res.data;
   else return { msg: "Save to Draft!!!" };
 });
-export const updateArticle = createAsyncThunk("updateArticle", async (payload) => {
-  const res = await requestServer("put", `/api/article/${payload._id}`, payload);
-  return res.data;
-});
+export const updateArticle = createAsyncThunk(
+  "updateArticle",
+  async (payload) => {
+    const res = await requestServer(
+      "put",
+      `/api/article/${payload._id}`,
+      payload
+    );
+    return res.data;
+  }
+);
 export const deleteArticle = createAsyncThunk("deleteArticle", async (data) => {
   const res = await requestServer("delete", `/api/article/${data}`);
   return res.data;
 });
 export const addComment = createAsyncThunk("addComment", async (payload) => {
-  const res = await requestServer("put", `/api/article/comment/${payload.id}`, payload.data);
+  const res = await requestServer(
+    "put",
+    `/api/article/comment/${payload.id}`,
+    payload.data
+  );
   return res.data;
 });
-export const addFavourite = createAsyncThunk("addFavourite", async (payload) => {
-  const { index, from } = payload;
-  const res = await requestServer("put", `/api/article/favorite/${index}`, { from });
-  return res.data;
-});
+export const addFavourite = createAsyncThunk(
+  "addFavourite",
+  async (payload) => {
+    const { index, from } = payload;
+    const res = await requestServer("put", `/api/article/favorite/${index}`, {
+      from,
+    });
+    return res.data;
+  }
+);
 
 export const articleSlice = createSlice({
   name: "user",
   initialState: {
     isLoading: false,
-    article: [],
-    selected: { avatar: "default.png", from: {}, title: "", category: "", content: "", tags: [], favorite: [] },
+    articles: [],
+    article: {
+      avatar: "http://192.168.6.2:3000/avatars/1?s=287",
+      from: {},
+      title: "",
+      category: "",
+      content: "",
+      tags: [],
+      favorite: [],
+      comment: []
+    },
     error: "",
     isAuthenicated: false,
     message: "",
@@ -83,26 +128,27 @@ export const articleSlice = createSlice({
   },
   extraReducers: {
     [getMyArticles.fulfilled]: (state, { payload }) => {
-      state.article = [...payload.article];
+      state.articles = [...payload.article];
       state.isLoading = false;
     },
     [getDraftArticles.fulfilled]: (state, { payload }) => {
-      state.article = [...payload.article];
+      state.articles = [...payload.article];
       state.isLoading = false;
     },
     [getFavoriteArticles.fulfilled]: (state, { payload }) => {
-      state.article = [...payload.article];
+      state.articles = [...payload.article];
       state.isLoading = false;
     },
     [getAllArticles.fulfilled]: (state, { payload }) => {
-      state.article = [...payload.article];
+      state.articles = [...payload.article];
       state.isLoading = false;
     },
     [getAllArticles.pending]: (state) => {
       state.isLoading = false;
     },
     [getAArticles.fulfilled]: (state, { payload }) => {
-      state.selected = { ...payload.article };
+      console.log(payload.article);
+      state.article = payload.article;
       state.isLoading = true;
     },
     [createArticle.fulfilled]: (state, { payload }) => {
@@ -128,5 +174,11 @@ export const articleSlice = createSlice({
   },
 });
 
-export const { setIsLoading, setSocketMsg, setSearchVal, setSortIndex, setCategoryIndex } = articleSlice.actions;
+export const {
+  setIsLoading,
+  setSocketMsg,
+  setSearchVal,
+  setSortIndex,
+  setCategoryIndex,
+} = articleSlice.actions;
 export default articleSlice.reducer;

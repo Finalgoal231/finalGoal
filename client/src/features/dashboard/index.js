@@ -3,7 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import Toolbar from "./components/Toolbar";
 import ArticleCard from "./components/ArticleCard";
-import { getAllArticles, getAArticles, deleteArticle, addFavourite } from "../../redux/articleSlice";
+import {
+  getAllArticles,
+  getAArticles,
+  deleteArticle,
+  addFavourite,
+} from "../../redux/articleSlice";
 import { showNotification } from "../common/headerSlice";
 // import { setIsLoading } from "../../redux/articleSlice";
 
@@ -40,7 +45,7 @@ function Dashboard() {
   return (
     <>
       <Toolbar onAddClick={setHandleAddArticle} />
-      {value.article.map((v, i) => {
+      {value.articles.map((v, i) => {
         return (
           <div key={i}>
             <ArticleCard

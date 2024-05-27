@@ -3,8 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import Toolbar from "../../features/dashboard/components/Toolbar";
 import ArticleCard from "../../features/dashboard/components/ArticleCard";
-import { getAllArticles, getAArticles, deleteArticle, addFavourite, getMyArticles } from "../../redux/articleSlice";
-import { showNotification, setPageTitle } from "../../features/common/headerSlice";
+import {
+  getAllArticles,
+  getAArticles,
+  deleteArticle,
+  addFavourite,
+  getMyArticles,
+} from "../../redux/articleSlice";
+import {
+  showNotification,
+  setPageTitle,
+} from "../../features/common/headerSlice";
 // import { setIsLoading } from "../../redux/articleSlice";
 
 function MyArticle(props) {
@@ -43,8 +52,8 @@ function MyArticle(props) {
   return (
     <>
       <Toolbar onAddClick={setHandleAddArticle} />
-      {value.article.length ? (
-        value.article.map((v, i) => {
+      {value.articles.length ? (
+        value.articles.map((v, i) => {
           return (
             <div key={i}>
               <ArticleCard

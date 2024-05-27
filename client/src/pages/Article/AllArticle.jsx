@@ -71,9 +71,9 @@ function AllArticle() {
         setSearchval={setHandleSearchVal}
         onAddClick={setHandleAddArticle}
       />
-      {value.article.length > 0 ? (
-        value.article.map((v, i) => {
-          return (
+      {value.articles.length > 0 ? (
+        value.articles.map((v, i) => {
+          return v.parent == null ? (
             <div key={i}>
               <ArticleCard
                 title={v.title}
@@ -99,6 +99,8 @@ function AllArticle() {
                 }}
               />
             </div>
+          ) : (
+            <div key={i}></div>
           );
         })
       ) : (

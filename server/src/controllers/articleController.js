@@ -188,26 +188,22 @@ exports.getAArticle = (req, res) => {
 exports.addComment = (req, res) => {
   let id = req.params.id;
   const newArticle = new Article({ ...req.body, parent: id });
+  console.log({ ...req.body, parent: id });
+  console.log();
+  console.log(newArticle);
+  console.log();
   newArticle
     .save()
     .then(() => {
-      res.status(201).json({ msg: "Add comment successfully." });
-    })
-    .catch(() => {
-      res.status(400).json({ msg: "Can't add comment" });
-    });
-
-  //================ Can be ERROR ====================//
-
-  Article.findById(id)
-    .then((article) => {
-      article.comment.push({ article: newArticle._id });
-      article
-        .save()
-        .then(res.status(201).json({ msg: "article" }))
-        .catch((err) => {
-          res.status(500).json({ msg: "Can't do action article" });
-        });
+      Article.findById(id).then((article) => {
+        article.comment.push({ ans: newArticle._id });
+        article
+          .save()
+          .then(res.status(201).json({ msg: "article" }))
+          .catch((err) => {
+            res.status(500).json({ msg: "Can't do action article" });
+          });
+      });
     })
     .catch(() => {
       res.status(500).json({ msg: "Can't add comment to this article" });
