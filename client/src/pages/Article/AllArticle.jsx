@@ -13,13 +13,15 @@ import {
   setCategoryIndex,
 } from "../../redux/articleSlice";
 import { setPageTitle } from "../../features/common/headerSlice";
+// import { socketEmit } from "../../containers/Layout";
 // import { setIsLoading } from "../../redux/articleSlice";
 
 function AllArticle() {
+  const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(setPageTitle({ title: "All Article" }));
-  }, []);
-  const dispatch = useDispatch();
+  }, [dispatch]);
   const navigate = useNavigate();
   const value = useSelector((state) => state.article);
   const { user } = useSelector((state) => state.auth);
@@ -33,6 +35,7 @@ function AllArticle() {
   const onFavouriteArticle = (index, from) => {
     dispatch(addFavourite({ index, from: user._id }));
   };
+
   const setHandleCommentArticle = (index) => {
     dispatch(getAArticles(index));
     navigate(`/answerArticle/${index}`);

@@ -5,7 +5,6 @@ const favicon = require("serve-favicon");
 var path = require("path");
 var cors = require("cors");
 const passport = require("passport");
-
 // imports routes, middleware, and configs
 const routes = require("./src/routes");
 const { notFoundRoute, errorHandler } = require("./src/configs/errorHandler");
@@ -18,6 +17,7 @@ env.config();
 
 // initializes express app
 const app = express();
+const server = require('http').createServer(app)
 
 // application database connection establishment
 const connectDatabase = require("./src/db/connect");
@@ -68,8 +68,11 @@ const authCtr = require("./src/controllers/authController");
 authCtr.defaultAdmin();
 
 // app listens to defined port
-app.listen(process.env.APP_PORT, () => {
+server.listen(process.env.APP_PORT, () => {
   console.log(
     `Our Team-App backend server running on:  + ${process.env.APP_PORT}`
   );
 });
+
+const socketApp = require('./socketApp');
+socketApp.socketServer(server)

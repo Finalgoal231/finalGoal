@@ -7,38 +7,57 @@ import { removeNotificationMessage } from "../features/common/headerSlice";
 import { NotificationContainer, NotificationManager } from "react-notifications";
 import "react-notifications/lib/notifications.css";
 import ModalLayout from "./ModalLayout";
+import io from "socket.io-client";
+
+export const socketEmit = (type, data) => socket.emit(type, { data });
+
+var socket;
 
 function Layout() {
-    const dispatch = useDispatch();
-    const { newNotificationMessage, newNotificationStatus } = useSelector((state) => state.header);
+  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const { newNotificationMessage, newNotificationStatus } = useSelector((state) => state.header);
 
-    useEffect(() => {
-        if (newNotificationMessage !== "") {
-            if (newNotificationStatus === 1) NotificationManager.success(newNotificationMessage, "Success");
-            if (newNotificationStatus === 0) NotificationManager.error(newNotificationMessage, "Error");
-            dispatch(removeNotificationMessage());
-        }
-    }, [dispatch, newNotificationMessage, newNotificationStatus]);
+  useEffect(() => {
+    socket = io(process.env.REACT_APP_BASE_URL);
+    socket.on("connect", function () {
+      socket.emit("id", { userId: user.username });
+      socket.on("like", function (data) {
+        NotificationManager.success(data.msg, "Success");
+      });
+      socket.on("comment", function (data) {
+        NotificationManager.success(data.msg, "Success");
+      });
+    });
+  }, [user.username]);
 
-    return (
-        <>
-            {/* Left drawer - containing page content and side bar (always open) */}
-            <div className="drawer drawer-mobile">
-                <input id="left-sidebar-drawer" type="checkbox" className="drawer-toggle" />
-                <PageContent />
-                <LeftSidebar />
-            </div>
+  useEffect(() => {
+    if (newNotificationMessage !== "") {
+      if (newNotificationStatus === 1) NotificationManager.success(newNotificationMessage, "Success");
+      if (newNotificationStatus === 0) NotificationManager.error(newNotificationMessage, "Error");
+      dispatch(removeNotificationMessage());
+    }
+  }, [dispatch, newNotificationMessage, newNotificationStatus]);
 
-            {/* Right drawer - containing secondary content like notifications list etc.. */}
-            <RightSidebar />
+  return (
+    <>
+      {/* Left drawer - containing page content and side bar (always open) */}
+      <div className="drawer drawer-mobile">
+        <input id="left-sidebar-drawer" type="checkbox" className="drawer-toggle" />
+        <PageContent />
+        <LeftSidebar />
+      </div>
 
-            {/** Notification layout container */}
-            <NotificationContainer />
+      {/* Right drawer - containing secondary content like notifications list etc.. */}
+      <RightSidebar />
 
-            {/* Modal layout container */}
-            <ModalLayout />
-        </>
-    );
+      {/** Notification layout container */}
+      <NotificationContainer />
+
+      {/* Modal layout container */}
+      <ModalLayout />
+    </>
+  );
 }
 
 export default Layout;

@@ -3,17 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link, useParams } from "react-router-dom";
 import Toolbar from "../../features/dashboard/components/Toolbar";
 import ArticleCard from "../../features/dashboard/components/ArticleCard";
-import {
-  getAllArticles,
-  getAArticles,
-  deleteArticle,
-  addFavourite,
-  getMyArticles,
-} from "../../redux/articleSlice";
-import {
-  showNotification,
-  setPageTitle,
-} from "../../features/common/headerSlice";
+import { getAllArticles, getAArticles, deleteArticle, addFavourite, getMyArticles } from "../../redux/articleSlice";
+import { showNotification, setPageTitle } from "../../features/common/headerSlice";
+import { socketEmit } from "../../containers/Layout";
+import { NotificationManager } from "react-notifications";
 // import { setIsLoading } from "../../redux/articleSlice";
 
 function ShowArticle() {
@@ -22,35 +15,45 @@ function ShowArticle() {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const { article } = useSelector((state) => state.article);
-
+  const { flag } = useSelector((state) => state.article);
+  // console.log(flag);
   useEffect(() => {
     dispatch(getAArticles(id));
-    dispatch(setPageTitle({ title: "My Article" }));
-  }, []);
-  const setHandleAddArticle = () => {
-    navigate(`/newArticle/${0}`);
-  };
+    dispatch(setPageTitle({ title: "Show Article" }));
+  }, [dispatch, id]);
   const onFavouriteArticle = (index) => {
-    dispatch(addFavourite({ id: index, from: user._id }));
+    dispatch(addFavourite({ index, from: user._id }));
   };
+  useEffect(() => {
+    if (flag) {
+      socketEmit("like", {
+        author: article.from.name,
+        msg: `${article.from.name} liked your Article-${article.title}`,
+      });
+      socketEmit("comment", {
+        author: article.from.name,
+        msg: `${article.from.name} commented on your Article`,
+      });
+    }
+  }, [article.from.name, article.title, flag]);
   const setHandleCommentArticle = (index) => {
     dispatch(getAArticles(index));
     navigate(`/answerArticle/${index}`);
   };
   const setHandleDelete = (index) => {
-    if (window.confirm("Are you delete this Article?")) {
-      dispatch(deleteArticle(index));
-    }
+    if (user.role !== "user") {
+      if (window.confirm("Are you delete this Article?")) {
+        dispatch(deleteArticle(index));
+      }
+    }else NotificationManager.warning("You are user. You don't delete Article","Warning")
   };
   const setHandleEdit = (index) => {
     navigate(`/newArticle/${index}`);
   };
-  // useEffect(() => {
-  //   dispatch(getMyArticles({ from: user._id }));
-  //   if (article.isLoading)
-  //     dispatch(showNotification({ message: article.message, status: 1 }));
-  // }, [dispatch, user._id, article.isLoading, article.message]);
-  console.log(article);
+  useEffect(() => {
+    // dispatch(getMyArticles({ from: user._id }));
+    if (article.isLoading) dispatch(showNotification({ message: article.message, status: 1 }));
+  }, [dispatch, user._id, article.isLoading, article.message]);
   return (
     <>
       {article.length !== 0 && (
@@ -63,6 +66,18 @@ function ShowArticle() {
             content={article.content}
             date={article.createdAt}
             from={article.from.name}
+            onFavouriteClick={() => {
+              onFavouriteArticle(article._id);
+            }}
+            onDeleteArticle={() => {
+              setHandleDelete(article._id);
+            }}
+            onEditArticle={() => {
+              setHandleEdit(article._id);
+            }}
+            onCommentClick={() => {
+              setHandleCommentArticle(article._id);
+            }}
           />
           {article.comment.length ? (
             article.comment.map((v, i) => {

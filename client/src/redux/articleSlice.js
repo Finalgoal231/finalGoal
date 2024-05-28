@@ -4,44 +4,23 @@ import axios from "axios";
 import { requestServer } from "../utils/requestServer";
 
 export const getAllArticles = createAsyncThunk("getAllArticle", async () => {
-  const res = await axios.get(
-    process.env.REACT_APP_BASE_URL + "/api/article/all"
-  );
+  const res = await axios.get(process.env.REACT_APP_BASE_URL + "/api/article/all");
   return res.data;
 });
-export const getDraftArticles = createAsyncThunk(
-  "getDraftArticles",
-  async (payload) => {
-    console.log(payload);
-    const res = await axios.get(
-      process.env.REACT_APP_BASE_URL + "/api/article/draft",
-      { params: payload }
-    );
-    return res.data;
-  }
-);
-export const getMyArticles = createAsyncThunk(
-  "getMyArticles",
-  async (payload) => {
-    console.log(payload);
-    const res = await axios.get(
-      process.env.REACT_APP_BASE_URL + "/api/article/my",
-      { params: payload }
-    );
-    return res.data;
-  }
-);
-export const getFavoriteArticles = createAsyncThunk(
-  "getFavoriteArticles",
-  async (payload) => {
-    console.log(payload);
-    const res = await axios.get(
-      process.env.REACT_APP_BASE_URL + "/api/article/favorite",
-      { params: payload }
-    );
-    return res.data;
-  }
-);
+export const getDraftArticles = createAsyncThunk("getDraftArticles", async (payload) => {
+  console.log(payload);
+  const res = await axios.get(process.env.REACT_APP_BASE_URL + "/api/article/draft", { params: payload });
+  return res.data;
+});
+export const getMyArticles = createAsyncThunk("getMyArticles", async (payload) => {
+  const res = await axios.get(process.env.REACT_APP_BASE_URL + "/api/article/my", { params: payload });
+  return res.data;
+});
+export const getFavoriteArticles = createAsyncThunk("getFavoriteArticles", async (payload) => {
+  console.log(payload);
+  const res = await axios.get(process.env.REACT_APP_BASE_URL + "/api/article/favorite", { params: payload });
+  return res.data;
+});
 export const getAArticles = createAsyncThunk("getAArticle", async (data) => {
   const res = await requestServer("get", `/api/article/${data}`);
   return res.data;
@@ -51,39 +30,25 @@ export const createArticle = createAsyncThunk("createArticle", async (data) => {
   if (data.complete === true) return res.data;
   else return { msg: "Save to Draft!!!" };
 });
-export const updateArticle = createAsyncThunk(
-  "updateArticle",
-  async (payload) => {
-    const res = await requestServer(
-      "put",
-      `/api/article/${payload._id}`,
-      payload
-    );
-    return res.data;
-  }
-);
+export const updateArticle = createAsyncThunk("updateArticle", async (payload) => {
+  const res = await requestServer("put", `/api/article/${payload._id}`, payload);
+  return res.data;
+});
 export const deleteArticle = createAsyncThunk("deleteArticle", async (data) => {
   const res = await requestServer("delete", `/api/article/${data}`);
   return res.data;
 });
 export const addComment = createAsyncThunk("addComment", async (payload) => {
-  const res = await requestServer(
-    "put",
-    `/api/article/comment/${payload.id}`,
-    payload.data
-  );
+  const res = await requestServer("put", `/api/article/comment/${payload.id}`, payload.data);
   return res.data;
 });
-export const addFavourite = createAsyncThunk(
-  "addFavourite",
-  async (payload) => {
-    const { index, from } = payload;
-    const res = await requestServer("put", `/api/article/favorite/${index}`, {
-      from,
-    });
-    return res.data;
-  }
-);
+export const addFavourite = createAsyncThunk("addFavourite", async (payload) => {
+  const { index, from } = payload;
+  const res = await requestServer("put", `/api/article/favorite/${index}`, {
+    from,
+  });
+  return res.data;
+});
 
 export const articleSlice = createSlice({
   name: "user",
@@ -98,7 +63,7 @@ export const articleSlice = createSlice({
       content: "",
       tags: [],
       favorite: [],
-      comment: []
+      comment: [],
     },
     error: "",
     isAuthenicated: false,
@@ -106,6 +71,7 @@ export const articleSlice = createSlice({
     searchVal: "",
     sortIndex: "",
     categoryIndex: "",
+    flag: false,
   },
   reducers: {
     setIsLoading: (state, action) => {
@@ -142,7 +108,6 @@ export const articleSlice = createSlice({
       state.isLoading = false;
     },
     [getAArticles.fulfilled]: (state, { payload }) => {
-      console.log(payload.article);
       state.article = payload.article;
       state.isLoading = true;
     },
@@ -159,19 +124,22 @@ export const articleSlice = createSlice({
       state.isLoading = true;
     },
     [addComment.fulfilled]: (state, { payload }) => {
+      state.flag = true;
       state.message = "Success Comment!";
       state.isLoading = true;
     },
+    [addComment.pending]: (state, { payload }) => {
+      state.flag = false;
+    },
+    [addFavourite.pending]: (state, { payload }) => {
+      state.flag = false;
+    },
     [addFavourite.fulfilled]: (state, { payload }) => {
+      state.flag = true;
       state.isLoading = true;
     },
   },
 });
 
-export const {
-  setIsLoading,
-  setSearchVal,
-  setSortIndex,
-  setCategoryIndex,
-} = articleSlice.actions;
+export const { setIsLoading, setSearchVal, setSortIndex, setCategoryIndex } = articleSlice.actions;
 export default articleSlice.reducer;
