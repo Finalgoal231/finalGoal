@@ -57,6 +57,7 @@ function MyArticle(props) {
           return (
             <div key={i}>
               <ArticleCard
+                type={"myarticle"}
                 title={v.title}
                 avatar={v.from.avatar}
                 favouriteNum={v.favorite.length}

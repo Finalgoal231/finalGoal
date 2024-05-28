@@ -60,7 +60,9 @@ function AllArticle() {
     dispatch(setCategoryIndex(e.target.value));
   };
   useEffect(() => {
-    dispatch(getAllArticles());
+    dispatch(
+      getAllArticles({ sortIndex: value.sortIndex, searchVal: value.searchVal, categoryIndex: value.categoryIndex }),
+    );
   }, [dispatch, value.isLoading, value.message]);
 
   return (
