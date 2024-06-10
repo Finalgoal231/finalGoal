@@ -108,14 +108,14 @@ exports.changePassword = (req, res) => {
 exports.changeAvatar = (req, res) => {
   const id = req.params.id;
   const { avatar } = req.files;
-  uploadPath = `C:\\Program Files\\gogs\\data\\avatars\\${id}.${avatar.name}`;
+  uploadPath = `public/../../client/public/avatars/${id}.${avatar.name}`;
 
   avatar.mv(uploadPath, function (err) {
     if (err) return res.status(500).send(err);
 
     User.findById(id)
       .then((user) => {
-        user.avatar = `http://192.168.6.2:3000/avatars/${id}.${avatar.name}`;
+        user.avatar = `http://localhost:3001/avatars/${id}.${avatar.name}`;
         user
           .save()
           .then(() => {
