@@ -53,7 +53,8 @@
 
 ## Contributor
 
+#### [Shine](https://github.com/shine)
 #### [Truestar]
-#### [Shine](http://github.com/shine)
 #### [Yonex]
 #### [Luckystar]
+#### [Achilles](https://github.com/oleh1010)
