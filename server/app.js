@@ -74,5 +74,5 @@ server.listen(process.env.APP_PORT, () => {
   );
 });
 
-const socketApp = require('./socketApp');
-socketApp.socketServer(server)
+// const socketApp = require('./socketApp');
+// socketApp.socketServer(server)
