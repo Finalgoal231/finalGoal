@@ -10,7 +10,7 @@ const passport = require("passport");
 const middleware = passport.authenticate("jwt", { session: false });
 
 // Admin - Users
-router.get("/all", middleware, userManageCtrl.allUser);
+router.get("/all", userManageCtrl.allUser);
 router.put("/role/:id", middleware, userManageCtrl.permissionUser);
 router.delete("/:id", middleware, userManageCtrl.delUser);
 
