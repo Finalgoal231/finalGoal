@@ -15,7 +15,7 @@ router.put("/role/:id", middleware, userManageCtrl.permissionUser);
 router.delete("/:id", middleware, userManageCtrl.delUser);
 
 // User - Profile
-router.get("/:id", middleware, userManageCtrl.getUser);
+router.get("/:id", userManageCtrl.getUser);
 router.put("/:id", middleware, userManageCtrl.changeInfo);
 router.put("/password/:id", middleware, userManageCtrl.changePassword);
 router.put("/avatar/:id", userManageCtrl.changeAvatar);
