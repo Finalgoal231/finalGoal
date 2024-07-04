@@ -17,7 +17,7 @@ env.config();
 
 // initializes express app
 const app = express();
-const server = require('http').createServer(app)
+const server = require("http").createServer(app);
 
 // application database connection establishment
 const connectDatabase = require("./src/db/connect");
