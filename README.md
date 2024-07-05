@@ -53,7 +53,8 @@
 
 ## Contributor
 
-#### [Truestar](http://192.168.6.2:3000/truestar)
-#### [Shine](http://192.168.6.2:3000/shine)
-#### [Yonex](http://192.168.6.2:3000/Yonex)
-#### [Luckystar](http://192.168.6.2:3000/luckystar)
+#### [Shine](https://github.com/shinevue)
+#### [Truestar]
+#### [Yonex](https://github.com/mcyandex)
+#### [Luckystar]
+#### [Achilles](https://github.com/oleh1010)

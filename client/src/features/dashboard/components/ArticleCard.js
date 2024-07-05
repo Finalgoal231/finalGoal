@@ -8,8 +8,9 @@ import XMarkIcon from "@heroicons/react/24/solid/XMarkIcon";
 import { BiSolidEditAlt } from "react-icons/bi";
 import { Link } from "react-router-dom";
 const ArticleCard = (prop) => {
+  const user = JSON.parse(localStorage.getItem("user"));
   return (
-    <>
+    <div>
       <div
         className={
           "card flex flex-col items-center w-full px-3 bg-base-100 shadow-xl mt-4"
@@ -82,7 +83,7 @@ const ArticleCard = (prop) => {
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
