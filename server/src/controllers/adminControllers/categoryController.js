@@ -53,7 +53,7 @@ exports.getAllCategory = (req, res) => {
   const { sortIndex, searchVal } = req.query;
   const query = {
     delected: null,
-    title: { $regex: new RegExp(searchVal, "i") },
+    // title: { $regex: new RegExp(searchVal, "i") },
   };
   console.log(query);
   Category.find(query)
