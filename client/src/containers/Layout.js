@@ -18,18 +18,18 @@ function Layout() {
   const dispatch = useDispatch();
   const { newNotificationMessage, newNotificationStatus } = useSelector((state) => state.header);
 
-  useEffect(() => {
-    socket = io(process.env.REACT_APP_BASE_URL);
-    socket.on("connect", function () {
-      socket.emit("id", { userId: user.username });
-      socket.on("like", function (data) {
-        NotificationManager.success(data.msg, "Success");
-      });
-      socket.on("comment", function (data) {
-        NotificationManager.success(data.msg, "Success");
-      });
-    });
-  }, [user.username]);
+  // useEffect(() => {
+  //   socket = io(process.env.REACT_APP_BASE_URL);
+  //   socket.on("connect", function () {
+  //     socket.emit("id", { userId: user.username });
+  //     socket.on("like", function (data) {
+  //       NotificationManager.success(data.msg, "Success");
+  //     });
+  //     socket.on("comment", function (data) {
+  //       NotificationManager.success(data.msg, "Success");
+  //     });
+  //   });
+  // }, [user.username]);
 
   useEffect(() => {
     if (newNotificationMessage !== "") {
