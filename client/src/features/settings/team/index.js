@@ -23,7 +23,7 @@ const TopSideButtons = () => {
 const TEAM_MEMBERS = [
     {
         name: "TrueSt@r",
-        avatar: "http://192.168.6.2:3000/avatars/12?s=287",
+        avatar: "https://camo.githubusercontent.com/e54b230d033920ef460bec600a6fb74dfcfb4794ef701a9cdc62bbed49880eb5/68747470733a2f2f696d672e6672656570696b2e636f6d2f667265652d766563746f722f667269656e646c792d726f626f742d666c6f6174696e672d73706163655f313330382d3136313933342e6a70673f67613d4741312e312e313933313431393539332e313732303331343837352673656d743d6169735f75736572",
         email: "truestar@gmail.com",
         role: "admin",
         bio: "AI Engineer",
@@ -31,7 +31,7 @@ const TEAM_MEMBERS = [
     },
     {
         name: "Shine",
-        avatar: "http://192.168.6.2:3000/avatars/1?s=287",
+        avatar: "https://avatars.githubusercontent.com/u/135434950",
         email: "shine@gmail.com",
         role: "admin",
         bio: "BlockChain",
@@ -39,7 +39,7 @@ const TEAM_MEMBERS = [
     },
     {
         name: "Yonex",
-        avatar: "http://192.168.6.2:3000/avatars/9",
+        avatar: "https://avatars.githubusercontent.com/u/172279973",
         email: "yandex@gmail.com",
         role: "admin",
         bio: "FullStack",
@@ -47,7 +47,7 @@ const TEAM_MEMBERS = [
     },
     {
         name: "Luckystar",
-        avatar: "http://192.168.6.2:3000/avatars/2?s=287",
+        avatar: "https://camo.githubusercontent.com/e54b230d033920ef460bec600a6fb74dfcfb4794ef701a9cdc62bbed49880eb5/68747470733a2f2f696d672e6672656570696b2e636f6d2f667265652d766563746f722f667269656e646c792d726f626f742d666c6f6174696e672d73706163655f313330382d3136313933342e6a70673f67613d4741312e312e313933313431393539332e313732303331343837352673656d743d6169735f75736572",
         email: "luckystar@gmail.com",
         role: "admin",
         bio: "FrontEnd",
