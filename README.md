@@ -58,3 +58,4 @@
 #### [Yonexz](https://github.com/mcyandex)
 #### [Luckystar]
 #### [Achilles](https://github.com/oleh1010)
+#### [Chivalrousdev](https://github.com/chivalrousdev)
