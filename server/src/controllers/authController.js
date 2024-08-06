@@ -34,7 +34,6 @@ exports.signin = async (req, res) => {
   try {
     let { username, password } = req.body;
     const user = await User.findOne({ username: username });
-
     if (!user) {
       return res
         .status(404)
