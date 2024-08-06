@@ -6,25 +6,31 @@ const User = require("../models/userModel");
 
 // make a controller for signup
 exports.signup = async (req, res) => {
-  const isNew = await User.exists({ username: req.body.username });
-  if (!isNew) {
-    const newUser = new User(req.body);
-    newUser.password = await newUser.hide_pwd(req.body.password);
-    newUser
-      .save()
-      .then(() => {
-        res.status(201).json({
-          msg: "Create a new user successfully.",
+  try {
+    const isNew = await User.exists({ username: req.body.username });
+    if (!isNew) {
+      const newUser = new User(req.body);
+      newUser.password = await newUser.hide_pwd(req.body.password);
+      newUser
+        .save()
+        .then(() => {
+          res.status(201).json({
+            msg: "Create a new user successfully.",
+          });
+        })
+        .catch(() => {
+          res.status(500).json({
+            msg: "Server Error",
+          });
         });
-      })
-      .catch(() => {
-        res.status(500).json({
-          msg: "Server Error",
-        });
+    } else {
+      res.status(400).json({
+        msg: "This user is exist.",
       });
-  } else {
-    res.status(400).json({
-      msg: "This user is exist.",
+    }
+  } catch (error) {
+    res.status(500).json({
+      msg: "DB connection Error",
     });
   }
 };
