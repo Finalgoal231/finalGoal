@@ -14,7 +14,6 @@ import {
   showNotification,
   setPageTitle,
 } from "../../features/common/headerSlice";
-// import { setIsLoading } from "../../redux/articleSlice";
 
 function MyArticle(props) {
   useEffect(() => {
