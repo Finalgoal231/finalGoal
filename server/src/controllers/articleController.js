@@ -133,7 +133,7 @@ exports.getFavoriteArticles = async (req, res) => {
       {
         path: "favorite.user",
         select:
-          "role avatar category delected complete _id name username follower createdAt",
+          "role avatar category delected complete _id name username followers createdAt",
       },
       { path: "comment.ans" },
     ])
