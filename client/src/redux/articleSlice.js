@@ -108,11 +108,11 @@ export const articleSlice = createSlice({
       state.articles = [...payload.article];
       state.isLoading = false;
     },
-    [getAllArticles.fulfilled]: (state, { payload }) => {
-      state.articles = [...payload.article];
+    [getAllArticles.pending]: (state) => {
       state.isLoading = false;
     },
-    [getAllArticles.pending]: (state) => {
+    [getAllArticles.fulfilled]: (state, { payload }) => {
+      state.articles = [...payload.article];
       state.isLoading = false;
     },
     [getAArticles.fulfilled]: (state, { payload }) => {
@@ -131,19 +131,20 @@ export const articleSlice = createSlice({
       state.message = payload.msg;
       state.isLoading = true;
     },
-    [addComment.fulfilled]: (state, { payload }) => {
-      state.flag = true;
-      state.message = "Success Comment!";
-      state.isLoading = true;
-    },
     [addComment.pending]: (state, { payload }) => {
       state.flag = false;
+    },
+    [addComment.fulfilled]: (state, { payload }) => {
+      state.flag = true;
+      state.message = payload.msg;
+      state.isLoading = true;
     },
     [addFavourite.pending]: (state, { payload }) => {
       state.flag = false;
     },
     [addFavourite.fulfilled]: (state, { payload }) => {
       state.flag = true;
+      state.message = payload.msg;
       state.isLoading = true;
     },
   },

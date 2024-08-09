@@ -55,7 +55,9 @@
 
 #### [Shine](https://github.com/shinevue)
 #### [Truestar](https://github.com/oddcommitking)
-#### [Yonexz](https://github.com/mcyandex)
-#### [Luckystar]
+#### [Yonex](https://github.com/mcyandex)
+#### [Luckystar](https://github.com/techietrend)
 #### [Achilles](https://github.com/oleh1010)
 #### [Chivalrousdev](https://github.com/chivalrousdev)
+#### [ScottKing](https://github.com/creative2113)
+

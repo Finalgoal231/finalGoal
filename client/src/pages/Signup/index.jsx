@@ -47,8 +47,8 @@ function Register() {
             navigate("/signin");
           }, 1500);
         })
-        .catch(() =>
-          NotificationManager.error("Already Registered User!", "ERROR")
+        .catch((error) =>
+          NotificationManager.error(error.response?.data?.msg || error.message, "ERROR")
         );
     } else {
       NotificationManager.warning(
