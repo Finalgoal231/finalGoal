@@ -1,6 +1,5 @@
-import { useState } from "react";
 
-function TextAreaInput({ labelTitle, labelStyle, name, containerStyle, placeholder, className, onChange }) {
+function TextAreaInput({ labelTitle, name, value, onChange, placeholder, containerStyle, labelStyle, className }) {
     return (
         <div className={`form-control w-full flex sm:flex-row flex-col ${containerStyle}`}>
             <label className="label w-1/5">
@@ -11,6 +10,7 @@ function TextAreaInput({ labelTitle, labelStyle, name, containerStyle, placehold
                 className={`textarea textarea-bordered w-4/5 columns-10 ${className}`}
                 placeholder={placeholder || ""}
                 onChange={onChange}
+                value={value}
             ></textarea>
         </div>
     );
