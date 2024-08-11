@@ -1,5 +1,5 @@
 
-function TextAreaInput({ labelTitle, labelStyle, name, containerStyle, placeholder, className, onChange, value }) {
+function TextAreaInput({ labelTitle, name, value, onChange, placeholder, containerStyle, labelStyle, className }) {
     return (
         <div className={`form-control w-full flex sm:flex-row flex-col ${containerStyle}`}>
             <label className="label w-1/5">
