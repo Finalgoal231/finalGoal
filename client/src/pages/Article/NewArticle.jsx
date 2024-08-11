@@ -9,7 +9,7 @@ import SelectBox from "../../components/Input/SelectBoxSmall";
 import Input from "../../components/Input/Input";
 import TextAreaInput from "../../components/Input/TextAreaInput";
 import { Button } from "../../components/Button";
-import { createArticle, updateArticle } from "../../redux/articleSlice";
+import { createArticle, getAArticles, updateArticle } from "../../redux/articleSlice";
 import { useParams } from "react-router-dom";
 
 const NewArticle = () => {
@@ -27,7 +27,7 @@ const NewArticle = () => {
   });
 
   useEffect(() => {
-    if (selected_id.id != 0) {
+    if (selected_id.id !== 0) {
       setNewArticle({
         ...newArticle,
         title: value.article.title,
@@ -36,21 +36,24 @@ const NewArticle = () => {
         content: value.article.content,
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selected_id.id, value.article]);
+  }, [dispatch, newArticle, selected_id.id, value.article]);
+
   const setHandleArticle = (e) => {
     setNewArticle({ ...newArticle, [e.target.name]: e.target.value });
   };
+
   const setHandleSend = () => {
     dispatch(createArticle({ ...newArticle, complete: true }));
     if (value.message.length > 0)
       dispatch(showNotification({ message: value.message, status: 1 }));
   };
+
   const setHandleDraft = () => {
     dispatch(createArticle(newArticle));
     if (value.message.length > 0)
       dispatch(showNotification({ message: value.message, status: 1 }));
   };
+
   const setHandleUpdate = () => {
     dispatch(
       updateArticle({
@@ -61,6 +64,7 @@ const NewArticle = () => {
     if (value.message.length > 0)
       dispatch(showNotification({ message: value.message, status: 1 }));
   };
+
   const addTags = (e) => {
     if (e.key === "Enter") {
       setNewArticle({
@@ -70,17 +74,20 @@ const NewArticle = () => {
       e.target.value = "";
     }
   };
+
   const deleteTags = (index) => {
     newArticle.tags.splice(index, 1);
     setNewArticle({ ...newArticle, tags: newArticle.tags });
   };
+
   useEffect(() => {
-    if (selected_id.id != 0) {
+    if (selected_id.id !== 0) {
       dispatch(setPageTitle({ title: "Edit Article" }));
     } else dispatch(setPageTitle({ title: "New Article" }));
     if (value.isLoading)
       dispatch(showNotification({ message: value.message, status: 1 }));
   }, [dispatch, selected_id.id, value.isLoading, value.message]);
+
   return (
     <div className="">
       <InputText
@@ -148,7 +155,7 @@ const NewArticle = () => {
         value={newArticle.content}
         onChange={setHandleArticle}
       />
-      {selected_id.id == 0 ? (
+      {selected_id.id === 0 ? (
         <div className="flex justify-around">
           <Button subject={"Draft"} onClick={setHandleDraft} />
           <Button subject={"Send"} onClick={setHandleSend} />
