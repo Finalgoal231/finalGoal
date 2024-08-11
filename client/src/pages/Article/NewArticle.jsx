@@ -36,7 +36,11 @@ const NewArticle = () => {
         content: value.article.content,
       });
     }
-  }, [dispatch, newArticle, selected_id.id, value.article]);
+  }, [newArticle, selected_id.id, value.article]);
+
+  useEffect(() => {
+    dispatch(getAArticles(selected_id.id));
+  }, [dispatch, selected_id.id])
 
   const setHandleArticle = (e) => {
     setNewArticle({ ...newArticle, [e.target.name]: e.target.value });
