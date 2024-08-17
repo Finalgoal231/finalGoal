@@ -60,7 +60,7 @@ export const articleSlice = createSlice({
     isLoading: false,
     articles: [],
     article: {
-      avatar: "https://avatars.githubusercontent.com/u/135434950",
+      avatar: "http://192.168.6.2:3000/avatars/1?s=287",
       from: {},
       title: "",
       category: "",
