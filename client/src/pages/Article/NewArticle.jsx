@@ -14,12 +14,13 @@ import {
   getAArticles,
   updateArticle,
 } from "../../redux/articleSlice";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const NewArticle = () => {
   const dispatch = useDispatch();
   const value = useSelector((state) => state.article);
   const selected_id = useParams();
+  const navigate = useNavigate();
 
   const [newArticle, setNewArticle] = useState({
     from: JSON.parse(localStorage.getItem("user"))._id,
@@ -38,7 +39,7 @@ const NewArticle = () => {
         tags: [...value.article.tags],
         category: value.article.category,
         content: value.article.content,
-        complete: value.article.complete
+        complete: value.article.complete,
       });
     }
   }, [selected_id.id, value.article]);
@@ -63,9 +64,10 @@ const NewArticle = () => {
       );
     } else {
       dispatch(createArticle({ ...newArticle, complete: true }));
+      setTimeout(() => {
+        navigate("/myArticle");
+      }, [2000]);
     }
-    if (value.message.length > 0)
-      dispatch(showNotification({ message: value.message, status: 1 }));
   };
 
   const setHandleDraft = () => {
