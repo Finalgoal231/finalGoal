@@ -3,15 +3,15 @@ const User = require("../models/userModel");
 
 // make a controller for create a article
 exports.createArticle = (req, res) => {
-  console.log(re1.body);
-  
   const newArticle = new Article(req.body);
   newArticle
     .save()
     .then(() => {
       res.status(201).json({ msg: "create article successfully." });
     })
-    .catch(() => {
+    .catch((err) => {
+      console.log(err);
+      
       res.status(400).json({ msg: "Can't create article" });
     });
 };

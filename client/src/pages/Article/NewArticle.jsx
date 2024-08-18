@@ -31,12 +31,14 @@ const NewArticle = () => {
   });
 
   useEffect(() => {
-    if (selected_id.id !== 0 || selected_id.id !== "0") {
+    if (selected_id.id !== 0 && selected_id.id !== "0") {
       setNewArticle({
+        from: JSON.parse(localStorage.getItem("user"))._id,
         title: value.article.title,
         tags: [...value.article.tags],
         category: value.article.category,
         content: value.article.content,
+        complete: value.article.complete
       });
     }
   }, [selected_id.id, value.article]);
