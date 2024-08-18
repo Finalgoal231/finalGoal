@@ -3,6 +3,8 @@ const User = require("../models/userModel");
 
 // make a controller for create a article
 exports.createArticle = (req, res) => {
+  console.log(re1.body);
+  
   const newArticle = new Article(req.body);
   newArticle
     .save()
