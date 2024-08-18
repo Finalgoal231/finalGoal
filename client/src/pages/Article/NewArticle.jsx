@@ -66,7 +66,7 @@ const NewArticle = () => {
       dispatch(createArticle({ ...newArticle, complete: true }));
       setTimeout(() => {
         navigate("/myArticle");
-      }, [2000]);
+      }, [1000]);
     }
   };
 
