@@ -59,6 +59,6 @@
 #### [Luckystar](https://github.com/techietrend)
 #### [Achilles](https://github.com/oleh1010)
 #### [Chivalrousdev](https://github.com/chivalrousdev)
-#### [ScottKing](https://github.com/creative2113)
+#### [creative2113](https://github.com/creative2113)
 #### [Virus](https://github.com/gitMan-stack)
 

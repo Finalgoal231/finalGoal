@@ -9,13 +9,18 @@ import SelectBox from "../../components/Input/SelectBoxSmall";
 import Input from "../../components/Input/Input";
 import TextAreaInput from "../../components/Input/TextAreaInput";
 import { Button } from "../../components/Button";
-import { createArticle, getAArticles, updateArticle } from "../../redux/articleSlice";
-import { useParams } from "react-router-dom";
+import {
+  createArticle,
+  getAArticles,
+  updateArticle,
+} from "../../redux/articleSlice";
+import { useNavigate, useParams } from "react-router-dom";
 
 const NewArticle = () => {
   const dispatch = useDispatch();
   const value = useSelector((state) => state.article);
   const selected_id = useParams();
+  const navigate = useNavigate();
 
   const [newArticle, setNewArticle] = useState({
     from: JSON.parse(localStorage.getItem("user"))._id,
@@ -27,29 +32,42 @@ const NewArticle = () => {
   });
 
   useEffect(() => {
-    if (selected_id.id !== 0) {
+    if (selected_id.id !== 0 && selected_id.id !== "0") {
       setNewArticle({
-        ...newArticle,
+        from: JSON.parse(localStorage.getItem("user"))._id,
         title: value.article.title,
         tags: [...value.article.tags],
         category: value.article.category,
         content: value.article.content,
+        complete: value.article.complete,
       });
     }
-  }, [newArticle, selected_id.id, value.article]);
+  }, [selected_id.id, value.article]);
 
   useEffect(() => {
     dispatch(getAArticles(selected_id.id));
-  }, [dispatch, selected_id.id])
+  }, [dispatch, selected_id.id]);
 
   const setHandleArticle = (e) => {
     setNewArticle({ ...newArticle, [e.target.name]: e.target.value });
   };
 
   const setHandleSend = () => {
-    dispatch(createArticle({ ...newArticle, complete: true }));
-    if (value.message.length > 0)
-      dispatch(showNotification({ message: value.message, status: 1 }));
+    if (
+      newArticle.title === "" ||
+      newArticle.tags.length === 0 ||
+      newArticle.category === "" ||
+      newArticle.content === ""
+    ) {
+      dispatch(
+        showNotification({ message: "All field is required!", status: 0 })
+      );
+    } else {
+      dispatch(createArticle({ ...newArticle, complete: true }));
+      setTimeout(() => {
+        navigate("/myArticle");
+      }, [1000]);
+    }
   };
 
   const setHandleDraft = () => {
@@ -59,12 +77,23 @@ const NewArticle = () => {
   };
 
   const setHandleUpdate = () => {
-    dispatch(
-      updateArticle({
-        id: selected_id.id,
-        data: { ...newArticle, complete: true },
-      })
-    );
+    if (
+      newArticle.title === "" ||
+      newArticle.tags.length === 0 ||
+      newArticle.category === "" ||
+      newArticle.content === ""
+    ) {
+      dispatch(
+        showNotification({ message: "All field is required!", status: 0 })
+      );
+    } else {
+      dispatch(
+        updateArticle({
+          id: selected_id.id,
+          data: { ...newArticle, complete: true },
+        })
+      );
+    }
     if (value.message.length > 0)
       dispatch(showNotification({ message: value.message, status: 1 }));
   };
@@ -85,7 +114,7 @@ const NewArticle = () => {
   };
 
   useEffect(() => {
-    if (selected_id.id !== 0) {
+    if (selected_id.id !== 0 || selected_id.id !== "0") {
       dispatch(setPageTitle({ title: "Edit Article" }));
     } else dispatch(setPageTitle({ title: "New Article" }));
     if (value.isLoading)
@@ -159,7 +188,7 @@ const NewArticle = () => {
         value={newArticle.content}
         onChange={setHandleArticle}
       />
-      {selected_id.id === 0 ? (
+      {selected_id.id === 0 || selected_id.id === "0" ? (
         <div className="flex justify-around">
           <Button subject={"Draft"} onClick={setHandleDraft} />
           <Button subject={"Send"} onClick={setHandleSend} />
