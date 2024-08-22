@@ -13,10 +13,7 @@ import {
   setCategoryIndex,
 } from "../../redux/articleSlice";
 import { setPageTitle } from "../../features/common/headerSlice";
-import {
-  NotificationContainer,
-  NotificationManager,
-} from "react-notifications";
+import { NotificationManager } from "react-notifications";
 // import { socketEmit } from "../../containers/Layout";
 // import { setIsLoading } from "../../redux/articleSlice";
 
@@ -70,8 +67,13 @@ function AllArticle() {
   };
   useEffect(() => {
     dispatch(
-      getAllArticles({ sortIndex: value.sortIndex, searchVal: value.searchVal, categoryIndex: value.categoryIndex }),
+      getAllArticles({
+        sortIndex: value.sortIndex,
+        searchVal: value.searchVal,
+        categoryIndex: value.categoryIndex,
+      })
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, value.isLoading, value.message]);
 
   return (

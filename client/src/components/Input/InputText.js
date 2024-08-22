@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 function InputText({
   name,
   labelTitle,
@@ -23,7 +21,7 @@ function InputText({
         onChange={onChange}
         value={value}
         onKeyDown={setHandleKeyDown}
-        className="input  input-bordered w-4/5 "
+        className="input input-bordered rounded-md w-4/5 "
       />
     </div>
   );
