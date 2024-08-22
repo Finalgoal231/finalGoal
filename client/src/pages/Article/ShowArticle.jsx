@@ -1,14 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Link, useParams } from "react-router-dom";
-import Toolbar from "../../features/dashboard/components/Toolbar";
+import { useNavigate, useParams } from "react-router-dom";
 import ArticleCard from "../../features/dashboard/components/ArticleCard";
 import {
-  getAllArticles,
   getAArticles,
   deleteArticle,
   addFavourite,
-  getMyArticles,
 } from "../../redux/articleSlice";
 import {
   showNotification,
