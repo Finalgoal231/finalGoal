@@ -9,7 +9,9 @@ exports.createArticle = (req, res) => {
     .then(() => {
       res.status(201).json({ msg: "create article successfully." });
     })
-    .catch(() => {
+    .catch((err) => {
+      console.log(err);
+      
       res.status(400).json({ msg: "Can't create article" });
     });
 };
