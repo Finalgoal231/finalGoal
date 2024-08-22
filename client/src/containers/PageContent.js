@@ -1,5 +1,5 @@
 import Header from "./Header";
-import { BrowserRouter as Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import routes from "../routes";
 import { Suspense, lazy } from "react";
 import SuspenseContent from "./SuspenseContent";
@@ -23,23 +23,14 @@ function PageContent() {
   return (
     <div className="drawer-content flex flex-col ">
       <Header />
-      <main
-        className="flex-1 overflow-y-auto pt-8 px-6  bg-base-200"
-        ref={mainContentRef}
-      >
+      <main className="flex-1 overflow-y-auto pt-8 px-6  bg-base-200" ref={mainContentRef}>
         <Suspense fallback={<SuspenseContent />}>
           <Routes>
             {routes.map((route, key) => {
               return (
-                <Route
-                  key={key}
-                  exact={true}
-                  path={`${route.path}`}
-                  element={<route.component />}
-                />
+                <Route key={key} exact={true} path={`${route.path}`} element={<route.component />} />
               );
             })}
-
             {/* Redirecting unknown url to 404 page */}
             <Route path="*" element={<Page404 />} />
           </Routes>
