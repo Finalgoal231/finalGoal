@@ -54,6 +54,7 @@
 ## Contributor
 
 #### [Shine](https://github.com/shinevue)
+#### [BlackGhost](https://github.com/blackghost2693)
 #### [Truestar](https://github.com/oddcommitking)
 #### [Yonex](https://github.com/mcyandex)
 #### [Luckystar](https://github.com/techietrend)
