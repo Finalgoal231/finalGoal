@@ -7,14 +7,14 @@ import { removeNotificationMessage } from "../features/common/headerSlice";
 import { NotificationContainer, NotificationManager } from "react-notifications";
 import "react-notifications/lib/notifications.css";
 import ModalLayout from "./ModalLayout";
-import io from "socket.io-client";
+// import io from "socket.io-client";
 
 export const socketEmit = (type, data) => socket.emit(type, { data });
 
 var socket;
 
 function Layout() {
-  const { user } = useSelector((state) => state.auth);
+  // const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const { newNotificationMessage, newNotificationStatus } = useSelector((state) => state.header);
 
