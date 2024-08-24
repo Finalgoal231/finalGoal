@@ -60,4 +60,8 @@
 #### [Achilles](https://github.com/oleh1010)
 #### [Chivalrousdev](https://github.com/chivalrousdev)
 #### [CreativeMan](https://github.com/creative2113)
+#### [Virus](https://github.com/gitMan-stack)
+#### [Baymax](https://github.com/techietrend)
+#### [Joel](https://github.com/joellake992)
+#### [BlackGhost](https://github.com/blackghost2693)
 

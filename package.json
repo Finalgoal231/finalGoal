@@ -1,0 +1,60 @@
+{
+  "name": "finalgoal",
+  "version": "1.0.0",
+  "description": "Admin Dashboard template built with create-react-app, tailwind css and daisy UI. Template uses rich tailwind css utility classes and have components of daisy UI, also have redux toolkit implemented for store management.",
+  "scripts": {
+    "start": "concurrently \"npm run dev:frontend\"",
+    "start:frontend": "npm -w ./client run start",
+    "start:backend": "npm -w ./server run start",
+    "build:frontend": "npm -w ./client run build",
+    "dev": "concurrently \"npm run dev:frontend\"  \"npm run dev:backend\"",
+    "dev:frontend": "npm -w ./client run start",
+    "dev:backend": "npm -w ./server run start",
+    "test": "npx playwright test",
+    "test:ui": "npx playwright test --ui",
+    "postinstall": "npx patch-package"
+  },
+  "workspaces": [
+    "./*"
+  ],
+  "dependencies": {
+    "concurrently": "^8.2.2",
+    "patch-package": "^8.0.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.42.1",
+    "@types/node": "^20.11.25",
+    "dotenv": "^16.4.5",
+    "prettier": "^3.2.5",
+    "tsup": "^8.0.1",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/finalgoal231/finalgoal"
+  },
+  "keywords": [
+    "reactjs",
+    "tailwind-css",
+    "starter-kit",
+    "saas-starter-kit",
+    "reduxt-toolkit-dashboard-template",
+    "daisyui-template",
+    "dashboard-template",
+    "react-router",
+    "react-charts"
+  ],
+  "author": "shinevue",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/finalgoal231/finalgoal/issues"
+  },
+  "homepage": "",
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  }
+}
