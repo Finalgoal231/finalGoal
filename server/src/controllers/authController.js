@@ -78,9 +78,15 @@ exports.defaultAdmin = async (req, res) => {
   const AdminUser = new User(adminData);
   AdminUser.password = await AdminUser.hide_pwd(adminData.password);
 
-  AdminUser.save()
-    .then(() => console.log("---Create admin successfully.---"))
+  User.findOne({ username: adminData.username })
+    .then(user => {
+      console.log("Admin user already exist! -- " + user.username);
+    })
     .catch(() => {
-      console.log("---Can not create admin---");
-    });
+      AdminUser.save()
+        .then(() => console.log("---Create admin successfully.---"))
+        .catch(() => {
+          console.log("---Create admin successfully.---");
+        });
+    })
 };

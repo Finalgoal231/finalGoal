@@ -64,9 +64,6 @@ const NewArticle = () => {
       );
     } else {
       dispatch(createArticle({ ...newArticle, complete: true }));
-      setTimeout(() => {
-        navigate("/myArticle");
-      }, [1000]);
     }
   };
 
@@ -94,9 +91,15 @@ const NewArticle = () => {
         })
       );
     }
-    if (value.message.length > 0)
-      dispatch(showNotification({ message: value.message, status: 1 }));
   };
+
+  useEffect(() => {
+    if (value.handleFlag === true) {
+      setTimeout(() => {
+        navigate(-1);
+      }, 500);
+    }
+  }, [navigate, value.handleFlag])
 
   const addTags = (e) => {
     if (e.key === "Enter") {
@@ -117,8 +120,6 @@ const NewArticle = () => {
     if (selected_id.id !== 0 || selected_id.id !== "0") {
       dispatch(setPageTitle({ title: "Edit Article" }));
     } else dispatch(setPageTitle({ title: "New Article" }));
-    if (value.isLoading)
-      dispatch(showNotification({ message: value.message, status: 1 }));
   }, [dispatch, selected_id.id, value.isLoading, value.message]);
 
   return (
