@@ -34,7 +34,6 @@ export const createArticle = createAsyncThunk("createArticle", async (data) => {
   else return { msg: "Save to Draft!!!" };
 });
 export const updateArticle = createAsyncThunk("updateArticle", async (payload) => {
-  console.log(payload);
   const res = await requestServer("put", `/api/article/${payload.id}`, payload.data);
   return res.data;
 });
@@ -76,6 +75,7 @@ export const articleSlice = createSlice({
     sortIndex: "",
     categoryIndex: "",
     flag: false,
+    handleFlag: false,
   },
   reducers: {
     setIsLoading: (state, action) => {
@@ -119,13 +119,22 @@ export const articleSlice = createSlice({
       state.article = payload.article;
       state.isLoading = true;
     },
+    [createArticle.pending]: (state, { payload }) => {
+      state.handleFlag = false;
+      state.isLoading = false;
+    },
     [createArticle.fulfilled]: (state, { payload }) => {
       state.message = payload.msg;
       state.isLoading = true;
     },
+    [updateArticle.pending]: (state, {payload}) => {
+      state.handleFlag = false;
+      state.isLoading = false;
+    },
     [updateArticle.fulfilled]: (state, { payload }) => {
       state.message = payload.msg;
       state.isLoading = true;
+      state.handleFlag = true;
     },
     [deleteArticle.fulfilled]: (state, { payload }) => {
       state.message = payload.msg;
