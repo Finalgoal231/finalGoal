@@ -67,4 +67,5 @@
 #### [Sasaki](https://github.com/Johnhvy)
 #### [Grassman](https://github.com/grasshousedev)
 #### [Storm](https://github.com/felipedev418)
+#### [Shiny7star](https://github.com/shiny7star)
 #### [Silver](https://github.com/silvershiny)
