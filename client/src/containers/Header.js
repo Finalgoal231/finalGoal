@@ -24,8 +24,7 @@ function Header() {
         setCurrentTheme("light");
       }
     }
-    // 👆 false parameter is required for react project
-  }, []);
+  }, [currentTheme]);
 
   // Opening right sidebar for notification
   const openNotification = () => {
