@@ -77,10 +77,20 @@ function Team() {
 
   useEffect(() => {
     (async () => {
-      fetch("https://api.github.com/orgs/Finalgoal231/members")
+      const users = await fetch(
+        "https://api.github.com/orgs/Finalgoal231/members"
+      )
         .then((response) => response.json())
-        .then((data) => setMembers(data))
         .catch((error) => console.error("Error:", error));
+      const promises = users.map(async (l) => {
+        setTimeout(() => {}, 500);
+        const data = await fetch(l.url);
+        return await data.json();
+      });
+      Promise.all(promises).then((values) => {
+        values.sort((a, b) => b.followers - a.followers);
+        setMembers(values);
+      });
     })();
   }, []);
 
@@ -135,7 +145,7 @@ function Team() {
                       </a>
                     </td>
                     <td>{l.email}</td>
-                    <td>{l.bio}</td>
+                    <td>{l.bio && l.bio.slice(0, 30) + "..."}</td>
                     <td>{getRoleComponent(l.role)}</td>
                     <td>{moment(l.updated_at).format("D MMM YYYY")}</td>
                   </tr>
