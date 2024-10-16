@@ -51,6 +51,22 @@
 
 ## Delete Article, Category, User all should be done with soft delete
 
+## How to run this project?
+
+- Clone Repository
+  
+      git clone https://github.com/Finalgoal231/finalGoal.git
+      cd finalgoal
+
+- Install node_modules
+
+      npm install
+  
+- Run frontend and backend concurrently
+
+      npm run dev
+
+
 ## Contributor
 
 #### [Shine](https://github.com/shinevue)
@@ -68,4 +84,7 @@
 #### [Grassman](https://github.com/grasshousedev)
 #### [Storm](https://github.com/felipedev418)
 #### [Shiny7star](https://github.com/shiny7star)
+#### [Silver](https://github.com/silvershiny)
+#### [Sweem](https://github.com/BeautifulMoon211) 
+#### [Ignacio](https://github.com/ignacioshine) 
 #### [Gold Sunshine](https://github.com/goldsunshines)
