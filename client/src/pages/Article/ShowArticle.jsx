@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import ArticleCard from "../../features/dashboard/components/ArticleCard";
+import ArticleCard from "../../components/features/dashboard/components/ArticleCard";
 import {
   getAArticles,
   deleteArticle,
@@ -10,8 +10,8 @@ import {
 import {
   showNotification,
   setPageTitle,
-} from "../../features/common/headerSlice";
-import { socketEmit } from "../../containers/Layout";
+} from "../../components/features/common/headerSlice";
+import { socketEmit } from "../../components/containers/Layout";
 import { NotificationManager } from "react-notifications";
 // import { setIsLoading } from "../../redux/articleSlice";
 

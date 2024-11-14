@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
-import Toolbar from "../../features/dashboard/components/Toolbar";
-import ArticleCard from "../../features/dashboard/components/ArticleCard";
+import Toolbar from "../../components/features/dashboard/components/Toolbar";
+import ArticleCard from "../../components/features/dashboard/components/ArticleCard";
 import {
   getAllArticles,
   getAArticles,
@@ -13,7 +13,7 @@ import {
 import {
   showNotification,
   setPageTitle,
-} from "../../features/common/headerSlice";
+} from "../../components/features/common/headerSlice";
 // import { setIsLoading } from "../../redux/articleSlice";
 
 function FavouriteArticle() {

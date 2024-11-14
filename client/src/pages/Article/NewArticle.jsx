@@ -4,11 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setPageTitle,
   showNotification,
-} from "../../features/common/headerSlice";
+} from "../../components/features/common/headerSlice";
 import SelectBox from "../../components/Input/SelectBoxSmall";
 import Input from "../../components/Input/Input";
 import TextAreaInput from "../../components/Input/TextAreaInput";
-import { Button } from "../../components/Button";
+import { Button } from "../../components/General/Button";
 import {
   createArticle,
   getAArticles,
@@ -99,7 +99,7 @@ const NewArticle = () => {
         navigate(-1);
       }, 500);
     }
-  }, [navigate, value.handleFlag])
+  }, [navigate, value.handleFlag]);
 
   const addTags = (e) => {
     if (e.key === "Enter") {
