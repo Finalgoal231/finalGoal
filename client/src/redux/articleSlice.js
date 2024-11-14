@@ -34,7 +34,6 @@ export const createArticle = createAsyncThunk("createArticle", async (data) => {
   else return { msg: "Save to Draft!!!" };
 });
 export const updateArticle = createAsyncThunk("updateArticle", async (payload) => {
-  console.log(payload);
   const res = await requestServer("put", `/api/article/${payload.id}`, payload.data);
   return res.data;
 });
@@ -60,7 +59,7 @@ export const articleSlice = createSlice({
     isLoading: false,
     articles: [],
     article: {
-      avatar: "http://192.168.6.2:3000/avatars/1?s=287",
+      avatar: "https://avatars.githubusercontent.com/u/135434950",
       from: {},
       title: "",
       category: "",
@@ -76,6 +75,7 @@ export const articleSlice = createSlice({
     sortIndex: "",
     categoryIndex: "",
     flag: false,
+    handleFlag: false,
   },
   reducers: {
     setIsLoading: (state, action) => {
@@ -108,42 +108,52 @@ export const articleSlice = createSlice({
       state.articles = [...payload.article];
       state.isLoading = false;
     },
-    [getAllArticles.fulfilled]: (state, { payload }) => {
-      state.articles = [...payload.article];
+    [getAllArticles.pending]: (state) => {
       state.isLoading = false;
     },
-    [getAllArticles.pending]: (state) => {
+    [getAllArticles.fulfilled]: (state, { payload }) => {
+      state.articles = [...payload.article];
       state.isLoading = false;
     },
     [getAArticles.fulfilled]: (state, { payload }) => {
       state.article = payload.article;
       state.isLoading = true;
     },
+    [createArticle.pending]: (state, { payload }) => {
+      state.handleFlag = false;
+      state.isLoading = false;
+    },
     [createArticle.fulfilled]: (state, { payload }) => {
       state.message = payload.msg;
       state.isLoading = true;
     },
+    [updateArticle.pending]: (state, {payload}) => {
+      state.handleFlag = false;
+      state.isLoading = false;
+    },
     [updateArticle.fulfilled]: (state, { payload }) => {
       state.message = payload.msg;
       state.isLoading = true;
+      state.handleFlag = true;
     },
     [deleteArticle.fulfilled]: (state, { payload }) => {
       state.message = payload.msg;
       state.isLoading = true;
     },
-    [addComment.fulfilled]: (state, { payload }) => {
-      state.flag = true;
-      state.message = "Success Comment!";
-      state.isLoading = true;
-    },
     [addComment.pending]: (state, { payload }) => {
       state.flag = false;
+    },
+    [addComment.fulfilled]: (state, { payload }) => {
+      state.flag = true;
+      state.message = payload.msg;
+      state.isLoading = true;
     },
     [addFavourite.pending]: (state, { payload }) => {
       state.flag = false;
     },
     [addFavourite.fulfilled]: (state, { payload }) => {
       state.flag = true;
+      state.message = payload.msg;
       state.isLoading = true;
     },
   },

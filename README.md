@@ -51,10 +51,42 @@
 
 ## Delete Article, Category, User all should be done with soft delete
 
+## How to run this project?
+
+- Clone Repository
+  
+      git clone https://github.com/Finalgoal231/finalGoal.git
+      cd finalgoal
+
+- Install node_modules
+
+      npm install
+  
+- Run frontend and backend concurrently
+
+      npm run dev
+
+
 ## Contributor
 
 #### [Shine](https://github.com/shinevue)
-#### [Truestar](https://github.com/oddcommitking)
-#### [Yonexz](https://github.com/mcyandex)
-#### [Luckystar]
+#### [Truestar](https://github.com/Luis96920)
+#### [Yonex](https://github.com/mcyandex)
+#### [Luckystar](https://github.com/techietrend)
 #### [Achilles](https://github.com/oleh1010)
+#### [Chivalrousdev](https://github.com/chivalrousdev)
+#### [CreativeMan](https://github.com/creative2113)
+#### [Virus](https://github.com/gitMan-stack)
+#### [Baymax](https://github.com/techietrend)
+#### [Popstar](https://github.com/popstar7)
+#### [BlackGhost](https://github.com/blackghost2693)
+#### [Sasaki](https://github.com/Johnhvy)
+#### [Grassman](https://github.com/grasshousedev)
+#### [Storm](https://github.com/felipedev418)
+#### [Shiny7star](https://github.com/shiny7star)
+#### [Silver](https://github.com/silvershiny)
+#### [Sweem](https://github.com/BeautifulMoon211) 
+#### [Ignacio](https://github.com/ignacioshine) 
+#### [Gold Sunshine](https://github.com/goldsunshines)
+#### [DragonSea](https://github.com/dragonsea0927) 
+#### [dragonblue](https://github.com/dragon927AAA)

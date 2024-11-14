@@ -9,7 +9,9 @@ function SelectBoxSmall(props) {
         value={props.value}
         onChange={props.onChange}
         name={props.name}
+        required
       >
+        <option></option>
         {options.map((o, k) => {
           return (
             <option value={o} key={k}>

@@ -9,7 +9,9 @@ exports.createArticle = (req, res) => {
     .then(() => {
       res.status(201).json({ msg: "create article successfully." });
     })
-    .catch(() => {
+    .catch((err) => {
+      console.log(err);
+      
       res.status(400).json({ msg: "Can't create article" });
     });
 };
@@ -133,7 +135,7 @@ exports.getFavoriteArticles = async (req, res) => {
       {
         path: "favorite.user",
         select:
-          "role avatar category delected complete _id name username follower createdAt",
+          "role avatar category delected complete _id name username followers createdAt",
       },
       { path: "comment.ans" },
     ])
