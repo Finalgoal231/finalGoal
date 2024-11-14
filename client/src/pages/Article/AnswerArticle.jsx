@@ -4,11 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setPageTitle,
   showNotification,
-} from "../../components/features/common/headerSlice";
+} from "../../components/features/common/headerSlice.js";
 import SelectBox from "../../components/Input/SelectBoxSmall";
 import Input from "../../components/Input/Input";
 import TextAreaInput from "../../components/Input/TextAreaInput";
-import { Button } from "../../components/General/Button";
+import { Button } from "../../components/General/Button.jsx/index.js";
 import { addComment } from "../../redux/articleSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import ArticleCard from "../../components/features/dashboard/components/ArticleCard";

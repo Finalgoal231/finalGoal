@@ -11,8 +11,7 @@ import StanSearchBar from "../../../../components/Input/StanSearchBar";
 function InputCategory({searchVal, setSearchVal}) {
   const dispatch = useDispatch();
   const { category } = useSelector((state) => state.admin);
-  const [searchText, setSearchText] = useState("");
-  const [data, setData] = useState({ title: "", _id: "" }); 
+  const [data, setData] = useState({ title: "", _id: "" });
 
   useEffect(() => {
     setData(category);

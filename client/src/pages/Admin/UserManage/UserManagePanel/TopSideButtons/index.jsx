@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import FunnelIcon from "@heroicons/react/24/outline/FunnelIcon";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 import StanSearchBar from "../../../../../components/Input/StanSearchBar";
@@ -6,7 +6,7 @@ import StanSearchBar from "../../../../../components/Input/StanSearchBar";
 const TopSideButtons = ({ removeFilter, applyFilter, applySearch, users }) => {
   const [filterParam, setFilterParam] = useState("");
   const [searchText, setSearchText] = useState("");
-  const bioFilters = users.map((item, index) => {
+  const bioFilters = users.map((item) => {
     return item.bio;
   });
 
@@ -15,11 +15,11 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch, users }) => {
     setFilterParam(params);
   };
 
-  const removeAppliedFilter = () => {
+  const removeAppliedFilter = useCallback(() => {
     removeFilter();
     setFilterParam("");
     setSearchText("");
-  };
+  }, [setFilterParam, setSearchText, removeFilter]);
 
   useEffect(() => {
     if (searchText === "") {
@@ -27,7 +27,7 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch, users }) => {
     } else {
       applySearch(searchText);
     }
-  }, [searchText, users]);
+  }, [searchText, users, removeAppliedFilter, applySearch]);
   return (
     <div className="flex justify-end items-center">
       <StanSearchBar

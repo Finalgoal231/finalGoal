@@ -5,7 +5,7 @@ import { closeRightDrawer } from "../features/common/rightDrawerSlice";
 import { RIGHT_DRAWER_TYPES } from "../../utils/globalConstantUtil";
 
 function RightSidebar() {
-  const { isOpen, bodyType, extraObject, header } = useSelector(
+  const { isOpen, bodyType, header } = useSelector(
     (state) => state.rightDrawer
   );
   const dispatch = useDispatch();

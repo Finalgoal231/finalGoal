@@ -1,7 +1,6 @@
-import { useEffect } from "react";
 import { MODAL_BODY_TYPES } from "../../utils/globalConstantUtil";
 import { useSelector, useDispatch } from "react-redux";
-import { closeModal } from "../features/common/modalSlice";
+import { closeModal } from "../features/common/modalSlice.js";
 import AddLeadModalBody from "../features/leads/components/AddLeadModalBody";
 import ConfirmationModalBody from "../features/common/components/ConfirmationModalBody";
 
