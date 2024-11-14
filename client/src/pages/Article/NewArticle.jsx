@@ -8,7 +8,7 @@ import {
 import SelectBox from "../../components/Input/SelectBoxSmall";
 import Input from "../../components/Input/Input";
 import TextAreaInput from "../../components/Input/TextAreaInput";
-import { Button } from "../../components/General/Button.jsx/index.js";
+import { Button } from "../../components/General/Button.jsx";
 import {
   createArticle,
   getAArticles,

@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import headerSlice from "../components/features/common/headerSlice.js";
-import modalSlice from "../components/features/common/modalSlice.js/index.js";
+import modalSlice from "../components/features/common/modalSlice.js";
 import rightDrawerSlice from "../components/features/common/rightDrawerSlice";
 import leadsSlice from "../components/features/leads/leadSlice";
 import authSlice from "./authSlice";

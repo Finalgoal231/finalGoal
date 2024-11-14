@@ -2,7 +2,7 @@
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux"; //, useSelector
-import TitleCard from "../../../Cards/TitleCard.js";
+import TitleCard from "../../../Cards/TitleCard.jsx";
 import { showNotification } from "../../common/headerSlice.js";
 
 const TopSideButtons = () => {
