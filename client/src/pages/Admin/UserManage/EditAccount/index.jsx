@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setPageTitle } from "../../../../components/features/common/headerSlice";
+import { setPageTitle } from "../../../../components/features/common/headerSlice.js";
 import EditManage from "./EditManage";
 
 function EditAccount() {

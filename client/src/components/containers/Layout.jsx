@@ -3,7 +3,7 @@ import LeftSidebar from "./LeftSidebar";
 import { useSelector, useDispatch } from "react-redux";
 import RightSidebar from "./RightSidebar";
 import { useEffect } from "react";
-import { removeNotificationMessage } from "../features/common/headerSlice";
+import { removeNotificationMessage } from "../features/common/headerSlice.js";
 import {
   NotificationContainer,
   NotificationManager,

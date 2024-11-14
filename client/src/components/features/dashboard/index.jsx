@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
-import Toolbar from "./components/Toolbar";
+import { useNavigate } from "react-router-dom";
 import ArticleCard from "./components/ArticleCard";
 import {
   getAArticles,
@@ -19,11 +18,8 @@ function Dashboard() {
 
   useEffect(() => {
     dispatch(getHomeArticles(user));
-  }, [dispatch, value.isLoading]);
+  }, [dispatch, user, value.isLoading]);
 
-  const setHandleAddArticle = () => {
-    navigate(`/newArticle/${0}`);
-  };
   const setHandleCommentArticle = (index) => {
     dispatch(getAArticles(index));
     navigate(`/answerArticle/${index}`);
@@ -43,7 +39,6 @@ function Dashboard() {
 
   return (
     <>
-      {/* <Toolbar onAddClick={setHandleAddArticle} /> */}
       {value.articles.map((v, i) => {
         return (
           <div key={i}>
