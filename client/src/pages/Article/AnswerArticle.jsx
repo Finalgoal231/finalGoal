@@ -4,14 +4,14 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setPageTitle,
   showNotification,
-} from "../../features/common/headerSlice";
+} from "../../components/features/common/headerSlice";
 import SelectBox from "../../components/Input/SelectBoxSmall";
 import Input from "../../components/Input/Input";
 import TextAreaInput from "../../components/Input/TextAreaInput";
-import { Button } from "../../components/Button";
+import { Button } from "../../components/General/Button";
 import { addComment } from "../../redux/articleSlice";
 import { useNavigate, useParams } from "react-router-dom";
-import ArticleCard from "../../features/dashboard/components/ArticleCard";
+import ArticleCard from "../../components/features/dashboard/components/ArticleCard";
 import { NotificationManager } from "react-notifications";
 
 const AnswerArticle = () => {
@@ -37,7 +37,9 @@ const AnswerArticle = () => {
           NotificationManager.success("Comment Success", "SUCCESS");
         }
       );
-      setTimeout(() => {navigate("/allarticle")},2000);
+      setTimeout(() => {
+        navigate("/allarticle");
+      }, 2000);
     } else {
       NotificationManager.error("Input correctly!", "ERROR");
     }

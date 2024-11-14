@@ -3,13 +3,14 @@
 import { lazy } from "react";
 
 const Dashboard = lazy(() => import("../pages/protected/Dashboard"));
+const Charts = lazy(() => import("../pages/protected/Charts"));
 const Welcome = lazy(() => import("../pages/protected/Welcome"));
 const Page404 = lazy(() => import("../pages/protected/404"));
 const Team = lazy(() => import("../pages/Settings/Team"));
 const ProfileSettings = lazy(() => import("../pages/Settings/ProfileSettings"));
 const Cagegory = lazy(() => import("../pages/Admin/Category"));
 const UserManage = lazy(() => import("../pages/Admin/UserManage"));
-const Profile = lazy(() => import("../features/profile"));
+const Profile = lazy(() => import("../components/features/profile"));
 const ChangePassword = lazy(() => import("../pages/Settings/ChangePassword"));
 const EditAccount = lazy(() => import("../pages/Admin/UserManage/EditAccount"));
 const AllArticle = lazy(() => import("../pages/Article/AllArticle"));
@@ -28,6 +29,10 @@ const routes = [
   {
     path: "/welcome",
     component: Welcome,
+  },
+  {
+    path: "/charts",
+    component: Charts,
   },
   {
     path: "/admin/user",

@@ -4,14 +4,13 @@ import {
   BrowserRouter as Router,
   Route,
   Routes,
-  Navigate,
 } from "react-router-dom";
 import { themeChange } from "theme-change";
 import checkAuth from "./redux/auth";
 import initializeApp from "./redux/init";
 import { useDispatch } from "react-redux";
 import { setAuth } from "./redux/authSlice";
-const Layout = lazy(() => import("./containers/Layout"));
+const Layout = lazy(() => import("./components/containers/Layout"));
 const Singin = lazy(() => import("./pages/Signin"));
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
 const Signup = lazy(() => import("./pages/Signup"));

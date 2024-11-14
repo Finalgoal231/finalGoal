@@ -1,10 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
-import Toolbar from "../../features/dashboard/components/Toolbar";
-import ArticleCard from "../../features/dashboard/components/ArticleCard";
+import { useNavigate } from "react-router-dom";
+import Toolbar from "../../components/features/dashboard/components/Toolbar";
+import ArticleCard from "../../components/features/dashboard/components/ArticleCard";
 import {
-  getAllArticles,
   getAArticles,
   deleteArticle,
   addFavourite,
@@ -13,16 +12,16 @@ import {
 import {
   showNotification,
   setPageTitle,
-} from "../../features/common/headerSlice";
+} from "../../components/features/common/headerSlice";
 
 function MyArticle(props) {
-  useEffect(() => {
-    dispatch(setPageTitle({ title: "My Article" }));
-  }, []);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const value = useSelector((state) => state.article);
+  useEffect(() => {
+    dispatch(setPageTitle({ title: "My Article" }));
+  }, [dispatch]);
   const setHandleAddArticle = () => {
     navigate(`/newArticle/${0}`);
   };
@@ -46,7 +45,7 @@ function MyArticle(props) {
     dispatch(getMyArticles({ from: props.id || user._id }));
     if (value.isLoading)
       dispatch(showNotification({ message: value.message, status: 1 }));
-  }, [dispatch, value.isLoading, value.message]);
+  }, [dispatch, props.id, user._id, value.isLoading, value.message]);
 
   return (
     <>

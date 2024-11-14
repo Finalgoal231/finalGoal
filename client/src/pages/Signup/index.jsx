@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Logo from "../../components/Logo";
-import { Input } from "../Component/Input";
+import Logo from "../../components/General/Logo";
+import { Input } from "../../components/General/Input";
 import {
   NotificationContainer,
   NotificationManager,
@@ -48,7 +48,10 @@ function Register() {
           }, 1500);
         })
         .catch((error) =>
-          NotificationManager.error(error.response?.data?.msg || error.message, "ERROR")
+          NotificationManager.error(
+            error.response?.data?.msg || error.message,
+            "ERROR"
+          )
         );
     } else {
       NotificationManager.warning(

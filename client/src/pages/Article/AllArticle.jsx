@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Toolbar from "../../features/dashboard/components/Toolbar";
-import ArticleCard from "../../features/dashboard/components/ArticleCard";
+import Toolbar from "../../components/features/dashboard/components/Toolbar";
+import ArticleCard from "../../components/features/dashboard/components/ArticleCard";
 import {
   getAllArticles,
   getAArticles,
@@ -12,11 +12,8 @@ import {
   setSortIndex,
   setCategoryIndex,
 } from "../../redux/articleSlice";
-import { setPageTitle } from "../../features/common/headerSlice";
-import {
-  NotificationContainer,
-  NotificationManager,
-} from "react-notifications";
+import { setPageTitle } from "../../components/features/common/headerSlice";
+import { NotificationManager } from "react-notifications";
 // import { socketEmit } from "../../containers/Layout";
 // import { setIsLoading } from "../../redux/articleSlice";
 
@@ -70,8 +67,13 @@ function AllArticle() {
   };
   useEffect(() => {
     dispatch(
-      getAllArticles({ sortIndex: value.sortIndex, searchVal: value.searchVal, categoryIndex: value.categoryIndex }),
+      getAllArticles({
+        sortIndex: value.sortIndex,
+        searchVal: value.searchVal,
+        categoryIndex: value.categoryIndex,
+      })
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, value.isLoading, value.message]);
 
   return (

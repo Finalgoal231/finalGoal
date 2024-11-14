@@ -1,20 +1,17 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Link, useParams } from "react-router-dom";
-import Toolbar from "../../features/dashboard/components/Toolbar";
-import ArticleCard from "../../features/dashboard/components/ArticleCard";
+import { useNavigate, useParams } from "react-router-dom";
+import ArticleCard from "../../components/features/dashboard/components/ArticleCard";
 import {
-  getAllArticles,
   getAArticles,
   deleteArticle,
   addFavourite,
-  getMyArticles,
 } from "../../redux/articleSlice";
 import {
   showNotification,
   setPageTitle,
-} from "../../features/common/headerSlice";
-import { socketEmit } from "../../containers/Layout";
+} from "../../components/features/common/headerSlice";
+import { socketEmit } from "../../components/containers/Layout";
 import { NotificationManager } from "react-notifications";
 // import { setIsLoading } from "../../redux/articleSlice";
 
