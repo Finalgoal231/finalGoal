@@ -32,11 +32,7 @@ const NewArticle = () => {
   });
 
   useEffect(() => {
-<<<<<<< HEAD
     if (selected_id.id !== 0 && selected_id.id !== "0") {
-=======
-    if (selected_id.id !== 0) {
->>>>>>> 4c2bd8ee5f3070ffe64da432c8f90bf245efb2eb
       setNewArticle({
         from: JSON.parse(localStorage.getItem("user"))._id,
         title: value.article.title,
@@ -46,19 +42,11 @@ const NewArticle = () => {
         complete: value.article.complete,
       });
     }
-<<<<<<< HEAD
   }, [selected_id.id, value.article]);
 
   useEffect(() => {
     dispatch(getAArticles(selected_id.id));
   }, [dispatch, selected_id.id]);
-=======
-  }, [newArticle, selected_id.id, value.article]);
-
-  useEffect(() => {
-    dispatch(getAArticles(selected_id.id));
-  }, [dispatch, selected_id.id])
->>>>>>> 4c2bd8ee5f3070ffe64da432c8f90bf245efb2eb
 
   const setHandleArticle = (e) => {
     setNewArticle({ ...newArticle, [e.target.name]: e.target.value });
@@ -105,7 +93,6 @@ const NewArticle = () => {
     }
   };
 
-<<<<<<< HEAD
   useEffect(() => {
     if (value.handleFlag === true) {
       setTimeout(() => {
@@ -114,8 +101,6 @@ const NewArticle = () => {
     }
   }, [navigate, value.handleFlag]);
 
-=======
->>>>>>> 4c2bd8ee5f3070ffe64da432c8f90bf245efb2eb
   const addTags = (e) => {
     if (e.key === "Enter") {
       setNewArticle({
@@ -132,11 +117,7 @@ const NewArticle = () => {
   };
 
   useEffect(() => {
-<<<<<<< HEAD
     if (selected_id.id !== 0 || selected_id.id !== "0") {
-=======
-    if (selected_id.id !== 0) {
->>>>>>> 4c2bd8ee5f3070ffe64da432c8f90bf245efb2eb
       dispatch(setPageTitle({ title: "Edit Article" }));
     } else dispatch(setPageTitle({ title: "New Article" }));
   }, [dispatch, selected_id.id, value.isLoading, value.message]);
@@ -208,11 +189,7 @@ const NewArticle = () => {
         value={newArticle.content}
         onChange={setHandleArticle}
       />
-<<<<<<< HEAD
       {selected_id.id === 0 || selected_id.id === "0" ? (
-=======
-      {selected_id.id === 0 ? (
->>>>>>> 4c2bd8ee5f3070ffe64da432c8f90bf245efb2eb
         <div className="flex justify-around">
           <Button subject={"Draft"} onClick={setHandleDraft} />
           <Button subject={"Send"} onClick={setHandleSend} />
