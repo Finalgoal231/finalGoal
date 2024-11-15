@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setPageTitle } from "../../components/features/common/headerSlice";
+import { setPageTitle } from "../../components/features/common/headerSlice.js";
 import ProfileSettings from "../../components/features/settings/profilesettings";
 import { getAllCategory } from "../../redux/adminSlice";
 
@@ -9,7 +9,7 @@ function InternalPage() {
 
   useEffect(() => {
     dispatch(setPageTitle({ title: "Settings" }));
-    dispatch(getAllCategory())
+    dispatch(getAllCategory());
   }, [dispatch]);
 
   return <ProfileSettings />;

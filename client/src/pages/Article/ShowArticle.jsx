@@ -10,7 +10,7 @@ import {
 import {
   showNotification,
   setPageTitle,
-} from "../../components/features/common/headerSlice";
+} from "../../components/features/common/headerSlice.js";
 import { socketEmit } from "../../components/containers/Layout";
 import { NotificationManager } from "react-notifications";
 // import { setIsLoading } from "../../redux/articleSlice";

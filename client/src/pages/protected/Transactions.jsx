@@ -8,7 +8,7 @@ function InternalPage(){
 
     useEffect(() => {
         dispatch(setPageTitle({ title : "Transactions"}))
-      }, [])
+      }, [dispatch])
 
 
     return(

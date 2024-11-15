@@ -20,7 +20,7 @@ const ProfileInfo = () => {
         mapValues(selectUser.followers, (user) => user.user)
       ).includes(user._id)
     );
-  }, []);
+  }, [selectUser.followers, user._id]);
 
   const followUser = () => {
     dispatch(addFollower({ id: id, from: user._id }));

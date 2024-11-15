@@ -12,7 +12,7 @@ import {
 import {
   showNotification,
   setPageTitle,
-} from "../../components/features/common/headerSlice";
+} from "../../components/features/common/headerSlice.js";
 // import { setIsLoading } from "../../redux/articleSlice";
 
 function DraftArticle() {

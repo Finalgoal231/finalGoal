@@ -1,7 +1,7 @@
 import React from "react";
 import SearchBar from "../.././../Input/SearchBar";
 import SelectBoxSmall from "../../../Input/SelectBoxSmall";
-import { Button } from "../../../General/Button";
+import { Button } from "../../../General/Button.jsx";
 import { AiOutlinePlus } from "react-icons/ai";
 
 const Toolbar = (prop) => {

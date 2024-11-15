@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateAvatar } from "../../redux/authSlice";
 import { BiSolidEditAlt } from "react-icons/bi";

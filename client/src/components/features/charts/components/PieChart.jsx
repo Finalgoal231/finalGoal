@@ -2,13 +2,11 @@ import {
   Chart as ChartJS,
   Filler,
   ArcElement,
-  Title,
   Tooltip,
   Legend,
 } from "chart.js";
 import { Pie } from "react-chartjs-2";
 import TitleCard from "../../../Cards/TitleCard";
-import Subtitle from "../../../Typography/Subtitle";
 
 ChartJS.register(ArcElement, Tooltip, Legend, Tooltip, Filler, Legend);
 
