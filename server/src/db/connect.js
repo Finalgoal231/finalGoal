@@ -1,19 +1,10 @@
-// external modules import
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const mongoose = require('mongoose');
 
 const connectionString = process.env.MONGO_URI || 'mongodb://localhost:27017/team231';
 
-const client = new MongoClient(connectionString, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  },
-});
-
 const connectDatabase = async () => {
   try {
-    await client
+    await mongoose
       .connect(connectionString, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
