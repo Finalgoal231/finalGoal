@@ -3,7 +3,7 @@ import Subtitle from "../../../Typography/Subtitle";
 import { AiOutlineCalendar } from "react-icons/ai";
 import UserIcon from "@heroicons/react/24/outline/UserIcon";
 import moment from "moment";
-import { Button } from "../../../General/Button";
+import { Button } from "../../../General/Button.jsx";
 import XMarkIcon from "@heroicons/react/24/solid/XMarkIcon";
 import { BiSolidEditAlt } from "react-icons/bi";
 import { Link } from "react-router-dom";

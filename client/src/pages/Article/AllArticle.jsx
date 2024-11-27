@@ -12,7 +12,7 @@ import {
   setSortIndex,
   setCategoryIndex,
 } from "../../redux/articleSlice";
-import { setPageTitle } from "../../components/features/common/headerSlice";
+import { setPageTitle } from "../../components/features/common/headerSlice.js";
 import { NotificationManager } from "react-notifications";
 // import { socketEmit } from "../../containers/Layout";
 // import { setIsLoading } from "../../redux/articleSlice";

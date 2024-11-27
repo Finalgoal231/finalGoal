@@ -1,7 +1,6 @@
-// external modules import
 const mongoose = require('mongoose');
 
-const connectionString = 'mongodb://localhost:27017/team231';
+const connectionString = process.env.MONGO_URI || 'mongodb://localhost:27017/team231';
 
 const connectDatabase = async () => {
   try {

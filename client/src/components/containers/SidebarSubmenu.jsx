@@ -13,7 +13,7 @@ function SidebarSubmenu({ submenu, name, icon }) {
       })[0]
     )
       setIsExpanded(true);
-  }, []);
+  }, [location.pathname, submenu]);
 
   return (
     <div className="flex-col">
